@@ -10,11 +10,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Autonomous
 public class PIDControllerDrive extends LinearOpMode {
 
-    DcMotorEx leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor;
+    DcMotor leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor;
 
     double integralSum = 0;
-    double Kp = 0;
-    double Ki = 0;
+
+    double Kp = 0.03;
+    double Ki = 0.0003;
     double Kd = 0;
     double Kf = 0;
 
@@ -23,28 +24,31 @@ public class PIDControllerDrive extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        leftFrontMotor = hardwareMap.get(DcMotorEx.class, "leftFrontMotor");
-        leftBackMotor = hardwareMap.get(DcMotorEx.class, "leftBackMotor");
-        rightFrontMotor = hardwareMap.get(DcMotorEx.class, "rightFrontMotor");
-        rightBackMotor = hardwareMap.get(DcMotorEx.class, "rightBackMotor");
+        leftFrontMotor = hardwareMap.get(DcMotorEx.class, "motorFrontLeft");
+        leftBackMotor = hardwareMap.get(DcMotorEx.class, "motorBackLeft");
+        rightFrontMotor = hardwareMap.get(DcMotorEx.class, "motorFrontRight");
+        rightBackMotor = hardwareMap.get(DcMotorEx.class, "motorBackRight");
 
-        leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightBackMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftFrontMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        leftBackMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        rightFrontMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        rightBackMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
-        rightFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         waitForStart();
 
         forwardTicks(1000);
 
-        /*
         while (opModeIsActive()) {
-        }
-         */
+            telemetry.addData("LF Encoder:", leftFrontMotor.getCurrentPosition());
+            telemetry.addData("LB Encoder:", leftBackMotor.getCurrentPosition());
+            telemetry.addData("RF Encoder:", rightFrontMotor.getCurrentPosition());
+            telemetry.addData("RB Encoder:", rightBackMotor.getCurrentPosition());
+            telemetry.update();
 
+        }
     }
 
     // reference is encoder ticks, state is current position
@@ -52,10 +56,12 @@ public class PIDControllerDrive extends LinearOpMode {
         double error = reference - state;
         integralSum += error * timer.seconds();
         double derivative = (error - lastError) / timer.seconds();
+        lastError = error;
 
         timer.reset();
 
-        return (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (reference * Kf);
+        double power = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (reference * Kf);
+        return power;
     }
 
     public void forwardTicks(double reference) {

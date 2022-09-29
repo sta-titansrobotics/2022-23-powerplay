@@ -10,12 +10,11 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Autonomous
 public class PIDControllerDrive extends LinearOpMode {
 
-    DcMotor leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor;
+    DcMotorEx leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor;
 
     double integralSum = 0;
-
-    double Kp = 0.03;
-    double Ki = 0.0003;
+    double Kp = 0;
+    double Ki = 0;
     double Kd = 0;
     double Kf = 0;
 
@@ -52,16 +51,15 @@ public class PIDControllerDrive extends LinearOpMode {
     }
 
     // reference is encoder ticks, state is current position
-    public double PID(double reference, double state) {
-        double error = reference - state;
+    public double PID(double setPosition, double currentPosition) {
+        double error = setPosition - currentPosition;
         integralSum += error * timer.seconds();
         double derivative = (error - lastError) / timer.seconds();
         lastError = error;
 
         timer.reset();
 
-        double power = (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (reference * Kf);
-        return power;
+        return (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (setPosition * Kf);
     }
 
     public void forwardTicks(double reference) {

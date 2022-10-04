@@ -5,8 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-//blah blah blah
-
 @TeleOp
 public class driveControlled extends LinearOpMode {
 
@@ -29,14 +27,14 @@ public class driveControlled extends LinearOpMode {
 
         Intake.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        //Arm
-        DcMotor Arm = hardwareMap.get(DcMotor.class, "arm");
-        Arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //Lift
+        DcMotor Lift = hardwareMap.get(DcMotor.class, "lift");
+        Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        //Carousel
-        DcMotor Carousel = hardwareMap.get(DcMotor.class, "carousel");
+        //Cone Deposit
+        DcMotor Deposit = hardwareMap.get(DcMotor.class, "deposit");
 
-        Carousel.setDirection(DcMotorSimple.Direction.REVERSE);
+        Deposit.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //Turret
         DcMotor Turret = hardwareMap.get(DcMotor.class, "turret");

@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class testpid extends LinearOpMode {
 
     public static double forwardticks = 52.3; // ticks per cm
+    public static double forwardticks1 = 0.02492375;
     public static double strafeticks = 54.05; // ticks per cm when strafing
     public static double angleTicks = 7; // ticks per angle change for arm
     public static double radius = 42; // radius of arm
@@ -53,7 +54,7 @@ public class testpid extends LinearOpMode {
         PID(directions.RIGHT, 100, 1, 1, PIDTimer, lf, lb, rf, rb);
         PID(directions.BACK, 100, 1, 1, PIDTimer, lf, lb, rf, rb);
 
-        if (isStopRequested()) return;
+
 
 
 
@@ -103,17 +104,20 @@ public class testpid extends LinearOpMode {
         double rbT = rb.getCurrentPosition();
         double lastError = 0;
 
-        double tick;
+        double tick = 0;
         double def = 0;
+
+        boolean stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10);
 
         if (direction == direction.FRONT) {
 
             tick = CM * forwardticks;
 
             def = tick/3;
+            stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10);timer.reset(); //resets the timer
 
-            while (lfT != tick || lbT != tick || rfT != tick || rbT != tick) {
-                timer.reset(); //resets the timer
+            while (!stop) {
+                stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10);timer.reset(); //resets the timer
                 
                 lfT = lf.getCurrentPosition();
                 lbT = lb.getCurrentPosition();
@@ -144,9 +148,10 @@ public class testpid extends LinearOpMode {
             tick = CM * forwardticks;
 
             def = tick/3;
+            stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10);timer.reset(); //resets the timer
 
-            while (lfT != tick || lbT != tick || rfT != tick || rbT != tick) {
-                timer.reset(); //resets the timer
+            while (!stop) {
+                stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10); timer.reset(); //resets the timer
 
                 lfT = lf.getCurrentPosition();
                 lbT = lb.getCurrentPosition();
@@ -174,10 +179,10 @@ public class testpid extends LinearOpMode {
 
             tick = CM * strafeticks;
             def = tick/3;
+            stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10);timer.reset(); //resets the timer
 
-            while (lfT != -tick || lbT != tick || rfT != tick || rbT != -tick) {
-
-                timer.reset(); //resets the timer
+            while (!stop) {
+                stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10);timer.reset(); //resets the timer
 
                 lfT = lf.getCurrentPosition();
                 lbT = lb.getCurrentPosition();
@@ -206,8 +211,10 @@ public class testpid extends LinearOpMode {
 
             tick = CM * strafeticks;
             def = tick/3;
+            stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10);timer.reset(); //resets the timer
 
-            while (lfT != tick || lbT != -tick || rfT != -tick || rbT != tick) {
+            while (!stop) {
+                stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10);
                 timer.reset(); //resets the timer
 
                 lfT = lb.getCurrentPosition();

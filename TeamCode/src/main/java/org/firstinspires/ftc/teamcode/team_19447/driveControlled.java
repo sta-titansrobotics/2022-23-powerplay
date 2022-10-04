@@ -88,10 +88,10 @@ public class driveControlled extends LinearOpMode {
 
 
 
-            //Arm
-            double armPower = gamepad2.right_stick_y;
+            //Lift
+            double liftPower = gamepad2.right_stick_y;
 
-            Arm.setPower(armPower);
+            Lift.setPower(liftPower);
 
 
 
@@ -99,8 +99,8 @@ public class driveControlled extends LinearOpMode {
             telemetry.addData("LB Power:", motorBL.getPower());
             telemetry.addData("RF Power:", motorFR.getPower());
             telemetry.addData("RB Power:", motorBR.getPower());
-            telemetry.addData("Arm Power:", Arm.getPower());
-            telemetry.addData("Arm Encoder Position: ", Arm.getCurrentPosition());
+            telemetry.addData("Lift Power:",Lift.getPower());
+            telemetry.addData("Lift Encoder Position: ", Lift.getCurrentPosition());
             telemetry.update();
 
 

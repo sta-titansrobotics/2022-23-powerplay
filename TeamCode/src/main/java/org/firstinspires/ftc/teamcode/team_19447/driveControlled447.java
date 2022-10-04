@@ -25,6 +25,14 @@ public class driveControlled447 extends LinearOpMode {
         DcMotor Lift = hardwareMap.get(DcMotor.class, "lift");
         Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        //Intake
+        DcMotor intake1 = hardwareMap.get(DcMotor.class, "intake1");
+        DcMotor intake2 = hardwareMap.get(DcMotor.class, "intake2");
+        DcMotor intake3 = hardwareMap.get(DcMotor.class, "intake3");
+        DcMotor intake4 = hardwareMap.get(DcMotor.class, "intake4");
+        DcMotor intake5 = hardwareMap.get(DcMotor.class, "intake5");
+        DcMotor intake6 = hardwareMap.get(DcMotor.class, "intake6");
+
 
 
 

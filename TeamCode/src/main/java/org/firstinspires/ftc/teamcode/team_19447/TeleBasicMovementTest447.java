@@ -1,3 +1,13 @@
+/*The purpose of this code is simply to test the basic movement of the robot when in tele
+  Since the official driveControlled447 code has already been set up with other motors, the
+  controller would not allow us to run the code since those motors could not be found/defined by
+  the robot itself. As a result, if we would want to make the code run, we would need to comment out
+  some of those motors. But since the official code is already set up, I don't really want to make
+  any more changes to it that could possibly screw us up in the future. So, this code will be the
+  "test" for tele basic movement.
+ */
+
+
 package org.firstinspires.ftc.teamcode.team_19447;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -6,7 +16,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
-public class TeamCode extends LinearOpMode {
+public class TeleBasicMovementTest447 extends LinearOpMode {
 
     @Override
     public void runOpMode() {

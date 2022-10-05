@@ -1,15 +1,12 @@
-package org.firstinspires.ftc.teamcode.team_19446;
+package org.firstinspires.ftc.teamcode.team_19447;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-//blah blah blah
-
 @TeleOp
-public class driveControlled extends LinearOpMode {
-
+public class driveControlled447 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
@@ -24,12 +21,20 @@ public class driveControlled extends LinearOpMode {
         motorFR.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
 
-     
-        //Cascading Arm
-        DcMotor Arm = hardwareMap.get(DcMotor.class, "arm");
-        Arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //Lift
+        DcMotor Lift = hardwareMap.get(DcMotor.class, "lift");
+        Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        
+        //Intake
+        DcMotor intake1 = hardwareMap.get(DcMotor.class, "intake1");
+        DcMotor intake2 = hardwareMap.get(DcMotor.class, "intake2");
+        DcMotor intake3 = hardwareMap.get(DcMotor.class, "intake3");
+        DcMotor intake4 = hardwareMap.get(DcMotor.class, "intake4");
+        DcMotor intake5 = hardwareMap.get(DcMotor.class, "intake5");
+        DcMotor intake6 = hardwareMap.get(DcMotor.class, "intake6");
+
+
+
 
         waitForStart();
 
@@ -87,21 +92,21 @@ public class driveControlled extends LinearOpMode {
                 motorBR.setPower(1);
             }
 
-            
 
-            //Arm
-            double armPower = gamepad2.right_stick_y;
 
-            Arm.setPower(armPower);
-            
+            //Lift
+            double liftPower = gamepad2.right_stick_y;
+
+            Lift.setPower(liftPower);
+
 
 
             telemetry.addData("LF Power:", motorFL.getPower());
             telemetry.addData("LB Power:", motorBL.getPower());
             telemetry.addData("RF Power:", motorFR.getPower());
             telemetry.addData("RB Power:", motorBR.getPower());
-            telemetry.addData("Arm Power:", Arm.getPower());
-            telemetry.addData("Arm Encoder Position: ", Arm.getCurrentPosition());
+            telemetry.addData("Lift Power:",Lift.getPower());
+            telemetry.addData("Lift Encoder Position: ", Lift.getCurrentPosition());
             telemetry.update();
 
 

@@ -30,11 +30,6 @@ public class driveControlled447 extends LinearOpMode {
         DcMotor intake2 = hardwareMap.get(DcMotor.class, "intake2");
         DcMotor intake3 = hardwareMap.get(DcMotor.class, "intake3");
         DcMotor intake4 = hardwareMap.get(DcMotor.class, "intake4");
-        DcMotor intake5 = hardwareMap.get(DcMotor.class, "intake5");
-        DcMotor intake6 = hardwareMap.get(DcMotor.class, "intake6");
-
-
-
 
         waitForStart();
 
@@ -99,6 +94,18 @@ public class driveControlled447 extends LinearOpMode {
 
             Lift.setPower(liftPower);
 
+            //Intake
+            double intakePower = gamepad2.right_stick_x;
+
+            intake1.setPower(intakePower);
+            intake2.setPower(intakePower);
+            intake3.setPower(intakePower);
+            intake4.setPower(intakePower);
+
+            }
+
+
+
 
 
             telemetry.addData("LF Power:", motorFL.getPower());
@@ -112,4 +119,3 @@ public class driveControlled447 extends LinearOpMode {
 
         }
     }
-}

@@ -7,6 +7,7 @@
   "test" for tele basic movement.
  */
 
+//Hopefully I copied the code correctly :P (no promises tho)
 
 package org.firstinspires.ftc.teamcode.team_19447;
 
@@ -27,42 +28,71 @@ public class TeleBasicMovementTest447 extends LinearOpMode {
         DcMotor motorFR = hardwareMap.get(DcMotor.class, "motorFrontRight");
         DcMotor motorBR = hardwareMap.get(DcMotor.class, "motorBackRight");
 
+        //Reverse Right side motors
         motorFR.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        //Lift
-        DcMotor Lift = hardwareMap.get(DcMotor.class,"lift");
-
-        Lift.setDirection(DcMotorSimple.Direction.REVERSE);
-
 
         waitForStart();
 
         if (isStopRequested()) return;
 
-        //Driving plan so far:
-        //If team Red, need to turn left
-        motorFR.setPower(2.5);
-        motorBR.setPower(2.5);
-        motorFL.setPower(2.5);
-        motorBL.setPower(2.5);
-        sleep(300);
+        while (opModeIsActive()) {
 
-        motorFR.setPower(0);
-        motorBR.setPower(0);
-        motorFL.setPower(0);
-        motorFR.setPower(0);
-        sleep(1);
-        //left turn 45 degrees
-        motorFR.setPower(-0.5);
-        motorBR.setPower(0.5);
-        motorFL.setPower(0.5);
-        motorFR.setPower(-0.5);
-        sleep(300);
-        //
+            //Driving
+
+            double y = -gamepad1.left_stick_y; // Remember, this is reversed!
+
+            //STRAFING VARIABLE
+            double x = gamepad1.right_stick_x * 1.1; // Counteract imperfect strafing
+
+            //THIS IS THE TURNING VARIABLE
+            double rx = gamepad1.left_stick_x;
+
+            double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+            double frontLeftPower = (y + x + rx) / denominator;
+            double backLeftPower = (y - x + rx) / denominator;
+            double frontRightPower = (y - x - rx) / denominator;
+            double backRightPower = (y + x - rx) / denominator;
+
+            motorFL.setPower(frontLeftPower);
+            motorBL.setPower(backLeftPower);
+            motorFR.setPower(frontRightPower);
+            motorBR.setPower(backRightPower);
+
+            if (gamepad1.dpad_up) {
+                motorFL.setPower(1);
+                motorBL.setPower(1);
+                motorFR.setPower(1);
+                motorBR.setPower(1);
+            }
+
+            if (gamepad1.dpad_down) {
+                motorFL.setPower(-1);
+                motorBL.setPower(-1);
+                motorFR.setPower(-1);
+                motorBR.setPower(-1);
+            }
+
+            if (gamepad1.dpad_left) {
+                motorFL.setPower(-1);
+                motorBL.setPower(1);
+                motorFR.setPower(1);
+                motorBR.setPower(-1);
+            }
+
+            if (gamepad1.dpad_right) {
+                motorFL.setPower(1);
+                motorBL.setPower(-1);
+                motorFR.setPower(-1);
+                motorBR.setPower(1);
+            }
+
+            telemetry.addData("LF Power:", motorFL.getPower());
+            telemetry.addData("LB Power:", motorBL.getPower());
+            telemetry.addData("RF Power:", motorFR.getPower());
+            telemetry.addData("RB Power:", motorBR.getPower());
 
 
-
-
+        }
     }
 }

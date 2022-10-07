@@ -13,7 +13,7 @@ public class PIDControllerDrive extends LinearOpMode {
     DcMotorEx leftFrontMotor, leftBackMotor, rightFrontMotor, rightBackMotor;
 
     double integralSum = 0;
-    double Kp = 0;
+    double Kp = 0.05;
     double Ki = 0;
     double Kd = 0;
     double Kf = 0;

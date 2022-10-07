@@ -34,7 +34,8 @@ public class autoRed1 extends LinearOpMode {
 
         // movement
         robot.forward(61);
-        robot.turnLeft(10);
+        robot.turnLeft(500);
+        robot.forward(40);
 
         robot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 

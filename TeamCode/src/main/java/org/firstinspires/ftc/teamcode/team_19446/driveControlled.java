@@ -11,7 +11,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class driveControlled extends LinearOpMode {
 
 
-
     @Override
     public void runOpMode() {
 
@@ -21,26 +20,25 @@ public class driveControlled extends LinearOpMode {
         DcMotor motorFR = hardwareMap.get(DcMotor.class, "motorFrontRight");
         DcMotor motorBR = hardwareMap.get(DcMotor.class, "motorBackRight");
 
-        //Reverse right side motors
-        motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
+        //Reverse left side motors
         motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
         waitForStart();
 
         if (isStopRequested()) return;
 
-
         while (opModeIsActive()) {
 
             //Driving
-
             double y = -gamepad1.left_stick_y; // Remember, this is reversed!
 
             //STRAFING VARIABLE
-            double x = gamepad1.right_stick_x * 1.1; // Counteract imperfect strafing
+            double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
 
             //THIS IS THE TURNING VARIABLE
-            double rx = gamepad1.left_stick_x;
+            double rx = gamepad1.right_stick_x;
 
             double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
             double frontLeftPower = (y + x + rx) / denominator;

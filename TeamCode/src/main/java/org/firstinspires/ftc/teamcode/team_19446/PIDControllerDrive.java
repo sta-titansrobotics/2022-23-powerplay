@@ -52,12 +52,25 @@ public class PIDControllerDrive extends LinearOpMode {
 
     // reference is encoder ticks, state is current position
     public double PID(double setPosition, double currentPosition) {
-        double error = setPosition - currentPosition;
-        integralSum += error * timer.seconds();
-        double derivative = (error - lastError) / timer.seconds();
-        lastError = error;
 
-        timer.reset();
+        leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        double error = 0;
+        double derivative = 0;
+
+        while (currentPosition < setPosition) {
+
+            error = setPosition - currentPosition;
+            integralSum += error * timer.seconds();
+            derivative = (error - lastError) / timer.seconds();
+            lastError = error;
+
+            timer.reset();
+
+        }
 
         return (error * Kp) + (derivative * Kd) + (integralSum * Ki) + (setPosition * Kf);
     }

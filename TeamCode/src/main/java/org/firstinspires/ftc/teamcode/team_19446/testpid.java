@@ -107,7 +107,7 @@ public class testpid extends LinearOpMode {
         double tick = 0;
         double def = 0;
 
-        boolean stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10);
+        boolean stop = false;
 
         if (direction == direction.FRONT) {
 

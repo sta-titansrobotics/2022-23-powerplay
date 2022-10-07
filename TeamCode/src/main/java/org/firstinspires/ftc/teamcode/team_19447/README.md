@@ -4,4 +4,5 @@
 this is a readme file, it should be updated once we make changes to the code.
 things to work on:
 get teleop mode to show up in driver hub
-Program RedOneAuto
+Program RedOneAuto447
+find out how to set these things as issues on github

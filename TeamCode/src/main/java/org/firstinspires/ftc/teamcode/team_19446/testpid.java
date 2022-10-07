@@ -55,7 +55,7 @@ public class testpid extends LinearOpMode {
         PID(directions.BACK, 100, 1, 1, PIDTimer, lf, lb, rf, rb);
 
 
-
+    sleep (1000000);
 
 
     }

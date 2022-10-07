@@ -55,11 +55,11 @@ public class testpid extends LinearOpMode {
         PID(directions.BACK, 100, 1, 1, PIDTimer, lf, lb, rf, rb);
 
 
-    sleep (1000000);
+        sleep (1000000);
 
 
     }
-   
+
 
     public void setVelF(double vel, DcMotorEx lf, DcMotorEx lb, DcMotorEx rf, DcMotorEx rb) {
         lf.setVelocity(vel);
@@ -118,7 +118,7 @@ public class testpid extends LinearOpMode {
 
             while (!stop) {
                 stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10);timer.reset(); //resets the timer
-                
+
                 lfT = lf.getCurrentPosition();
                 lbT = lb.getCurrentPosition();
                 rfT = rf.getCurrentPosition();

@@ -1,299 +1,178 @@
-package team_19446;
+package org.firstinspires.ftc.teamcode.team_19446;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 
 @Autonomous
 public class testpid extends LinearOpMode {
+
+    public static double forwardticks = 52.3; // ticks per cm
+    public static double forwardticks1 = 0.02492375;
+    public static double strafeticks = 54.05; // ticks per cm when strafing
+    public static double angleTicks = 7; // ticks per angle change for arm
+    public static double radius = 42; // radius of arm
+    public static double turretticks = 600; // ticks per 90 degrees for turret
+
+
+
     @Override
     public void runOpMode() {
 
+        ElapsedTime PIDTimer = new ElapsedTime(ElapsedTime.Resolution.SECONDS);
+
         //Moving
-        DcMotor motorFL = hardwareMap.get(DcMotor.class, "motorFrontLeft");
-        DcMotor motorBL = hardwareMap.get(DcMotor.class, "motorBackLeft");
-        DcMotor motorFR = hardwareMap.get(DcMotor.class, "motorFrontRight");
-        DcMotor motorBR = hardwareMap.get(DcMotor.class, "motorBackRight");
+        DcMotorEx lf = hardwareMap.get(DcMotorEx.class, "motorFrontLeft");
+        DcMotorEx lb = hardwareMap.get(DcMotorEx.class, "motorBackLeft");
+        DcMotorEx rf = hardwareMap.get(DcMotorEx.class, "motorFrontRight");
+        DcMotorEx rb = hardwareMap.get(DcMotorEx.class, "motorBackRight");
 
         //Reverse right side motors
-        motorFR.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
+        lf.setDirection(DcMotorSimple.Direction.REVERSE);
+        lb.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        //Intake
-        DcMotor Intake = hardwareMap.get(DcMotor.class, "intake");
 
-        Intake.setDirection(DcMotorSimple.Direction.REVERSE);
+        //Cascading Arm
+        /*
+        DcMotorEx Arm = hardwareMap.get(class, "arm");
 
-        //Arm
-        DcMotor Arm = hardwareMap.get(DcMotor.class, "arm");
-        Arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        //Carousel
-        DcMotor Carousel = hardwareMap.get(DcMotor.class, "carousel");
+        Arm.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
-        Carousel.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        //Turret
-        DcMotor Turret = hardwareMap.get(DcMotor.class, "turret");
-        Turret.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+         */
 
 
         waitForStart();
 
-        
+        PID(directions.FRONT, 100, 1, 1, PIDTimer, lf, lb, rf, rb);
 
-        while (opModeIsActive()) {
-            
-        }
-    }
+        PID(directions.RIGHT, 100, 1, 1, PIDTimer, lf, lb, rf, rb);
+        PID(directions.BACK, 100, 1, 1, PIDTimer, lf, lb, rf, rb);
 
-    
-    public void setMode(DcMotor.RunMode mode) {
-        LF.setMode(mode);
-        LB.setMode(mode);
-        RF.setMode(mode);
-        RB.setMode(mode);
-    }
 
-    public void stopDriving() {
-        LF.setPower(0);
-        LB.setPower(0);
-        RF.setPower(0);
-        RB.setPower(0);
-    }
 
-    public void motorOn(double power) {
-        LF.setPower(power);
-        LB.setPower(power);
-        RF.setPower(power);
-        RB.setPower(power);
-    }
-
-    public void setVelF(double vel) {
-        LF.setVelocity(vel);
-        LB.setVelocity(vel);
-        RF.setVelocity(vel);
-        RB.setVelocity(vel);
-    }
-
-    public void setVelS(double vel) {
-        LF.setVelocity(-vel);
-        LB.setVelocity(vel);
-        RF.setVelocity(vel);
-        RB.setVelocity(-vel);
-    }
-
-    public void carousel(double power, int timeS) {
-        Carousel.setPower(power);
-
-        sleep(timeS);
-    }
-
-    public void turret(double power, double rev) {
-
-        int gob = (int) (rev*turretticks);
-        Turret.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        Turret.setTargetPosition(gob);
-
-        Turret.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        Turret.setPower(power);
-
-        stopDriving();
-        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
-
-    public void intake(double timeS, int power) {
-        Intake.setPower(1);
-
-        sleep((long) timeS*1000);
-
-        Intake.setPower(0);
 
     }
 
-    public void arm(double power, double heightCM) {
-        double height = 0;
-        int sign = 0;
-        if (heightCM > 0) {
-            height = heightCM;
-            sign = 1;
-        } else if (heightCM < 0) {
-            height = -1* heightCM;
-            sign = -1;
-        }
-        double tick = angleTicks * 57.2958 * Math.acos(1-((height * height)/(2*(radius * radius))));
-        int ticks = (int) tick * sign;
 
-        Arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    public void setVelF(double vel, DcMotorEx lf, DcMotorEx lb, DcMotorEx rf, DcMotorEx rb) {
+        lf.setVelocity(vel);
+        lb.setVelocity(vel);
+        rf.setVelocity(vel);
+        rb.setVelocity(vel);
+    }
 
-        Arm.setTargetPosition(ticks);
-
-        Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        Arm.setPower(power);
-
-
-
-        Arm.setPower(0);
+    public void setVelS(double vel, DcMotorEx lf, DcMotorEx lb, DcMotorEx rf, DcMotorEx rb) {
+        lf.setVelocity(-vel);
+        lb.setVelocity(vel);
+        rf.setVelocity(vel);
+        rb.setVelocity(-vel);
     }
 
 
 
+    public void arm() {} //gonna make this later
 
-    public void PID (direction direction, double CM, double coefficientproportional, double coefficientderivative) {
-        double Cd = coefficientderivative; // pid coefficient for derivative control
-        double Cp = coefficientproportional; // pid coefficient for proportional control
-        double d = 0; // derivative
-        double p = 0; // proportional
 
-        lf.setMode(DcMotor.RunMode.STOP_AND_RESET);
-        lb.setMode(DcMotor.RunMode.STOP_AND_RESET);
-        rf.setMode(DcMotor.RunMode.STOP_AND_RESET);
-        rb.setMode(DcMotor.RunMode.STOP_AND_RESET);
 
-        lf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        lb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rf.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        double lf = LF.getCurrentPosition();
-        double lb = LB.getCurrentPosition();
-        double rf = RF.getCurrentPosition();
-        double rb = RB.getCurrentPosition();
+
+    public void PID (directions direction, double CM, double coefficientproportional, double coefficientderivative, ElapsedTime timer, DcMotorEx lf, DcMotorEx lb, DcMotorEx rf, DcMotorEx rb) {
+        double derivativeC = coefficientderivative; // pid coefficient for derivative control
+        double proportionalC = coefficientproportional; // pid coefficient for proportional control
+
+        //Reset encoder ticks
+        lf.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        lb.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        rf.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        rb.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
+        lf.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        lb.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        rf.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        rb.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+
+        //get current position of each motor (should be 0 at this point)
+        double lfTicks = lf.getCurrentPosition();
+        double lbTicks = lf.getCurrentPosition();
+        double rfTicks = rf.getCurrentPosition();
+        double rbTicks = rb.getCurrentPosition();
+
+        //initialize variables
         double lastError = 0;
+        double tick = 0;
+        boolean stop = false;
 
-        double tick;
-        double def = 0;
-
-        if (direction == direction.FRONT) {
-
-            tick = CM * forwardticks;
-
-            def = tick/3;
-
-            while (lf != tick || lb != tick || rf != tick || rb != tick) {
-                PIDTimer.reset(); //resets the timer
-                
-                lf = LF.getCurrentPosition();
-                lb = LB.getCurrentPosition();
-                rf = RF.getCurrentPosition();
-                rb = RB.getCurrentPosition();
-
-                double error = tick - (lf+lb+rf+rb)/4;
-
-                double deltaError = error - lastError;
-                double derivative = deltaError / PIDTimer.time();
-
-
-                p = error * def * Cp;
-
-                d = derivative * Cd * def;
-
-                setVelF(p + d);
-
-                lastError = error;
-
-            }
-
-
+        //calculate ticks required to pass in order to get to given position (based on given direction)
+        switch (direction) {
+            case FRONT:
+                tick = CM * forwardticks;
+                break;
+            case BACK:
+                tick = -1 * CM * forwardticks;
+                break;
+            case RIGHT:
+                tick = CM * strafeticks;
+                break;
+            case LEFT:
+                tick = CM * -1 * strafeticks;
+                break;
         }
 
-        else if (direction == direction.BACK) {
+        //Default speed increment
+        double defaultSpeed = tick/3;
 
-            tick = CM * forwardticks;
+        double currentVelocity = defaultSpeed;
 
-            def = tick/3;
+        while (!stop) {
+            //checks whether the average position of motors is within a reasonable range of the desired position
+            stop = lfTicks < (tick + 10) && lfTicks > (tick - 10) && lbTicks < (tick + 10) && lbTicks > (tick - 10) && rbTicks < (tick + 10) && rbTicks > (tick - 10) && rfTicks < (tick + 10) && rfTicks > (tick - 10);
 
-            while (lf != tick || lb != tick || rf != tick || rb != tick) {
-                PIDTimer.reset(); //resets the timer
+            timer.reset(); //resets the timer
 
-                lf = LF.getCurrentPosition();
-                lb = LB.getCurrentPosition();
-                rf = RF.getCurrentPosition();
-                rb = RB.getCurrentPosition();
+            //Get position of each motor
+            lfTicks = lf.getCurrentPosition();
+            lbTicks = lb.getCurrentPosition();
+            rfTicks = rf.getCurrentPosition();
+            rbTicks = rb.getCurrentPosition();
 
-                double error = tick - (lf+lb+rf+rb)/4;
+            //Calculate how off each motor is on average
+            double error = tick - (lfTicks+lbTicks+rfTicks+rbTicks)/4;
 
-                double deltaError = error - lastError;
-                double derivative = deltaError / PIDTimer.time();
+            //Use last calculation of error to see how error has changed over a given time
+            double derivative = (error - lastError)/timer.time();
 
+            //Calculating how much should be added to the current velocity using error (proportional), change of error (derivative), and coefficients
+            double proportionalAdd = error * defaultSpeed * proportionalC;
+            double derivativeAdd = derivative * derivativeC * defaultSpeed;
 
-                p = error * def * Cp;
-
-                d = derivative * Cd * def;
-
-                setVelF(-1 *(p + d);
-
-                lastError = error;
-
+            //set velocity in the given direction
+            switch (direction) {
+                case FRONT:
+                    setVelF((currentVelocity + proportionalAdd + derivativeAdd), lf, rf, lb, rb);
+                    currentVelocity = currentVelocity + proportionalAdd + derivativeAdd;
+                    break;
+                case BACK:
+                    setVelF(currentVelocity - proportionalAdd - derivativeAdd, lf, rf, lb, rb);
+                    currentVelocity = currentVelocity - proportionalAdd - derivativeAdd;
+                    break;
+                case RIGHT:
+                    setVelS(currentVelocity - proportionalAdd - derivativeAdd, lf, rf, lb, rb);
+                    currentVelocity = currentVelocity - proportionalAdd - derivativeAdd;
+                    break;
+                case LEFT:
+                    setVelS((currentVelocity+ proportionalAdd + derivativeAdd), lf, rf, lb, rb);
+                    currentVelocity = currentVelocity + proportionalAdd + derivativeAdd;
+                    break;
             }
 
-        }
-        else if (direction == direction.LEFT) {
-
-            tick = CM * strafeticks;
-            def = tick/3;
-
-            while (lf != -tick || lb != tick || rf != tick || rb != -tick) {
-
-                PIDTimer.reset(); //resets the timer
-
-                lf = LF.getCurrentPosition();
-                lb = LB.getCurrentPosition();
-                rf = RF.getCurrentPosition();
-                rb = RB.getCurrentPosition();
-
-                double error = tick - (lf+lb+rf+rb)/4;
-
-                double deltaError = error - lastError;
-                double derivative = deltaError / PIDTimer.time();
-
-
-                p = error * Cp * def;
-
-                d = derivative * Cd * def;
-
-                setVelS(p + d);
-
-                lastError = error;
-
-            }
+            lastError = error;
 
         }
-
-        else if (direction == direction.RIGHT) {
-
-            tick = CM * strafeticks;
-            def = tick/3;
-
-            while (lf != tick || lb != -tick || rf != -tick || rb != tick) {
-                PIDTimer.reset(); //resets the timer
-
-                lf = LF.getCurrentPosition();
-                lb = LB.getCurrentPosition();
-                rf = RF.getCurrentPosition();
-                rb = RB.getCurrentPosition();
-
-                double error = tick - (lf+lb+rf+rb)/4;
-
-                double deltaError = error - lastError;
-                double derivative = deltaError / PIDTimer.time();
-
-
-                p = error * Cp;
-
-                d = derivative * def * Cd;
-
-                setVelS((p + d)*-1);
-
-                lastError = error;
-
-            }
-
-        }
+    }
 }

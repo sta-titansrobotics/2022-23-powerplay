@@ -55,7 +55,6 @@ public class testpid extends LinearOpMode {
         PID(directions.BACK, 100, 1, 1, PIDTimer, lf, lb, rf, rb);
 
 
-        sleep (1000000);
 
 
     }
@@ -77,9 +76,9 @@ public class testpid extends LinearOpMode {
 
 
 
-    public void arm() { //gonna make this later
+    public void arm() {} //gonna make this later
 
-    }
+
 
 
     public void PID (directions direction, double CM, double coefficientproportional, double coefficientderivative, ElapsedTime timer, DcMotorEx lf, DcMotorEx lb, DcMotorEx rf, DcMotorEx rb) {
@@ -107,6 +106,8 @@ public class testpid extends LinearOpMode {
         double tick = 0;
         double def = 0;
 
+
+
         boolean stop = false;
 
         if (direction == direction.FRONT) {
@@ -114,10 +115,12 @@ public class testpid extends LinearOpMode {
             tick = CM * forwardticks;
 
             def = tick/3;
-            stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10);timer.reset(); //resets the timer
+
+            double currentVelocity = def;
 
             while (!stop) {
-                stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10);timer.reset(); //resets the timer
+                stop = lfT < (tick + 10) && lfT > (tick - 10) && lbT < (tick + 10) && lbT > (tick - 10) && rbT < (tick + 10) && rbT > (tick - 10) && rfT < (tick + 10) && rfT > (tick - 10);
+                timer.reset(); //resets the timer
 
                 lfT = lf.getCurrentPosition();
                 lbT = lb.getCurrentPosition();
@@ -134,7 +137,10 @@ public class testpid extends LinearOpMode {
 
                 d = derivative * Cd * def;
 
-                setVelF((p + d), lf, rf, lb, rb);
+
+                setVelF((currentVelocity + p + d), lf, rf, lb, rb);
+
+                currentVelocity = currentVelocity + p + d;
 
                 lastError = error;
 
@@ -148,10 +154,12 @@ public class testpid extends LinearOpMode {
             tick = CM * forwardticks;
 
             def = tick/3;
-            stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10);timer.reset(); //resets the timer
+
+            double currentVelocity = def;
 
             while (!stop) {
                 stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10); timer.reset(); //resets the timer
+                timer.reset();
 
                 lfT = lf.getCurrentPosition();
                 lbT = lb.getCurrentPosition();
@@ -168,7 +176,9 @@ public class testpid extends LinearOpMode {
 
                 d = derivative * Cd * def;
 
-                setVelF((-1 *(p + d)), lf, rf, lb, rb);
+                setVelF(currentVelocity - p - d, lf, rf, lb, rb);
+
+                currentVelocity = currentVelocity - p - d;
 
                 lastError = error;
 
@@ -179,10 +189,12 @@ public class testpid extends LinearOpMode {
 
             tick = CM * strafeticks;
             def = tick/3;
-            stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10);timer.reset(); //resets the timer
+
+            double currentVelocity = def;
 
             while (!stop) {
                 stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10);timer.reset(); //resets the timer
+                timer.reset();
 
                 lfT = lf.getCurrentPosition();
                 lbT = lb.getCurrentPosition();
@@ -199,7 +211,9 @@ public class testpid extends LinearOpMode {
 
                 d = derivative * Cd * def;
 
-                setVelS((p + d), lf, rf, lb, rb);
+                setVelS((currentVelocity+ p + d), lf, rf, lb, rb);
+
+                currentVelocity = currentVelocity + p + d;
 
                 lastError = error;
 
@@ -211,7 +225,8 @@ public class testpid extends LinearOpMode {
 
             tick = CM * strafeticks;
             def = tick/3;
-            stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10);timer.reset(); //resets the timer
+
+            double currentVelocity = def;
 
             while (!stop) {
                 stop = lfT < (tick + 10) || lfT > (tick - 10) || lbT < (tick + 10) || lbT > (tick - 10) || rbT < (tick + 10) || rbT > (tick - 10) || rfT < (tick + 10) || rfT > (tick - 10);
@@ -232,7 +247,9 @@ public class testpid extends LinearOpMode {
 
                 d = derivative * def * Cd;
 
-                setVelS(((p + d)*-1), lf, rf, lb, rb);
+                setVelS(currentVelocity - p - d, lf, rf, lb, rb);
+
+                currentVelocity = currentVelocity - p - d;
 
                 lastError = error;
 

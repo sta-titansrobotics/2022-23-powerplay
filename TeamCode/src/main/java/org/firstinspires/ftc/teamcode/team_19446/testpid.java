@@ -130,8 +130,12 @@ public class testpid extends LinearOpMode {
         double currentVelocity = defaultSpeed;
 
         while (!stop) {
-            //checks whether the average position of motors is within a reasonable range of the desired position
-            stop = lfTicks < (tick + 10) && lfTicks > (tick - 10) && lbTicks < (tick + 10) && lbTicks > (tick - 10) && rbTicks < (tick + 10) && rbTicks > (tick - 10) && rfTicks < (tick + 10) && rfTicks > (tick - 10);
+            //Average tick position of each motor
+            double averageTicks = (rbTicks + rfTicks + lbTicks + lfTicks)/4;
+
+            //check if average ticks is within range (both bigger than ticks - 10, and smaller than ticks - 20)
+            //gives a 20 tick buffer range
+            stop = averageTicks > (tick - 10) && averageTicks < (tick - 10);
 
             timer.reset(); //resets the timer
 

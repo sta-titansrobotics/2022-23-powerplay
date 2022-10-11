@@ -51,8 +51,6 @@ public class testpid extends LinearOpMode {
 
         PID(directions.FRONT, 100, 1, 1, PIDTimer, lf, lb, rf, rb);
 
-        PID(directions.RIGHT, 100, 1, 1, PIDTimer, lf, lb, rf, rb);
-        PID(directions.BACK, 100, 1, 1, PIDTimer, lf, lb, rf, rb);
 
 
 

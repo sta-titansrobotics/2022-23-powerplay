@@ -37,7 +37,6 @@ public class autoRed1 extends LinearOpMode {
         robot.turnLeft(500);
         robot.forward(40);
 
-        robot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // add values to telemetry
         while (opModeIsActive()) {

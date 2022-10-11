@@ -24,6 +24,16 @@ public class driveControlled extends LinearOpMode {
         motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
         motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        motorFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        motorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
         waitForStart();
 
@@ -51,10 +61,22 @@ public class driveControlled extends LinearOpMode {
             motorFR.setPower(frontRightPower);
             motorBR.setPower(backRightPower);
 
+            if (gamepad1.a) {
+                motorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                motorBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                motorFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                motorBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            }
+
             telemetry.addData("LF Power:", motorFL.getPower());
             telemetry.addData("LB Power:", motorBL.getPower());
             telemetry.addData("RF Power:", motorFR.getPower());
             telemetry.addData("RB Power:", motorBR.getPower());
+            telemetry.addData("front-left-encoder: ", motorFL.getCurrentPosition());
+            telemetry.addData("front-right-encoder: ", motorFR.getCurrentPosition());
+            telemetry.addData("back-left-encoder: ", motorBL.getCurrentPosition());
+            telemetry.addData("back-right-encoder: ", motorBR.getCurrentPosition());
+
             telemetry.update();
 
 

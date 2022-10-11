@@ -12,9 +12,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Autonomous
 public class testpid extends LinearOpMode {
 
-    public static double forwardticks = 52.3; // ticks per cm
+    public static double forwardticks = 36; // ticks per cm
     public static double forwardticks1 = 0.02492375;
-    public static double strafeticks = 54.05; // ticks per cm when strafing
+    public static double strafeticks = 40; // ticks per cm when strafing
     public static double angleTicks = 7; // ticks per angle change for arm
     public static double radius = 42; // radius of arm
     public static double turretticks = 600; // ticks per 90 degrees for turret
@@ -49,9 +49,11 @@ public class testpid extends LinearOpMode {
 
         waitForStart();
 
-        PID(directions.FRONT, 100, 1, 1, PIDTimer, lf, lb, rf, rb);
+        PID(500,directions.FRONT, 100, 1, 1, PIDTimer, lf, lb, rf, rb);
 
-
+        if(isStopRequested()) {
+            return;
+        }
 
 
 
@@ -80,7 +82,7 @@ public class testpid extends LinearOpMode {
 
 
 
-    public void PID (directions direction, double CM, double coefficientproportional, double coefficientderivative, ElapsedTime timer, DcMotorEx lf, DcMotorEx lb, DcMotorEx rf, DcMotorEx rb) {
+    public void PID (double range, directions direction, double CM, double coefficientproportional, double coefficientderivative, ElapsedTime timer, DcMotorEx lf, DcMotorEx lb, DcMotorEx rf, DcMotorEx rb) {
         double derivativeC = coefficientderivative; // pid coefficient for derivative control
         double proportionalC = coefficientproportional; // pid coefficient for proportional control
 
@@ -132,8 +134,7 @@ public class testpid extends LinearOpMode {
             double averageTicks = (rbTicks + rfTicks + lbTicks + lfTicks)/4;
 
             //check if average ticks is within range (both bigger than ticks - 10, and smaller than ticks - 20)
-            //gives a 20 tick buffer range
-            stop = averageTicks > (tick - 10) && averageTicks < (tick - 10);
+            stop = averageTicks > (tick - range) && averageTicks < (tick - range);
 
             timer.reset(); //resets the timer
 
@@ -175,6 +176,9 @@ public class testpid extends LinearOpMode {
 
             lastError = error;
 
+            if(isStopRequested()) {
+                return;
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-// In reference to the classroom, RedOne refers to the upper left corner Red Zone
+// In reference to the classroom, BlueOne refers to the upper left corner Blue Zone
 // This program is designed if the robot has encoders. Otherwise, will need to manually calculate it
 
 package org.firstinspires.ftc.teamcode.team_19447;
@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
 @Disabled
-public class RedOneAuto447 extends LinearOpMode {
+public class BlueOneAuto447 extends LinearOpMode {
 
     //Declare OpMode Members
     private DcMotor motorFL = null;
@@ -31,7 +31,7 @@ public class RedOneAuto447 extends LinearOpMode {
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // No External Gearing.
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                           (WHEEL_DIAMETER_INCHES * Math.PI);
+            (WHEEL_DIAMETER_INCHES * Math.PI);
     static final double DRIVE_SPEED = 0.6;
     static final double TURN_SPEED = 0.5;
 
@@ -140,8 +140,8 @@ public class RedOneAuto447 extends LinearOpMode {
                 telemetry.addData("Running to", " %7d :%7d", newLeftTarget1,
                         newRightTarget1, newLeftTarget2, newRightTarget2);
                 telemetry.addData("Currently at", " at %7d :%7d",
-                         motorFB.getCurrentPosition(), motorFL.getCurrentPosition(), motorRB.getCurrentPosition(),
-                         motorRL.getCurrentPosition());
+                        motorFB.getCurrentPosition(), motorFL.getCurrentPosition(), motorRB.getCurrentPosition(),
+                        motorRL.getCurrentPosition());
                 telemetry.update();
             }
 

@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class RedOneAuto447 extends LinearOpMode {
 
     // Set default motor power
-    public static double forwardTicks = 52.3;
-    public static double strafeTicks = 54.05;
+    public static double forwardTicks = 1;
+    public static double strafeTicks = 1;
     double power = 1;
 
     @Override
@@ -38,7 +38,6 @@ public class RedOneAuto447 extends LinearOpMode {
         leftRear.setPower(0);
         rightFront.setPower(0);
         rightRear.setPower(0);
-        sleep(10000);
         robot.turnLeft(10);
 
 
@@ -56,7 +55,6 @@ public class RedOneAuto447 extends LinearOpMode {
 
 
     }
-
 
 }
 

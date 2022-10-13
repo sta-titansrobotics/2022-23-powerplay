@@ -34,7 +34,9 @@ public class RedOneAuto447 extends LinearOpMode {
 
         // movement
         robot.forward(60);
+        robot.forward(0);
         robot.turnLeft(10);
+
 
         robot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 

@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 @TeleOp
 public class driveControlled extends LinearOpMode {
 
-
     @Override
     public void runOpMode() {
 
@@ -24,17 +23,6 @@ public class driveControlled extends LinearOpMode {
         motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
         motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        motorFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        motorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-
         waitForStart();
 
         if (isStopRequested()) return;
@@ -42,15 +30,17 @@ public class driveControlled extends LinearOpMode {
         while (opModeIsActive()) {
 
             //Driving
+
+            //lf 1. lb -1, rf, -1, rb 1
             double y = -gamepad1.left_stick_y; // Remember, this is reversed!
-
-            //STRAFING VARIABLE
             double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
-
-            //THIS IS THE TURNING VARIABLE
             double rx = gamepad1.right_stick_x;
 
+            // Denominator is the largest motor power (absolute value) or 1
+            // This ensures all the powers maintain the same ratio, but only when
+            // at least one is out of the range [-1, 1]
             double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+
             double frontLeftPower = (y + x + rx) / denominator;
             double backLeftPower = (y - x + rx) / denominator;
             double frontRightPower = (y - x - rx) / denominator;
@@ -66,6 +56,11 @@ public class driveControlled extends LinearOpMode {
                 motorBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 motorFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 motorBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+                motorFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                motorBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                motorFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                motorBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             }
 
             telemetry.addData("LF Power:", motorFL.getPower());
@@ -76,7 +71,6 @@ public class driveControlled extends LinearOpMode {
             telemetry.addData("front-right-encoder: ", motorFR.getCurrentPosition());
             telemetry.addData("back-left-encoder: ", motorBL.getCurrentPosition());
             telemetry.addData("back-right-encoder: ", motorBR.getCurrentPosition());
-
             telemetry.update();
 
 

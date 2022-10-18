@@ -53,7 +53,7 @@ public class encoderTesting extends LinearOpMode {
         //can also control the direction using the mecanum drivetrain directions here: https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
 
         //ex: this command will get the robot to travel forward (all target values are positive) for 300/50 = 6cm at a speed of 2
-        drive(300, 300, 300, 300, 2 );
+        drive(10, 10, 10, 10, 2 );
         //ex: this command will get the robot to strafe left for 450/50 = 9cm at a speed of 1
         drive(-450, 450, 450, -450, 1);
 
@@ -88,6 +88,12 @@ public class encoderTesting extends LinearOpMode {
             idle();
 
         }
+
+        //Stop driving so that it can perform the next command.
+        motorFL.setPower(0);
+        motorBL.setPower(0);
+        motorFR.setPower(0);
+        motorBR.setPower(0);
 
     }
 

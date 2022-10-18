@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode.team_19447;
-
+//used if our bot is on the blue side of the arena
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;

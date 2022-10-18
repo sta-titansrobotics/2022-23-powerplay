@@ -48,15 +48,14 @@ public class encoderTestingDist extends LinearOpMode {
         //any code after this command will not be executed until the match has started
         waitForStart();
 
-        //can now set drive distance because of the function below; now we just need to input the distance:
-        //the unit of measurement is ticks. When inputting tick values here, keep in mind that *50 TICKS = 1 CM*
+        //can now set drive distance because of the function below; now we just need to input the distance
         //can also control the direction using the mecanum drivetrain directions here: https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
 
-        //ex: this command will get the robot to travel forward (all target values are positive) for 300/50 = 6cm at a speed of 2
+        //ex: this command will get the robot to travel forward (all target values are positive) for 10cm at a speed of 2
         drive(10, 10, 10, 10, 2);
 
-        //ex: this command will get the robot to strafe left for 450/50 = 9cm at a speed of 1
-        drive(-450, 450, 450, -450, 1);
+        //ex: this command will get the robot to strafe left for 9cm at a speed of 1
+        drive(-9, 9, 9, -9, 1);
 
     }
     //will use a function that will take the distance and speed of the motors based on the rotation
@@ -79,6 +78,7 @@ public class encoderTestingDist extends LinearOpMode {
         rightPos2 += rightTarget2;
 
         // Using setTargetPosition and RUN_TO_POSITION, it forces motors to continue running until the encoders reach the specified target position
+        // We are multiplying by forward/strafe ticks in relation to forward/strafe based on what the robot is doing.
         if ((leftPos1 >= 0) && (leftPos2 >= 0) && (rightPos1 >= 0) && (rightPos2 >= 0)) { //Forward
             motorFL.setTargetPosition((leftPos1) * ticks1);
             motorBL.setTargetPosition((leftPos2) * ticks1);

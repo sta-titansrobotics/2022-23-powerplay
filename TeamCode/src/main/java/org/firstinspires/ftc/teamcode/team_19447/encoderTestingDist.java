@@ -5,8 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+
 @Autonomous
-public class encoderTesting extends LinearOpMode {
+public class encoderTestingDist extends LinearOpMode {
 
     //Set motor variables
     private DcMotor motorFL;
@@ -20,7 +21,6 @@ public class encoderTesting extends LinearOpMode {
     private int rightPos1;
     private int rightPos2;
 
-    @Override
     public void runOpMode() {
 
         //Initialize motors
@@ -53,17 +53,25 @@ public class encoderTesting extends LinearOpMode {
         //can also control the direction using the mecanum drivetrain directions here: https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
 
         //ex: this command will get the robot to travel forward (all target values are positive) for 300/50 = 6cm at a speed of 2
-        drive(10, 10, 10, 10, 2 );
+        drive(10, 10, 10, 10, 2);
+
         //ex: this command will get the robot to strafe left for 450/50 = 9cm at a speed of 1
         drive(-450, 450, 450, -450, 1);
 
     }
     //will use a function that will take the distance and speed of the motors based on the rotation
     //void because no return value
-    private void drive(int leftTarget1, int leftTarget2, int rightTarget1, int rightTarget2, double speed) {
+    public void drive(int leftTarget1, int leftTarget2, int rightTarget1, int rightTarget2, double speed) {
 
-        double tick = ((2 * Math.PI * 5) / 52.3);
-        int ticks = (int) tick;
+        double forwardTicks = 52.3;
+        double strafeTicks = 54.05;
+
+        double forwardTick = ((2 * Math.PI * 5) / forwardTicks);
+        int ticks1 = (int) forwardTick;
+
+        double strafeTick = ((2 * Math.PI * 5) / strafeTicks);
+        int ticks2 = (int) strafeTick;
+
 
         leftPos1 += leftTarget1; //By adding the "+=", it makes it equivalent to leftPos1 = leftPos1 + leftTarget1, therefore it will allow adding values to the position based on what the target is.
         leftPos2 += leftTarget2; //This will therefore change where the motor needs to be by the specific inputted amount
@@ -71,11 +79,22 @@ public class encoderTesting extends LinearOpMode {
         rightPos2 += rightTarget2;
 
         // Using setTargetPosition and RUN_TO_POSITION, it forces motors to continue running until the encoders reach the specified target position
+        if ((leftPos1 >= 0) && (leftPos2 >= 0) && (rightPos1 >= 0) && (rightPos2 >= 0)) {
+            motorFL.setTargetPosition((leftPos1) * ticks1);
+            motorBL.setTargetPosition((leftPos2) * ticks1);
+            motorFR.setTargetPosition((rightPos1) * ticks1);
+            motorBR.setTargetPosition((rightPos2) * ticks1);
 
-        motorFL.setTargetPosition((leftPos1)*ticks);
-        motorBL.setTargetPosition((leftPos2)*ticks);
-        motorFR.setTargetPosition((rightPos1)*ticks);
-        motorBR.setTargetPosition((rightPos2)*ticks);
+        //need to adjust for backwards later.
+
+        } else if (((leftPos1 < 0) && (rightPos2 < 0)) || ((leftPos2 < 0) || (rightPos1 < 0))) {
+            motorFL.setTargetPosition((leftPos1) * ticks2);
+            motorBL.setTargetPosition((leftPos2) * ticks2);
+            motorFR.setTargetPosition((rightPos1) * ticks2);
+            motorBR.setTargetPosition((rightPos2) * ticks2);
+
+        }
+
 
         motorFL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorBL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -103,3 +122,4 @@ public class encoderTesting extends LinearOpMode {
     }
 
 }
+

@@ -79,22 +79,46 @@ public class encoderTestingDist extends LinearOpMode {
         rightPos2 += rightTarget2;
 
         // Using setTargetPosition and RUN_TO_POSITION, it forces motors to continue running until the encoders reach the specified target position
-        if ((leftPos1 >= 0) && (leftPos2 >= 0) && (rightPos1 >= 0) && (rightPos2 >= 0)) {
+        if ((leftPos1 >= 0) && (leftPos2 >= 0) && (rightPos1 >= 0) && (rightPos2 >= 0)) { //Forward
             motorFL.setTargetPosition((leftPos1) * ticks1);
             motorBL.setTargetPosition((leftPos2) * ticks1);
             motorFR.setTargetPosition((rightPos1) * ticks1);
             motorBR.setTargetPosition((rightPos2) * ticks1);
 
-        //need to adjust for backwards later.
+        } else if ((leftPos1 < 0) && (leftPos2 < 0) && (rightPos1 < 0) && (rightPos2 < 0)) { //Backwards
+            motorFL.setTargetPosition((leftPos1) * ticks1);
+            motorBL.setTargetPosition((leftPos2) * ticks1);
+            motorFR.setTargetPosition((rightPos1) * ticks1);
+            motorBR.setTargetPosition((rightPos2) * ticks1);
 
-        } else if (((leftPos1 < 0) && (rightPos2 < 0)) || ((leftPos2 < 0) || (rightPos1 < 0))) {
+        } else if (((leftPos1 < 0) && (rightPos2 < 0) && (leftPos2 >= 0) && (rightPos1 >= 0)) || (((leftPos2 < 0) && (rightPos1 < 0)) && (leftPos1 >= 0) && (rightPos2 >= 0))) {
+            // Strafing left or right
+            motorFL.setTargetPosition((leftPos1) * ticks2);
+            motorBL.setTargetPosition((leftPos2) * ticks2);
+            motorFR.setTargetPosition((rightPos1) * ticks2);
+            motorBR.setTargetPosition((rightPos2) * ticks2);
+
+        } else if (((leftPos2 > 0) && (rightPos1 > 0) && (leftPos1 == 0) && (rightPos2 == 0)) || ((leftPos1 > 0) && (rightPos2 > 0) && (leftPos2 == 0) && (rightPos1 == 0))){
+            //Strafing diagonally forward right or left, respectively.
+            motorFL.setTargetPosition((leftPos1) * ticks2);
+            motorBL.setTargetPosition((leftPos2) * ticks2);
+            motorFR.setTargetPosition((rightPos1) * ticks2);
+            motorBR.setTargetPosition((rightPos2) * ticks2);
+
+        } else if (((leftPos2 < 0) && (rightPos1 < 0) && (leftPos1 == 0) && (rightPos2 == 0)) || ((leftPos1 < 0) && (rightPos2 < 0) && (leftPos2 == 0) && (rightPos1 == 0))) {
+            //Strafing diagonally backward right or left, respectively.
+            motorFL.setTargetPosition((leftPos1) * ticks2);
+            motorBL.setTargetPosition((leftPos2) * ticks2);
+            motorFR.setTargetPosition((rightPos1) * ticks2);
+            motorBR.setTargetPosition((rightPos2) * ticks2);
+        } else if (((leftPos1 < 0) && (rightPos2 > 0) && (leftPos2 < 0) && (rightPos1 > 0)) || (((leftPos2 > 0) && (rightPos1 < 0)) && (leftPos1 > 0) && (rightPos2 < 0))) {
+            //Turning left or right, respectively.
             motorFL.setTargetPosition((leftPos1) * ticks2);
             motorBL.setTargetPosition((leftPos2) * ticks2);
             motorFR.setTargetPosition((rightPos1) * ticks2);
             motorBR.setTargetPosition((rightPos2) * ticks2);
 
         }
-
 
         motorFL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorBL.setMode(DcMotor.RunMode.RUN_TO_POSITION);

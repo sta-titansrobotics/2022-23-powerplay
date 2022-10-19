@@ -62,8 +62,6 @@ public class encoderTesting extends LinearOpMode {
     //void because no return value
     private void drive(int leftTarget1, int leftTarget2, int rightTarget1, int rightTarget2, double speed) {
 
-        double tick = ((2 * Math.PI * 5) / 52.3);
-        int ticks = (int) tick;
 
         leftPos1 += leftTarget1; //By adding the "+=", it makes it equivalent to leftPos1 = leftPos1 + leftTarget1, therefore it will allow adding values to the position based on what the target is.
         leftPos2 += leftTarget2; //This will therefore change where the motor needs to be by the specific inputted amount
@@ -72,10 +70,10 @@ public class encoderTesting extends LinearOpMode {
 
         // Using setTargetPosition and RUN_TO_POSITION, it forces motors to continue running until the encoders reach the specified target position
 
-        motorFL.setTargetPosition((leftPos1)*ticks);
-        motorBL.setTargetPosition((leftPos2)*ticks);
-        motorFR.setTargetPosition((rightPos1)*ticks);
-        motorBR.setTargetPosition((rightPos2)*ticks);
+        motorFL.setTargetPosition(leftPos1);
+        motorBL.setTargetPosition(leftPos2);
+        motorFR.setTargetPosition(rightPos1);
+        motorBR.setTargetPosition(rightPos2);
 
         motorFL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorBL.setMode(DcMotor.RunMode.RUN_TO_POSITION);

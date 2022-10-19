@@ -133,8 +133,7 @@ public class encoderTestingDist extends LinearOpMode {
         motorBR.setPower(speed);
 
         //will stop automatically but need to prevent any other code from conflicting
-        while(opModeIsActive() && motorFL.isBusy() && motorBL.isBusy() && motorFR.isBusy() && motorBR.isBusy()) {
-            idle();
+        while(motorFL.isBusy() && motorBL.isBusy() && motorFR.isBusy() && motorBR.isBusy()) {
 
         }
 

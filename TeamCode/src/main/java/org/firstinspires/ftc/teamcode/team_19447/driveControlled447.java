@@ -25,6 +25,10 @@ public class driveControlled447 extends LinearOpMode {
         DcMotor Lift = hardwareMap.get(DcMotor.class, "lift");
         Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        //Turret
+        DcMotor Turret = hardwareMap.get(DcMotor.class, "turret");
+        Turret.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         //Intake
         DcMotor intake1 = hardwareMap.get(DcMotor.class, "intake1");
         DcMotor intake2 = hardwareMap.get(DcMotor.class, "intake2");
@@ -87,15 +91,20 @@ public class driveControlled447 extends LinearOpMode {
                 motorBR.setPower(1);
             }
 
-
-
             //Lift
-            double liftPower = gamepad2.right_stick_y;
+            double liftPower = gamepad1.right_trigger;
 
             Lift.setPower(liftPower);
 
+            //Turret
+            double turretPower = gamepad1.left_trigger;
+
+            Turret.setPower(turretPower);
+
+            //a lot of other stuff will be added too unfortunately
+
             //Intake
-            double intakePower = gamepad2.right_stick_x;
+            double intakePower = gamepad1.touchpad_finger_1_x;
 
             intake1.setPower(intakePower);
             intake2.setPower(intakePower);

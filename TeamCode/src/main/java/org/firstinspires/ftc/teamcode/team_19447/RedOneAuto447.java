@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode.team_19447;
-//Used if our bot is on the red side of the arena
+//Used if our bot is on the top red side of the arena
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;

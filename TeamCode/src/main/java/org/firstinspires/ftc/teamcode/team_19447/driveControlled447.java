@@ -120,7 +120,7 @@ public class driveControlled447 extends LinearOpMode {
             telemetry.addData("LF Power:", motorFL.getPower());
             telemetry.addData("LB Power:", motorBL.getPower());
             telemetry.addData("RF Power:", motorFR.getPower());
-            telemetry.addData("RB Power:", motorBR.getPower());
+            telemetry.addData("RB P ower:", motorBR.getPower());
             telemetry.addData("Lift Power:",Lift.getPower());
             telemetry.addData("Lift Encoder Position: ", Lift.getCurrentPosition());
             telemetry.update();

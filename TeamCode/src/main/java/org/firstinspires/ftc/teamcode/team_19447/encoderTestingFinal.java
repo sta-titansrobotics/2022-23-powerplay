@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 
 @Autonomous
-public class encoderTestingDist extends LinearOpMode {
+public class encoderTestingFinal extends LinearOpMode {
 
     //Set motor variables
     private DcMotor motorFL;

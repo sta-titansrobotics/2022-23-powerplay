@@ -47,8 +47,8 @@ public class candyFundraising extends LinearOpMode {
         // one of these values are probably going to be negative
         // Opening the servo claws, using the button 'x' on the gamepad:
         if (gamepad1.x) {
-            leftClaw.setPosition(0.75);
-            rightClaw.setPosition(-0.75);
+            leftClaw.setPosition(0.75); // rotates 0.75*180 = 135 deg to the right
+            rightClaw.setPosition(-0.75); // rotates 0.75*180 = 135 deg to the left
         }
 
         // Research on youtube says to set position to 1 but I don't see how that will work if we are trying to revert it back to its original position.

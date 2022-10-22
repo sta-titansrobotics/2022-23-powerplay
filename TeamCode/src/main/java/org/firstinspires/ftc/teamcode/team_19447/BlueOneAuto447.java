@@ -55,16 +55,17 @@ public class BlueOneAuto447 extends LinearOpMode {
         //Building the circuit:
 
         //The ground junction:
-        drive(-10, -10, 10, 10, 1); //turn left ~ 45 degrees
+        drive(10, 10, -10, -10, 1); // turn right ~ 45 degrees
         drive(30, 30, 30, 30, 1);
         drive(-20,-20,-20,-20,1);
 
         //The second pole:
-        drive(10, 10, -10, -10, 1); //revert to a straight-forward position
+        drive(-10, -10, 10, 10, 1); //revert to a straight-forward position, basically undo the first command
         drive(40, 40, 40, 40, 1);
         //do something with the lift here
 
-        //The third pole
+        //The third pole:
+
     }
     //will use a function that will take the distance and speed of the motors based on the rotation
     //void because no return value

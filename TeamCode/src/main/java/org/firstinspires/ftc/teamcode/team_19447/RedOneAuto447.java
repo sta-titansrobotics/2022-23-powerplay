@@ -74,11 +74,8 @@ public class RedOneAuto447 extends LinearOpMode {
         double forwardTicks = 52.3;
         double strafeTicks = 54.05;
 
-        double forwardTick = ((2 * Math.PI * 5) / forwardTicks);
-        int ticks1 = (int) forwardTick;
-
-        double strafeTick = ((2 * Math.PI * 5) / strafeTicks);
-        int ticks2 = (int) strafeTick;
+        int ticks1 = (int) forwardTicks;
+        int ticks2 = (int) strafeTicks;
 
 
         leftPos1 += leftTarget1; //By adding the "+=", it makes it equivalent to leftPos1 = leftPos1 + leftTarget1, therefore it will allow adding values to the position based on what the target is.

@@ -130,7 +130,7 @@ public class encoderTestingFinal extends LinearOpMode {
         motorFR.setPower(speed);
         motorBR.setPower(speed);
 
-        //will stop automatically but need to prevent any other code from conflicting
+        //while loop to stall/delay the next command
         while(motorFL.isBusy() && motorBL.isBusy() && motorFR.isBusy() && motorBR.isBusy()) {
 
         }

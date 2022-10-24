@@ -14,9 +14,12 @@ public class candyFundraising extends LinearOpMode {
     public void runOpMode() {
 
         //Lift
-        DcMotor Lift = hardwareMap.get(DcMotor.class, "Lift");
-        Lift.setDirection(DcMotor.Direction.FORWARD);
-        Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        DcMotor Lift1 = hardwareMap.get(DcMotor.class, "Lift1");
+        DcMotor Lift2 = hardwareMap.get(DcMotor.class, "Lift2");
+        Lift1.setDirection(DcMotor.Direction.FORWARD);
+        Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Lift2.setDirection(DcMotor.Direction.FORWARD);
+        Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //Servo claws
         Servo leftClaw = hardwareMap.get(Servo.class, "leftClaw");
@@ -30,6 +33,8 @@ public class candyFundraising extends LinearOpMode {
          */
 
         //Set to 0 because it hasn't moved yet
+        Lift1.setPower(0);
+        Lift2.setPower(0);
         leftClaw.setPosition(0);
         rightClaw.setPosition(0);
 
@@ -37,11 +42,13 @@ public class candyFundraising extends LinearOpMode {
 
         //Lift will go up when d-pad up is pressed:
         if (gamepad1.dpad_up) {
-            Lift.setPower(1);
+            Lift1.setPower(1);
+            Lift2.setPower(1);
         }
         //Lift will go down when d-pad down is pressed:
         if (gamepad1.dpad_down) {
-            Lift.setPower(-1);
+            Lift1.setPower(-1);
+            Lift2.setPower(-1);
         }
 
         // one of these values are probably going to be negative

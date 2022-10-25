@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.TfodCurrentGame;
 import java.util.List;
 
 @Autonomous
-public class AutoCameraTest extends LinearOpMode {
+public class AutoCameraPrototype extends LinearOpMode {
     private DcMotor LF, RF, LB, RB, Arm, Intake, Carousel, Turret;
     //private Timer time = new Timer();
     private VuforiaCurrentGame vuforiaPowerPlay;
@@ -75,22 +75,40 @@ public class AutoCameraTest extends LinearOpMode {
 
         waitForStart();
 
-        // Output if label detected
-        telemetry.addData("Detected? ", labelDetection() );
+        // CHANGE HERE FOR CONE DETECTION AND PARKING CONTROLS
+        // default parking spot
+        if (parkingDetection() == 0) {
+
+        // parking space 1
+        } else if (parkingDetection()  == 1) {
+
+        // parking space 2
+        } else if (parkingDetection() ==2) {
+
+        // parking space 3
+        } else if (parkingDetection()  == 3) {
+
+        }
+
+        // Output detecting parking value
+        telemetry.addData("parking ", parkingDetection() );
         telemetry.update();
     }
 
     /*
     * @author Gregory Lui
-    * @description
+    * @description cross checks labels in database with labels detected by camera. Outputs value to determine parking space for PowerPlay
     * */
-    private boolean labelDetection(){
+    private int parkingDetection(){
 
         // Initialize Model checker
         detection = tfodPowerPlay.getRecognitions();
 
-        //
-        boolean labelDetected = false;
+        // Parking object detection
+        // Default parking value is set to 0
+        // This value is used to go to the normal corner
+        // If the robot does not detect any objects
+        int parkingSpot = 0;
 
         // Loop through list of objects detected
         while (detection.size()==0) {
@@ -99,13 +117,32 @@ public class AutoCameraTest extends LinearOpMode {
             telemetry.addData("detections: ", detection);
 
             if (detection.size()>0) {
-                // Should only detect 1 label.
-                labelDetected = true;
+                // loop through list of detected labels (Should only detect 1 label at a time)
+                for (int i = 0; i < detection.size(); i++) {
+                    // Create string to check name of label detected
+                    String detectedLabel = detection.get(i).getLabel();
+
+                    // Change Data of string within .equals("") to names of labels within .xml file
+                    if (detectedLabel.equals("TFODTest 2")) {
+                        parkingSpot = 1;
+
+                    } else if (detectedLabel.equals("TFODTest 3")) {
+                        parkingSpot = 2;
+
+                    } else if (detectedLabel.equals("TFODTest 4")) {
+                        parkingSpot = 3;
+
+                    } else {
+                        telemetry.addData("NO DETECTIONS", "");
+
+                    }
+                }
             }
+            telemetry.update();
 
         }
-        // Returns true/false of object detected
-        return labelDetected;
+        // Returns value of object detected to determine parking space
+        return parkingSpot;
 
     }
 

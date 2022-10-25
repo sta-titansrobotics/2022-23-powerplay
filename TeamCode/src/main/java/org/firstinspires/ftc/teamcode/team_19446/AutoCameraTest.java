@@ -12,8 +12,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TfodCurrentGame;
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.List;
 
 @Autonomous
@@ -23,28 +21,12 @@ public class AutoCameraTest extends LinearOpMode {
     private VuforiaCurrentGame vuforiaPowerPlay;
     private TfodCurrentGame tfodPowerPlay;
     private List<Recognition> recs;
-    //static int ticks = 0, parking  = -1;
-    /*
-    class Event extends TimerTask {
-        public void run() {
-            recs = tfodPowerPlay.getRecognitions();
-            if (recs.size()==0 && parking  == -1) {
-                ticks++;
-            } else {
-                if (ticks>=0 && ticks <= 40) parking  = 0;
-                else if (ticks > 40 && ticks <=80) parking  = 1;
-                else if (ticks > 80 && ticks <= 120) parking  = 2;
-            }
-            time.cancel();
-            telemetry.addData("List:", recs);
-            telemetry.addData("ticks:",ticks);
-            telemetry.update();
-        }
-    }
-     */
 
     @Override
     public void runOpMode() {
+
+        /*
+        //Initialize motors
         LF = hardwareMap.get(DcMotor.class, "motorFrontLeft");
         RF = hardwareMap.get(DcMotor.class, "motorFrontRight");
         LB = hardwareMap.get(DcMotor.class, "motorBackLeft");
@@ -58,13 +40,16 @@ public class AutoCameraTest extends LinearOpMode {
         LF.setDirection(DcMotorSimple.Direction.REVERSE);
         Arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Turret.setDirection(DcMotorSimple.Direction.REVERSE);
+         */
 
         // camera initialization
         vuforiaPowerPlay = new VuforiaCurrentGame();
         tfodPowerPlay = new TfodCurrentGame();
-        // testing initialzation function that takes direction over a camera name + calibration file
+
+        // Initialize vuforia/camera settings
         vuforiaPowerPlay.initialize(
-                "", // vuforiaLicenseKey
+                // Change following to team's vuforia key
+                "AR2AC0f/////AAABmeUyCjXw4kWXoMsF3MMHPaoaznW2sTM6JoLUdEAFY9/AEccRV1K06eyTEGTY33sxNxR+ENfuzMWWp8d/BgCSdWFthGz402U8Cwn+P41y8aZQ1r4RHUCDQhDB8CdHAhQq7E2kWPqEa5BmzkGdPJid61lERjhee/HV3Kjd6zMuh9bzWxYNCCNcIwS62sRqKHXPWeUGgKlWvgCzxu1OBX0UwdXAUTRRUCxDmNKfP1pul8sPEpuFkvvbZrDGFO1rxUlPwlQQRdjk4Hmbh5iLhBIPk5e7QhidUnkjIv8+z6pIcH0Kt02HKJZdcSXDS4u2xjgqjrO5Z0FjmqCQaAZmSRk/j7hODq61lwfioDMxX9mfwd+t", // vuforiaLicenseKey
                 hardwareMap.get(WebcamName.class, "Webcam 1"), // Change this to the camera name, default "Webcam 1"
                 "", // webcamCalibrationFilename
                 true, // useExtendedTracking
@@ -78,8 +63,10 @@ public class AutoCameraTest extends LinearOpMode {
                 90, // secondAngle
                 0, // thirdAngle
                 true); // useCompetitionFieldTargetLocations
-        // Set min confidence threshold to 0.3
+
+        // Confidence threshold (Change for stricter requirements)
         tfodPowerPlay.initialize(vuforiaPowerPlay, (float) 0.3, true, true);
+
         // Initialize TFOD before waitForStart.
         // Init TFOD here so the object detection labels are visible
         // in the Camera Stream preview window on the Driver Station.
@@ -88,108 +75,76 @@ public class AutoCameraTest extends LinearOpMode {
 
         waitForStart();
 
-        Arm.setPower(-0.5);
-        sleep(500);
-        Arm.setPower(0);
-
-        Arm.setPower(0);
-
-        // backward
-        move(-1,-1,-1,-1,430);
-        move(0,0,0,0,100);
-        // spin carousel
-        Carousel.setPower(-0.8/2);
-        sleep(4000);
-        Carousel.setPower(0);
-
-        // left strafe
-        move(-1, 1, 1, -1, 300);
-        move(0, 0, 0, 0, 100);
-        // forward
-        move(1,1,1,1,2000);
-        move(0,0,0, 0,100);
-
-        // strafe correction (left turn)
-        move(-1, 1, -1, 1, 15);
-        move(0, 0, 0, 0, 100);
-
-        //
+        // CHANGE HERE FOR CONE DETECTION AND PARKING CONTROLS
         // default parking spot
         if (parkingDetection() == 0) {
 
+        // parking space 1
         } else if (parkingDetection()  == 1) {
 
+        // parking space 2
         } else if (parkingDetection() ==2) {
 
+        // parking space 3
         } else if (parkingDetection()  == 3) {
 
         }
 
+        // Output detecting parking value
         telemetry.addData("parking ", parkingDetection() );
         telemetry.update();
-
-        // push freight out
-        Intake.setPower(1);
-        Arm.setPower(0);
-        sleep(1000);
-        // stop intake & drop arm
-        Intake.setPower(0);
-        Arm.setPower(0.25);
-        sleep(500);
-
-        // strafe into wall and park in shipping hub (and move arm forwards)
-        Arm.setPower(-0.5);
-        sleep(600);
-        Turret.setPower(0.5);
-        move(1, -1, -1, 1, 1200);
-        move(0, 0, 0, 0, 100);
-        Turret.setPower(0.2);
-        Arm.setPower(0.25);
-        move(1, 1, 1, 1, 2500);
-        move(0, 0, 0, 0, 100);
-        Arm.setPower(0);
-        Turret.setPower(0);
     }
-        public int parkingDetection(){
+
+    /*
+    * @author Gregory Lui
+    * @description cross checks labels in database with labels detected by camera. Outputs value to determine parking space for PowerPlay
+    * */
+    private int parkingDetection(){
+
+        // Initialize Model checker
+        recs = tfodPowerPlay.getRecognitions();
+
+        // Parking object detection
+        // Default parking value is set to 0
+        // This value is used to go to the normal corner
+        // If the robot does not detect any objects
+        int parkingSpot = 0;
+
+        // Loop through list of objects detected
+        while (recs.size()==0) {
             recs = tfodPowerPlay.getRecognitions();
+            // Output list of detected objects
+            telemetry.addData("detections: ", recs);
 
-            // Parking object detection
-            int parkingSpot = 0;
-            int leave = 0;
+            if (recs.size()>0) {
+                // loop through list of detected labels (Should only detect 1 label at a time)
+                for (int i = 0; i < recs.size(); i++) {
+                    // Create string to check name of label detected
+                    String detectedLabel = recs.get(i).getLabel();
 
-            while (recs.size()==0) {
-                recs = tfodPowerPlay.getRecognitions();
-                telemetry.addData("detections: ", recs);
+                    // Change Data of string within .equals("") to names of labels within .xml file
+                    if (detectedLabel.equals("TFODTest 2")) {
+                        parkingSpot = 1;
 
-                if (recs.size()>0) {
-                    for (int i = 0; i < recs.size(); i++) {
+                    } else if (detectedLabel.equals("TFODTest 3")) {
+                        parkingSpot = 2;
 
-                        String detectedLabel = recs.get(i).getLabel();
+                    } else if (detectedLabel.equals("TFODTest 4")) {
+                        parkingSpot = 3;
 
-                        if (detectedLabel.equals("TFODTest 2")) {
-                            parkingSpot = 1;
-
-                        } else if (detectedLabel.equals("TFODTest 3")) {
-                            parkingSpot = 2;
-
-                        } else if (detectedLabel.equals("TFODTest 4")) {
-                            parkingSpot = 3;
-
-                        } else {
-                            telemetry.addData("NO DETECTIONS", "");
-
-                        }
-
+                    } else {
+                        telemetry.addData("NO DETECTIONS", "");
 
                     }
                 }
-                telemetry.update();
             }
+            telemetry.update();
 
-            return parkingSpot;
-            //time.scheduleAtFixedRate(new Event(), 1, 100);
         }
+        // Returns value of object detected to determine parking space
+        return parkingSpot;
 
+    }
 
     public void move(double LF, double RF, double LB, double RB, int sleepMS) {
         this.LF.setPower(LF);
@@ -198,5 +153,4 @@ public class AutoCameraTest extends LinearOpMode {
         this.RB.setPower(RB);
         sleep(sleepMS);
     }
-
 }

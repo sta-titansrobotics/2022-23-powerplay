@@ -39,10 +39,11 @@ public class driveControlled447 extends LinearOpMode {
         double flipperMotorPower;
 
         //Intake
-        DcMotor intake1 = hardwareMap.get(DcMotor.class, "intake1");
-        DcMotor intake2 = hardwareMap.get(DcMotor.class, "intake2");
-        DcMotor intake3 = hardwareMap.get(DcMotor.class, "intake3");
-        DcMotor intake4 = hardwareMap.get(DcMotor.class, "intake4");
+        DcMotor Intake1 = hardwareMap.get(DcMotor.class, "Intake1");
+        Intake1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        DcMotor Intake2 = hardwareMap.get(DcMotor.class, "Intake2");
+        Intake2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        double intakeMotorPower;
 
         waitForStart();
 
@@ -120,12 +121,11 @@ public class driveControlled447 extends LinearOpMode {
             rollerFlipper.setPower(flipperMotorPower);
 
             //Intake
-            double intakePower = gamepad1.touchpad_finger_1_x;
 
-            intake1.setPower(intakePower);
-            intake2.setPower(intakePower);
-            intake3.setPower(intakePower);
-            intake4.setPower(intakePower);
+            intakeMotorPower = gamepad1.touchpad_finger_1_y;
+            intakeMotorPower = Range.clip(intakeMotorPower, -1, 1);
+            Intake1.setPower(intakeMotorPower);
+            Intake2.setPower(intakeMotorPower);
 
             }
 
@@ -137,6 +137,12 @@ public class driveControlled447 extends LinearOpMode {
             telemetry.addData("Lift Power:",Lift2.getPower());
             telemetry.addData("Lift Encoder Position: ", Lift1.getCurrentPosition());
             telemetry.addData("Lift Encoder Position: ", Lift2.getCurrentPosition());
+            telemetry.addData("Roller Flipper Power:",rollerFlipper.getPower());
+            telemetry.addData("Roller Flipper Encoder Position: ", rollerFlipper.getCurrentPosition());
+            telemetry.addData("Intake1 Power:",Intake1.getPower());
+            telemetry.addData("Intake2 Power:",Intake2.getPower());
+            telemetry.addData("Intake1 Encoder Position: ",Intake1.getCurrentPosition());
+            telemetry.addData("Intake2 Encoder Position: ", Intake2.getCurrentPosition());
             telemetry.update();
 
 

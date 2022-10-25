@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class driveControlled447 extends LinearOpMode {
@@ -45,6 +46,11 @@ public class driveControlled447 extends LinearOpMode {
         DcMotor Intake2 = hardwareMap.get(DcMotor.class, "Intake2");
         Intake2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         double intakeMotorPower;
+
+        //Upper rack
+        Servo upperRack = hardwareMap.get(Servo.class, "Upper Rack");
+        upperRack.setPosition(0);
+        double upperRackPower;
 
         waitForStart();
 
@@ -102,6 +108,8 @@ public class driveControlled447 extends LinearOpMode {
                 motorBR.setPower(1);
             }
 
+            //Change buttons later
+
             //Lift (apparently two lifts?)
             double liftPower = gamepad1.right_stick_y;
 
@@ -127,6 +135,13 @@ public class driveControlled447 extends LinearOpMode {
             intakeMotorPower = Range.clip(intakeMotorPower, -1, 1);
             Intake1.setPower(intakeMotorPower);
             Intake2.setPower(intakeMotorPower);
+
+            // Upper rack & pinion slide
+            // This one uses servos if i remember
+
+            upperRackPower = gamepad1.touchpad_finger_2_y;
+            upperRackPower = Range.clip(upperRackPower, -1, 1);
+            upperRack.setPosition(upperRackPower);
 
             }
 

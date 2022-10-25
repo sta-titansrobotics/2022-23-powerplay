@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.Range;
 
 @TeleOp
 public class driveControlled447 extends LinearOpMode {
@@ -22,9 +23,11 @@ public class driveControlled447 extends LinearOpMode {
         motorFR.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        //Lift
-        DcMotor Lift = hardwareMap.get(DcMotor.class, "lift");
-        Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //Lift (Two lifts)
+        DcMotor Lift1 = hardwareMap.get(DcMotor.class, "Lift 1");
+        Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        DcMotor Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
+        Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //Turret
         DcMotor Turret = hardwareMap.get(DcMotor.class, "turret");
@@ -33,6 +36,7 @@ public class driveControlled447 extends LinearOpMode {
         //Roller Flipper
         DcMotor rollerFlipper = hardwareMap.get(DcMotor.class, "rollerFlipper");
         rollerFlipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        double flipperMotorPower;
 
         //Intake
         DcMotor intake1 = hardwareMap.get(DcMotor.class, "intake1");
@@ -96,22 +100,24 @@ public class driveControlled447 extends LinearOpMode {
                 motorBR.setPower(1);
             }
 
-            //Lift
-            double liftPower = gamepad1.left_trigger;
+            //Lift (apparently two lifts?)
+            double liftPower = gamepad1.right_stick_y;
 
-            Lift.setPower(liftPower);
+            Lift1.setPower(liftPower);
+            Lift2.setPower(liftPower);
 
             //Turret
-            double turretPower = gamepad1.right_trigger;
+            double turretPower = gamepad1.right_stick_x;
 
             Turret.setPower(turretPower);
 
             //a lot of other stuff will be added too unfortunately
 
             //Roller Flipper
-            double flipperPower = gamepad1.right_stick_y;
 
-            rollerFlipper.setPower(flipperPower);
+            flipperMotorPower = gamepad1.touchpad_finger_1_y;
+            flipperMotorPower = Range.clip(flipperMotorPower, -1, 1);
+            rollerFlipper.setPower(flipperMotorPower);
 
             //Intake
             double intakePower = gamepad1.touchpad_finger_1_x;
@@ -126,9 +132,11 @@ public class driveControlled447 extends LinearOpMode {
             telemetry.addData("LF Power:", motorFL.getPower());
             telemetry.addData("LB Power:", motorBL.getPower());
             telemetry.addData("RF Power:", motorFR.getPower());
-            telemetry.addData("RB P ower:", motorBR.getPower());
-            telemetry.addData("Lift Power:",Lift.getPower());
-            telemetry.addData("Lift Encoder Position: ", Lift.getCurrentPosition());
+            telemetry.addData("RB Power:", motorBR.getPower());
+            telemetry.addData("Lift Power:",Lift1.getPower());
+            telemetry.addData("Lift Power:",Lift2.getPower());
+            telemetry.addData("Lift Encoder Position: ", Lift1.getCurrentPosition());
+            telemetry.addData("Lift Encoder Position: ", Lift2.getCurrentPosition());
             telemetry.update();
 
 

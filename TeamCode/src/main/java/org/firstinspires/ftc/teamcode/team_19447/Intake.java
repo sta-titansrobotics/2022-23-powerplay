@@ -6,28 +6,36 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp
-public class IntakeBracket extends LinearOpMode {
-    DcMotor rollerFlipper = null;
+public class Intake extends LinearOpMode {
+    DcMotor Intake1 = null;
+    DcMotor Intake2 = null;
 
     @Override
     public void runOpMode() {
         //initialize the motor
-        rollerFlipper = hardwareMap.dcMotor.get("flipperMotor");
+        Intake1 = hardwareMap.dcMotor.get("Intake1");
         //set motor direction
-        rollerFlipper.setDirection(DcMotor.Direction.FORWARD);
+        Intake1.setDirection(DcMotor.Direction.FORWARD);
         //use encoder or not?
-        rollerFlipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Intake1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        Intake2 = hardwareMap.dcMotor.get("Intake1");
+        //set motor direction
+        Intake2.setDirection(DcMotor.Direction.FORWARD);
+        //use encoder or not?
+        Intake2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //set power
-        double flipperMotorPower;
+        double intakeMotorPower;
 
         //wait for start button to be pushed
         waitForStart();
 
         while (opModeIsActive()) {
 
-            flipperMotorPower = gamepad1.touchpad_finger_1_y;
-            flipperMotorPower = Range.clip(flipperMotorPower, -1, 1);
-            rollerFlipper.setPower(flipperMotorPower);
+            intakeMotorPower = gamepad1.touchpad_finger_1_y;
+            intakeMotorPower = Range.clip(intakeMotorPower, -1, 1);
+            Intake1.setPower(intakeMotorPower);
+            Intake2.setPower(intakeMotorPower);
 
         }
 

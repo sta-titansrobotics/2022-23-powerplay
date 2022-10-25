@@ -47,10 +47,13 @@ public class driveControlled447 extends LinearOpMode {
         Intake2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         double intakeMotorPower;
 
-        //Upper rack
+        //Upper rack / pinion slide
         Servo upperRack = hardwareMap.get(Servo.class, "Upper Rack");
         upperRack.setPosition(0);
         double upperRackPower;
+        DcMotor upperRackMotor = hardwareMap.get(DcMotor.class, "Rack Rotation Motor");
+        upperRackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        double upperRackMotorPower;
 
         waitForStart();
 
@@ -142,6 +145,10 @@ public class driveControlled447 extends LinearOpMode {
             upperRackPower = gamepad1.touchpad_finger_2_y;
             upperRackPower = Range.clip(upperRackPower, -1, 1);
             upperRack.setPosition(upperRackPower);
+            //motor component
+            upperRackMotorPower = gamepad1.touchpad_finger_2_x;
+            upperRackMotorPower = Range.clip(upperRackMotorPower, -1, 1);
+            upperRackMotor.setPower(upperRackMotorPower);
 
             }
 

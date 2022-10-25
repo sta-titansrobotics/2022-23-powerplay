@@ -14,7 +14,7 @@ public class RollerFlipper extends LinearOpMode {
         rollerFlipper = hardwareMap.dcMotor.get("flipperMotor");
         //set motor direction
         rollerFlipper.setDirection(DcMotor.Direction.FORWARD);
-        //use encoder or not? IDKKKK
+        //use encoder or not?
         rollerFlipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //set power
         double flipperMotorPower;

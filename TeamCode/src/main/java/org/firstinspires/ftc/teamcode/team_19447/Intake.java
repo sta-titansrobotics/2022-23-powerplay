@@ -32,7 +32,7 @@ public class Intake extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            intakeMotorPower = gamepad1.touchpad_finger_1_y;
+            intakeMotorPower = gamepad1.right_trigger;
             intakeMotorPower = Range.clip(intakeMotorPower, -1, 1);
             Intake1.setPower(intakeMotorPower);
             Intake2.setPower(intakeMotorPower);

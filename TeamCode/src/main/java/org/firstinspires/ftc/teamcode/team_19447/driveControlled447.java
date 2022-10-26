@@ -123,7 +123,7 @@ public class driveControlled447 extends LinearOpMode {
             liftPower = Range.clip(liftPower, -1, 1);
             Lift1.setPower(liftPower);
             Lift2.setPower(liftPower);
-            //testd saadsfsadaaa
+            //testd saadsfsadaaaasd fds
             //Turret
             turretPower = gamepad1.right_stick_x;
             turretPower = Range.clip(turretPower, -1, 1);

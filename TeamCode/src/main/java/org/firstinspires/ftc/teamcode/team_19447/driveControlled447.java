@@ -55,6 +55,11 @@ public class driveControlled447 extends LinearOpMode {
         upperRackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         double upperRackMotorPower;
 
+        // Capper
+        DcMotor Capper = hardwareMap.get(DcMotor.class, "Capper");
+        Capper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        double capperPower;
+
         waitForStart();
 
         if (isStopRequested()) return;
@@ -149,6 +154,11 @@ public class driveControlled447 extends LinearOpMode {
             upperRackMotorPower = gamepad1.touchpad_finger_2_x;
             upperRackMotorPower = Range.clip(upperRackMotorPower, -1, 1);
             upperRackMotor.setPower(upperRackMotorPower);
+
+            // Capper
+            capperPower = gamepad1.left_trigger;
+            capperPower = Range.clip(capperPower, -1, 1);
+            Capper.setPower(capperPower);
 
             }
 

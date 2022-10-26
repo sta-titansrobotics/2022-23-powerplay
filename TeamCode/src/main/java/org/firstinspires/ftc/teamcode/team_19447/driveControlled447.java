@@ -115,7 +115,7 @@ public class driveControlled447 extends LinearOpMode {
 
             //Lift (apparently two lifts?)
             double liftPower = gamepad1.right_stick_y;
-
+            liftPower = Range.clip(liftPower, -1, 1);
             Lift1.setPower(liftPower);
             Lift2.setPower(liftPower);
 

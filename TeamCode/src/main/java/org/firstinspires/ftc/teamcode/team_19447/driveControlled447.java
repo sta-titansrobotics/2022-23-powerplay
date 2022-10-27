@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class driveControlled447 extends LinearOpMode {
@@ -22,23 +24,41 @@ public class driveControlled447 extends LinearOpMode {
         motorFR.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        //Lift
-        DcMotor Lift = hardwareMap.get(DcMotor.class, "lift");
-        Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //Lift (Two lifts)
+        DcMotor Lift1 = hardwareMap.get(DcMotor.class, "Lift 1");
+        Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        DcMotor Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
+        Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //Turret
         DcMotor Turret = hardwareMap.get(DcMotor.class, "turret");
         Turret.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        double turretPower;
 
         //Roller Flipper
         DcMotor rollerFlipper = hardwareMap.get(DcMotor.class, "rollerFlipper");
         rollerFlipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        double flipperMotorPower;
 
         //Intake
-        DcMotor intake1 = hardwareMap.get(DcMotor.class, "intake1");
-        DcMotor intake2 = hardwareMap.get(DcMotor.class, "intake2");
-        DcMotor intake3 = hardwareMap.get(DcMotor.class, "intake3");
-        DcMotor intake4 = hardwareMap.get(DcMotor.class, "intake4");
+        DcMotor Intake1 = hardwareMap.get(DcMotor.class, "Intake1");
+        Intake1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        DcMotor Intake2 = hardwareMap.get(DcMotor.class, "Intake2");
+        Intake2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        double intakeMotorPower;
+
+        //Upper rack / pinion slide
+        Servo upperRack = hardwareMap.get(Servo.class, "Upper Rack");
+        upperRack.setPosition(0);
+        double upperRackPower;
+        DcMotor upperRackMotor = hardwareMap.get(DcMotor.class, "Rack Rotation Motor");
+        upperRackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        double upperRackMotorPower;
+
+        // Capper
+        DcMotor Capper = hardwareMap.get(DcMotor.class, "Capper");
+        Capper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        double capperPower;
 
         waitForStart();
 
@@ -96,39 +116,73 @@ public class driveControlled447 extends LinearOpMode {
                 motorBR.setPower(1);
             }
 
-            //Lift
-            double liftPower = gamepad1.left_trigger;
+            //Change buttons later
 
-            Lift.setPower(liftPower);
+            //Lift (apparently two lifts?)
+            double liftPower = gamepad1.right_stick_y;
+            liftPower = Range.clip(liftPower, -1, 1);
+            Lift1.setPower(liftPower);
+            Lift2.setPower(liftPower);
 
             //Turret
-            double turretPower = gamepad1.right_trigger;
-
+            turretPower = gamepad1.right_stick_x;
+            turretPower = Range.clip(turretPower, -1, 1);
             Turret.setPower(turretPower);
 
             //a lot of other stuff will be added too unfortunately
 
             //Roller Flipper
-            double flipperPower = gamepad1.right_stick_y;
 
-            rollerFlipper.setPower(flipperPower);
+            flipperMotorPower = gamepad1.touchpad_finger_1_y;
+            flipperMotorPower = Range.clip(flipperMotorPower, -1, 1);
+            rollerFlipper.setPower(flipperMotorPower);
 
             //Intake
-            double intakePower = gamepad1.touchpad_finger_1_x;
 
-            intake1.setPower(intakePower);
-            intake2.setPower(intakePower);
-            intake3.setPower(intakePower);
-            intake4.setPower(intakePower);
+            intakeMotorPower = gamepad1.touchpad_finger_1_y;
+            intakeMotorPower = Range.clip(intakeMotorPower, -1, 1);
+            Intake1.setPower(intakeMotorPower);
+            Intake2.setPower(intakeMotorPower);
+
+            // Upper rack & pinion slide
+            // This one uses servos if i remember
+
+            upperRackPower = gamepad1.touchpad_finger_2_y;
+            upperRackPower = Range.clip(upperRackPower, -1, 1);
+            upperRack.setPosition(upperRackPower);
+            //motor component
+            upperRackMotorPower = gamepad1.touchpad_finger_2_x;
+            upperRackMotorPower = Range.clip(upperRackMotorPower, -1, 1);
+            upperRackMotor.setPower(upperRackMotorPower);
+
+            // Capper
+            capperPower = gamepad1.left_trigger;
+            capperPower = Range.clip(capperPower, -1, 1);
+            Capper.setPower(capperPower);
 
             }
 
             telemetry.addData("LF Power:", motorFL.getPower());
             telemetry.addData("LB Power:", motorBL.getPower());
             telemetry.addData("RF Power:", motorFR.getPower());
-            telemetry.addData("RB P ower:", motorBR.getPower());
-            telemetry.addData("Lift Power:",Lift.getPower());
-            telemetry.addData("Lift Encoder Position: ", Lift.getCurrentPosition());
+            telemetry.addData("RB Power:", motorBR.getPower());
+            telemetry.addData("Lift Power:",Lift1.getPower());
+            telemetry.addData("Lift Power:",Lift2.getPower());
+            telemetry.addData("Lift Encoder Position: ", Lift1.getCurrentPosition());
+            telemetry.addData("Lift Encoder Position: ", Lift2.getCurrentPosition());
+            telemetry.addData("Roller Flipper Power:",rollerFlipper.getPower());
+            telemetry.addData("Roller Flipper Encoder Position: ", rollerFlipper.getCurrentPosition());
+            telemetry.addData("Intake1 Power:",Intake1.getPower());
+            telemetry.addData("Intake2 Power:",Intake2.getPower());
+            telemetry.addData("Intake1 Encoder Position: ",Intake1.getCurrentPosition());
+            telemetry.addData("Intake2 Encoder Position: ", Intake2.getCurrentPosition());
+            telemetry.addData("Upper Rack Power:",upperRack.getPosition());
+            telemetry.addData("Upper Rack Motor Power:",upperRackMotor.getPower());
+            //telemetry.addData("Upper Rack Encoder Position: ",upperRack.getCurrentPosition());
+            telemetry.addData("Upper Rack Motor Encoder Position: ",upperRackMotor.getCurrentPosition());
+            telemetry.addData("Capper Power:",Capper.getPower());
+            telemetry.addData("Capper Encoder Position: ", Capper.getCurrentPosition());
+
             telemetry.update();
 
 

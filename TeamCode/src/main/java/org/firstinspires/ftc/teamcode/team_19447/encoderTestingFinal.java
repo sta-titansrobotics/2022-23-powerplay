@@ -139,8 +139,12 @@ public class encoderTestingFinal extends LinearOpMode {
         motorBR.setPower(speed);
 
         //while loop to stall/delay the next command
-        while(motorFL.isBusy() && motorBL.isBusy() && motorFR.isBusy() && motorBR.isBusy()) {
-
+        while(motorFL.isBusy() && motorBL.isBusy() && motorFR.isBusy() && motorBR.isBusy()) { //idk if i have to update telemetry again??
+             telemetry.addData("motorFL Encoder Position: ",motorFL.getCurrentPosition());
+             telemetry.addData("motorBL Encoder Position: ",motorBL.getCurrentPosition());
+             telemetry.addData("motorFR Encoder Position: ",motorFR.getCurrentPosition());
+             telemetry.addData("motorBR Encoder Position: ",motorBR.getCurrentPosition());
+             telemetry.update();
         }
 
         //Stop driving so that it can perform the next command.

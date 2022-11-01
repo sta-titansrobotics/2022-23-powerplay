@@ -104,7 +104,7 @@ public class encoderTestingFinal extends LinearOpMode {
             motorFR.setTargetPosition((rightPos1) * ticks2);
             motorBR.setTargetPosition((rightPos2) * ticks2);
 
-        } else if (((leftPos2 > 0) && (rightPos1 > 0)) || ((leftPos2 == 0) && (rightPos1 == 0))){
+        } else if (((leftPos2 > 0) && (rightPos1 > 0)) || ((leftPos1 > 0) && (rightPos2 > 0))){
             //Strafing diagonally forward right or left, respectively.
             motorFL.setTargetPosition((leftPos1) * ticks2);
             motorBL.setTargetPosition((leftPos2) * ticks2);
@@ -138,7 +138,7 @@ public class encoderTestingFinal extends LinearOpMode {
         motorFR.setPower(speed);
         motorBR.setPower(speed);
 
-        //while loop to stall/delay the next command
+        //while loop to stall/delay the next command -- use telemetry here?
         while(motorFL.isBusy() && motorBL.isBusy() && motorFR.isBusy() && motorBR.isBusy()) { //idk if i have to update telemetry again??
              telemetry.addData("motorFL Encoder Position: ",motorFL.getCurrentPosition());
              telemetry.addData("motorBL Encoder Position: ",motorBL.getCurrentPosition());

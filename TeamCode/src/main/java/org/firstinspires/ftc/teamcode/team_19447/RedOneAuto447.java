@@ -55,8 +55,9 @@ public class RedOneAuto447 extends LinearOpMode {
     //Building the circuit:
 
       //The ground junction:
-        drive(-10, -10, 10, 10, 1); //turn left ~ 45 degrees
-        drive(30, 30, 30, 30, 1);
+        drive(-20, -20, 20, 20, 1); //turn left ~ 45 degrees
+        System.out.println(leftPos1);
+        drive(40, 40, 40, 40, 1);
         drive(-20,-20,-20,-20,1);
 
       //The second pole:
@@ -140,7 +141,6 @@ public class RedOneAuto447 extends LinearOpMode {
 
         //will stop automatically but need to prevent any other code from conflicting
         while(opModeIsActive() && motorFL.isBusy() && motorBL.isBusy() && motorFR.isBusy() && motorBR.isBusy()) {
-            idle();
 
         }
 

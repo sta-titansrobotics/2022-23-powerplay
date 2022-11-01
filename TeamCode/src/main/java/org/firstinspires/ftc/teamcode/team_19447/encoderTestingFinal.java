@@ -59,7 +59,19 @@ public class encoderTestingFinal extends LinearOpMode {
         //ex: this command will get the robot to strafe left for 9cm at a speed of 1
         drive(-9, 9, 9, -9, 1);
 
+        while (opModeIsActive()) {
+            telemetry.addData("LF Power:", motorFL.getPower());
+            telemetry.addData("LB Power:", motorBL.getPower());
+            telemetry.addData("RF Power:", motorFR.getPower());
+            telemetry.addData("RB Power:", motorBR.getPower());
+            telemetry.addData("motorFL Encoder Position: ",motorFL.getCurrentPosition());
+            telemetry.addData("motorBL Encoder Position: ",motorBL.getCurrentPosition());
+            telemetry.addData("motorFR Encoder Position: ",motorFR.getCurrentPosition());
+            telemetry.addData("motorBR Encoder Position: ",motorBR.getCurrentPosition());
+            telemetry.update();
+        }
     }
+
     //will use a function that will take the distance and speed of the motors based on the rotation
     //void because no return value
     public void drive(int leftTarget1, int leftTarget2, int rightTarget1, int rightTarget2, double speed) {

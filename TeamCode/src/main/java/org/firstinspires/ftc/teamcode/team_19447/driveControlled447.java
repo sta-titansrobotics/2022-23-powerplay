@@ -30,10 +30,6 @@ public class driveControlled447 extends LinearOpMode {
         DcMotor Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
         Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        //Turret
-        DcMotor Turret = hardwareMap.get(DcMotor.class, "turret");
-        Turret.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        double turretPower;
 
         //Roller Flipper
         DcMotor rollerFlipper = hardwareMap.get(DcMotor.class, "rollerFlipper");
@@ -138,9 +134,19 @@ public class driveControlled447 extends LinearOpMode {
             Lift2.setPower(liftPower);
             //testd saadsfsadaaaasd fdsa df sa
             //Turret
+
+                    //Motor for turret
+            DcMotor Lift = hardwareMap.get(DcMotor.class, "Turret");
+            Lift.setDirection(DcMotor.Direction.FORWARD);
+            Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            double turretPower;
+
+                    //Servo for turret
+            Servo leftClaw = hardwareMap.get(Servo.class, "leftClaw");
+
             turretPower = gamepad1.right_stick_x;
             turretPower = Range.clip(turretPower, -1, 1);
-            Turret.setPower(turretPower);
+            TurretServo.setPosition(turretPower);
 
             //a lot of other stuff will be added too unfortunately
 

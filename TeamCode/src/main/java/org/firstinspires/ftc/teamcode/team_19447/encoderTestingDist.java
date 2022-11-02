@@ -53,9 +53,12 @@ public class encoderTestingDist extends LinearOpMode {
         //can now set drive distance because of the function below; now we just need to input the distance
         //can also control the direction using the mecanum drivetrain directions here: https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
 
+        telemetry.addData("start drive","");
+        telemetry.update();
         //ex: this command will get the robot to travel forward (all target values are positive) for 10cm at a speed of 2
         drive(1, 1, 1, 1, 1);
-
+        telemetry.addData("end drive","");
+        telemetry.update();
 
     }
     //will use a function that will take the distance and speed of the motors based on the rotation

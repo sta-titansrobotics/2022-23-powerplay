@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-
 @Autonomous
 public class encoderTestingFinal extends LinearOpMode {
 
@@ -47,6 +46,11 @@ public class encoderTestingFinal extends LinearOpMode {
         rightPos1 = 0;
         rightPos2 = 0;
 
+        motorFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         //any code after this command will not be executed until the match has started
         waitForStart();
 
@@ -54,12 +58,25 @@ public class encoderTestingFinal extends LinearOpMode {
         //can also control the direction using the mecanum drivetrain directions here: https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
 
         //ex: this command will get the robot to travel forward (all target values are positive) for 10cm at a speed of 2
-        drive(10, 10, 10, 10, 2);
+        drive(10, 10, 10, 10, 1);
 
         //ex: this command will get the robot to strafe left for 9cm at a speed of 1
         drive(-9, 9, 9, -9, 1);
 
+        motorFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        while (opModeIsActive()) {
+            telemetry.addData("motorFL Encoder Position: ",motorFL.getCurrentPosition());
+            telemetry.addData("motorBL Encoder Position: ",motorBL.getCurrentPosition());
+            telemetry.addData("motorFR Encoder Position: ",motorFR.getCurrentPosition());
+            telemetry.addData("motorBR Encoder Position: ",motorBR.getCurrentPosition());
+            telemetry.update();
+        }
     }
+
     //will use a function that will take the distance and speed of the motors based on the rotation
     //void because no return value
     public void drive(int leftTarget1, int leftTarget2, int rightTarget1, int rightTarget2, double speed) {
@@ -96,7 +113,7 @@ public class encoderTestingFinal extends LinearOpMode {
             motorFR.setTargetPosition((rightPos1) * ticks2);
             motorBR.setTargetPosition((rightPos2) * ticks2);
 
-        } else if (((leftPos2 > 0) && (rightPos1 > 0)) || ((leftPos2 == 0) && (rightPos1 == 0))){
+        } else if (((leftPos2 > 0) && (rightPos1 > 0)) || ((leftPos1 > 0) && (rightPos2 > 0))){
             //Strafing diagonally forward right or left, respectively.
             motorFL.setTargetPosition((leftPos1) * ticks2);
             motorBL.setTargetPosition((leftPos2) * ticks2);

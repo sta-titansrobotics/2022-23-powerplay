@@ -13,6 +13,9 @@ package org.firstinspires.ftc.teamcode.team_19446;
         import java.net.URL;
         import java.util.List;
         import org.firstinspires.ftc.robotcore.external.ClassFactory;
+        import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+        import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaCurrentGame;
         import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
         import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
         import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
@@ -34,10 +37,11 @@ package org.firstinspires.ftc.teamcode.team_19446;
 //@Disabled
 public class TFOD extends LinearOpMode {
     //
-    // "primary:FIRST/tflitemodels/detect.tflite" "primary:FIRST/tflitemodels/labelmap.txt"
-    private static final String TFOD_MODEL_FILE = "content://com.android.externalstorage.documents/document/primary%3AFIRST%2Ftflitemodels%2Fdetect.tflite";
-    private static final String TFOD_MODEL_LABELS = "content://com.android.externalstorage.documents/document/primary%3AFIRST%2Ftflitemodels%2Flabelmap.txt";
+    // "primary:FIRST/tflitemodels/TFODmodel.tflite" "primary:FIRST/tflitemodels/labellist.txt"
+    private static final String TFOD_MODEL_FILE = "content://com.android.externalstorage.documents/document/primary%3AFIRST%2Ftflitemodels%2FTFODmodel.tflite";
+    private static final String TFOD_MODEL_LABELS = "content://com.android.externalstorage.documents/document/primary%3AFIRST%2Ftflitemodels%2Flabellist.txt";
     private static URI MODEL_FILE, MODEL_LABELS;
+    private static final String TFOD_MODEL_ASSET = "primary:FIRST/tflitemodels/TFODmodel.tflite";
 
     static {
         try {
@@ -84,7 +88,7 @@ public class TFOD extends LinearOpMode {
         readLabels();
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
-        initVuforia();
+        initVuforia("Webcam 1");
         initTfod();
 
         /**
@@ -112,12 +116,17 @@ public class TFOD extends LinearOpMode {
 
         if (opModeIsActive()) {
             while (opModeIsActive()) {
+                if (tfod == null){
+                    telemetry.addData("No", "aa");
+                }
                 if (tfod != null) {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                     if (updatedRecognitions != null) {
                         telemetry.addData("# Object Detected", updatedRecognitions.size());
+
+
 
                         // step through the list of recognitions and display boundary info.
                         int i = 0;
@@ -127,6 +136,7 @@ public class TFOD extends LinearOpMode {
                                     recognition.getLeft(), recognition.getTop());
                             telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                                     recognition.getRight(), recognition.getBottom());
+
                         }
                         telemetry.update();
                     }
@@ -135,26 +145,28 @@ public class TFOD extends LinearOpMode {
         }
 
         if (tfod != null) {
-            tfod.shutdown();
+           tfod.shutdown();
         }
     }
 
     /**
      * Initialize the Vuforia localization engine.
      */
-    private void initVuforia() {
+    private void initVuforia(String cameraName) {
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          */
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
+        parameters.cameraName = hardwareMap.get(WebcamName.class, cameraName);
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
         // Loading trackables is not necessary for the TensorFlow Object Detection engine.
+
     }
 
     /**
@@ -166,16 +178,20 @@ public class TFOD extends LinearOpMode {
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfodParameters.minResultConfidence = (float)0.6;
 
+        try {
+            tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+        }catch(Exception e) {
+            telemetry.addData("not working", "sdf");
+        }
 
-        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
 
         while (tfod==null);
 
         if(labels != null) {
-            tfod.loadModelFromFile(TFOD_MODEL_FILE, labels);
+            tfod.loadModelFromAsset(TFOD_MODEL_ASSET, labels);
         }
 
-        tfod.loadModelFromAsset(TFOD_MODEL_FILE, labels);
+        //tfod.loadModelFromAsset(TFOD_MODEL_FILE, labels);
 
 
 
@@ -198,7 +214,8 @@ public class TFOD extends LinearOpMode {
             e.printStackTrace();
         }
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(stream))) {
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
             int index = 0;
             while (br.ready()) {
                 // skip the first row of the labelmap.txt file.
@@ -220,6 +237,7 @@ public class TFOD extends LinearOpMode {
         } catch (Exception e) {
             telemetry.addData("Exception", e.getLocalizedMessage());
             telemetry.update();
+            labelList.add("TFODTest 2");
         }
 
         if (labelList.size() > 0) {

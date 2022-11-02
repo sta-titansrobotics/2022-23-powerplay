@@ -1,5 +1,6 @@
+//this is the original file, which worked 2 weeks ago before the robot was disassembled
+
 package org.firstinspires.ftc.teamcode.team_19447;
-//Used if our bot is on the top red side of the arena
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -8,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 
 @Autonomous
-public class RedOneAuto447 extends LinearOpMode {
+public class encoderTestingDist extends LinearOpMode {
 
     //Set motor variables
     private DcMotor motorFL;
@@ -52,20 +53,11 @@ public class RedOneAuto447 extends LinearOpMode {
         //can now set drive distance because of the function below; now we just need to input the distance
         //can also control the direction using the mecanum drivetrain directions here: https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
 
-    //Building the circuit:
+        //ex: this command will get the robot to travel forward (all target values are positive) for 10cm at a speed of 2
+        drive(10, 10, 10, 10, 2);
 
-      //The ground junction:
-        drive(-20, -20, 20, 20, 1); //turn left ~ 45 degrees
-        System.out.println(leftPos1);
-        drive(40, 40, 40, 40, 1);
-        drive(-20,-20,-20,-20,1);
-
-      //The second pole:
-        drive(10, 10, -10, -10, 1); //revert to a straight-forward position
-        drive(40, 40, 40, 40, 1);
-        //do something with the lift here
-
-      //The third pole
+        //ex: this command will get the robot to strafe left for 9cm at a speed of 1
+        drive(-9, 9, 9, -9, 1);
 
     }
     //will use a function that will take the distance and speed of the motors based on the rotation
@@ -77,7 +69,6 @@ public class RedOneAuto447 extends LinearOpMode {
 
         int ticks1 = (int) forwardTicks;
         int ticks2 = (int) strafeTicks;
-
 
         leftPos1 += leftTarget1; //By adding the "+=", it makes it equivalent to leftPos1 = leftPos1 + leftTarget1, therefore it will allow adding values to the position based on what the target is.
         leftPos2 += leftTarget2; //This will therefore change where the motor needs to be by the specific inputted amount
@@ -140,7 +131,7 @@ public class RedOneAuto447 extends LinearOpMode {
         motorBR.setPower(speed);
 
         //will stop automatically but need to prevent any other code from conflicting
-        while(opModeIsActive() && motorFL.isBusy() && motorBL.isBusy() && motorFR.isBusy() && motorBR.isBusy()) {
+        while(motorFL.isBusy() && motorBL.isBusy() && motorFR.isBusy() && motorBR.isBusy()) {
 
         }
 

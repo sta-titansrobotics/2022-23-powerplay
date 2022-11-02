@@ -43,6 +43,14 @@ public class driveControlled447 extends LinearOpMode {
         Servo rollerFlipper2 = hardwareMap.get(Servo.class, "rollerFlipper 2");
         rollerFlipper2.setPosition(0);
         double rollerFlipper2Power;
+        int clickA = 0;
+
+        if (clickA %2 == 1){
+            rollerFlipper2Power = -0.5;
+        }
+        else{
+            rollerFlipper2Power = 0.5;
+        }
 
         //Intake
         DcMotor Intake1 = hardwareMap.get(DcMotor.class, "Intake1");
@@ -142,9 +150,12 @@ public class driveControlled447 extends LinearOpMode {
             flipperMotorPower = Range.clip(flipperMotorPower, -1, 1);
             rollerFlipper.setPower(flipperMotorPower);
 
-            rollerFlipper2Power = gamepad1.touchpad_finger_1_y;
-            rollerFlipper2Power = Range.clip(rollerFlipper2Power, -1, 1);
-            rollerFlipper2.setPosition(rollerFlipper2Power);
+            //don't need | rollerFlipper2Power = gamepad1.right_stick_y;
+            //don't need | rollerFlipper2Power = Range.clip(rollerFlipper2Power, -1, 1)
+            if (gamepad1.a){
+                rollerFlipper2.setPosition(rollerFlipper2Power);
+                clickA +=1;
+            }
 
             //Intake
 

@@ -40,6 +40,10 @@ public class driveControlled447 extends LinearOpMode {
         rollerFlipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         double flipperMotorPower;
 
+        Servo rollerFlipper2 = hardwareMap.get(Servo.class, "rollerFlipper 2");
+        rollerFlipper2.setPosition(0);
+        double rollerFlipper2Power;
+
         //Intake
         DcMotor Intake1 = hardwareMap.get(DcMotor.class, "Intake1");
         Intake1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -62,7 +66,8 @@ public class driveControlled447 extends LinearOpMode {
 
         waitForStart();
 
-        if (isStopRequested()) return;
+        if (isStopRequested())
+            return;
 
 
         while (opModeIsActive()) {
@@ -123,7 +128,7 @@ public class driveControlled447 extends LinearOpMode {
             liftPower = Range.clip(liftPower, -1, 1);
             Lift1.setPower(liftPower);
             Lift2.setPower(liftPower);
-            //testd saadsfsadaaaasd fds
+            //testd saadsfsadaaaasd fdsa df sa
             //Turret
             turretPower = gamepad1.right_stick_x;
             turretPower = Range.clip(turretPower, -1, 1);
@@ -136,6 +141,10 @@ public class driveControlled447 extends LinearOpMode {
             flipperMotorPower = gamepad1.touchpad_finger_1_y;
             flipperMotorPower = Range.clip(flipperMotorPower, -1, 1);
             rollerFlipper.setPower(flipperMotorPower);
+
+            rollerFlipper2Power = gamepad1.touchpad_finger_1_y;
+            rollerFlipper2Power = Range.clip(rollerFlipper2Power, -1, 1);
+            rollerFlipper2.setPosition(rollerFlipper2Power);
 
             //Intake
 

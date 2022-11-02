@@ -30,15 +30,23 @@ public class driveControlled447 extends LinearOpMode {
         DcMotor Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
         Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        //Turret
-        DcMotor Turret = hardwareMap.get(DcMotor.class, "turret");
-        Turret.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        double turretPower;
 
         //Roller Flipper
         DcMotor rollerFlipper = hardwareMap.get(DcMotor.class, "rollerFlipper");
         rollerFlipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         double flipperMotorPower;
+
+        Servo rollerFlipper2 = hardwareMap.get(Servo.class, "rollerFlipper 2");
+        rollerFlipper2.setPosition(0);
+        double rollerFlipper2Power;
+        int clickA = 0;
+
+        if (clickA %2 == 1){
+            rollerFlipper2Power = -0.5;
+        }
+        else{
+            rollerFlipper2Power = 0.5;
+        }
 
         //Intake
         DcMotor Intake1 = hardwareMap.get(DcMotor.class, "Intake1");
@@ -62,7 +70,8 @@ public class driveControlled447 extends LinearOpMode {
 
         waitForStart();
 
-        if (isStopRequested()) return;
+        if (isStopRequested())
+            return;
 
 
         while (opModeIsActive()) {
@@ -123,11 +132,21 @@ public class driveControlled447 extends LinearOpMode {
             liftPower = Range.clip(liftPower, -1, 1);
             Lift1.setPower(liftPower);
             Lift2.setPower(liftPower);
-
+            //testd saadsfsadaaaasd fdsa df sa
             //Turret
+
+                    //Motor for turret
+            DcMotor Lift = hardwareMap.get(DcMotor.class, "Turret");
+            Lift.setDirection(DcMotor.Direction.FORWARD);
+            Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            double turretPower;
+
+                    //Servo for turret
+            Servo leftClaw = hardwareMap.get(Servo.class, "leftClaw");
+
             turretPower = gamepad1.right_stick_x;
             turretPower = Range.clip(turretPower, -1, 1);
-            Turret.setPower(turretPower);
+            TurretServo.setPosition(turretPower);
 
             //a lot of other stuff will be added too unfortunately
 
@@ -136,6 +155,13 @@ public class driveControlled447 extends LinearOpMode {
             flipperMotorPower = gamepad1.touchpad_finger_1_y;
             flipperMotorPower = Range.clip(flipperMotorPower, -1, 1);
             rollerFlipper.setPower(flipperMotorPower);
+
+            //don't need | rollerFlipper2Power = gamepad1.right_stick_y;
+            //don't need | rollerFlipper2Power = Range.clip(rollerFlipper2Power, -1, 1)
+            if (gamepad1.a){
+                rollerFlipper2.setPosition(rollerFlipper2Power);
+                clickA +=1;
+            }
 
             //Intake
 
@@ -177,11 +203,11 @@ public class driveControlled447 extends LinearOpMode {
             telemetry.addData("Intake1 Encoder Position: ",Intake1.getCurrentPosition());
             telemetry.addData("Intake2 Encoder Position: ", Intake2.getCurrentPosition());
             telemetry.addData("Upper Rack Power:",upperRack.getPosition());
-            telemetry.addData("Upper Rack Motor Power:",upperRackMotor.getPower();
+            telemetry.addData("Upper Rack Motor Power:",upperRackMotor.getPower());
             telemetry.addData("Upper Rack Motor Encoder Position: ",upperRackMotor.getCurrentPosition());
             telemetry.addData("Capper Power:",Capper.getPower());
             telemetry.addData("Capper Encoder Position: ", Capper.getCurrentPosition());
-
+            telemetry.addData("Roller Flipper 2(Servo)", rollerFlipper2.getPosition());
             telemetry.update();
 
 

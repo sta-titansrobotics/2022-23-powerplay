@@ -177,8 +177,7 @@ public class driveControlled447 extends LinearOpMode {
             telemetry.addData("Intake1 Encoder Position: ",Intake1.getCurrentPosition());
             telemetry.addData("Intake2 Encoder Position: ", Intake2.getCurrentPosition());
             telemetry.addData("Upper Rack Power:",upperRack.getPosition());
-            telemetry.addData("Upper Rack Motor Power:",upperRackMotor.getPower());
-            //telemetry.addData("Upper Rack Encoder Position: ",upperRack.getCurrentPosition());
+            telemetry.addData("Upper Rack Motor Power:",upperRackMotor.getPower();
             telemetry.addData("Upper Rack Motor Encoder Position: ",upperRackMotor.getCurrentPosition());
             telemetry.addData("Capper Power:",Capper.getPower());
             telemetry.addData("Capper Encoder Position: ", Capper.getCurrentPosition());

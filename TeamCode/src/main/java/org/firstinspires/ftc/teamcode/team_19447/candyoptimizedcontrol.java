@@ -48,7 +48,7 @@ public class candyoptimizedcontrol extends LinearOpMode {
             Lift.setPower(1);
         }
         //Lift will go down when right stick is moved down:
-        if (gamepad1.right_stick_y == 100){
+        if (gamepad1.right_stick_y == -100){
             Lift.setPower(-1);
         }
 

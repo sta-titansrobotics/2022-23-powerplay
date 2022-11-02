@@ -36,6 +36,10 @@ public class driveControlled447 extends LinearOpMode {
         rollerFlipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         double flipperMotorPower;
 
+        Servo rollerFlipper2 = hardwareMap.get(Servo.class, "rollerFlipper 2");
+        rollerFlipper2.setPosition(0);
+        double rollerFlipper2Power;
+
         //Intake
         DcMotor Intake1 = hardwareMap.get(DcMotor.class, "Intake1");
         Intake1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -58,7 +62,8 @@ public class driveControlled447 extends LinearOpMode {
 
         waitForStart();
 
-        if (isStopRequested()) return;
+        if (isStopRequested())
+            return;
 
 
         while (opModeIsActive()) {
@@ -119,7 +124,7 @@ public class driveControlled447 extends LinearOpMode {
             liftPower = Range.clip(liftPower, -1, 1);
             Lift1.setPower(liftPower);
             Lift2.setPower(liftPower);
-
+            //testd saadsfsadaaaasd fdsa df sa
             //Turret
 
                     //Motor for turret
@@ -142,6 +147,10 @@ public class driveControlled447 extends LinearOpMode {
             flipperMotorPower = gamepad1.touchpad_finger_1_y;
             flipperMotorPower = Range.clip(flipperMotorPower, -1, 1);
             rollerFlipper.setPower(flipperMotorPower);
+
+            rollerFlipper2Power = gamepad1.touchpad_finger_1_y;
+            rollerFlipper2Power = Range.clip(rollerFlipper2Power, -1, 1);
+            rollerFlipper2.setPosition(rollerFlipper2Power);
 
             //Intake
 
@@ -184,11 +193,10 @@ public class driveControlled447 extends LinearOpMode {
             telemetry.addData("Intake2 Encoder Position: ", Intake2.getCurrentPosition());
             telemetry.addData("Upper Rack Power:",upperRack.getPosition());
             telemetry.addData("Upper Rack Motor Power:",upperRackMotor.getPower());
-            //telemetry.addData("Upper Rack Encoder Position: ",upperRack.getCurrentPosition());
             telemetry.addData("Upper Rack Motor Encoder Position: ",upperRackMotor.getCurrentPosition());
             telemetry.addData("Capper Power:",Capper.getPower());
             telemetry.addData("Capper Encoder Position: ", Capper.getCurrentPosition());
-
+            telemetry.addData("Roller Flipper 2(Servo)", rollerFlipper2.getPosition());
             telemetry.update();
 
 

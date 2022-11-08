@@ -2,12 +2,14 @@
 
 package org.firstinspires.ftc.teamcode.team_19447;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @Autonomous
+@Disabled
 public class encoderTestingFinal extends LinearOpMode {
 
     //Set motor variables
@@ -62,11 +64,6 @@ public class encoderTestingFinal extends LinearOpMode {
 
         //ex: this command will get the robot to strafe left for 9cm at a speed of 1
         drive(-9, 9, 9, -9, 1);
-
-        motorFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         while (opModeIsActive()) {
             telemetry.addData("motorFL Encoder Position: ",motorFL.getCurrentPosition());
@@ -149,7 +146,11 @@ public class encoderTestingFinal extends LinearOpMode {
 
         //while loop to stall/delay the next command
         while(motorFL.isBusy() && motorBL.isBusy() && motorFR.isBusy() && motorBR.isBusy()) {
-
+            telemetry.addData("motorFL Encoder Position: ",motorFL.getCurrentPosition());
+            telemetry.addData("motorBL Encoder Position: ",motorBL.getCurrentPosition());
+            telemetry.addData("motorFR Encoder Position: ",motorFR.getCurrentPosition());
+            telemetry.addData("motorBR Encoder Position: ",motorBR.getCurrentPosition());
+            telemetry.update();
         }
 
         //Stop driving so that it can perform the next command.

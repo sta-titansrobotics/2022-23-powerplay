@@ -2,14 +2,12 @@
 
 package org.firstinspires.ftc.teamcode.team_19447;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @Autonomous
-@Disabled
 public class encoderTestingFinal extends LinearOpMode {
 
     //Set motor variables
@@ -133,10 +131,7 @@ public class encoderTestingFinal extends LinearOpMode {
 
         }
 
-        motorFL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorBL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorFR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorBR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        // The code gets stuck in between the Run to Position and the speed.
 
         //Encoders do not change speed automatically. Need to adjust speed ourselves
         motorFL.setPower(speed);

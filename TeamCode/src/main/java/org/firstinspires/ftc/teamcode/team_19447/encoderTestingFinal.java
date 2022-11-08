@@ -132,12 +132,16 @@ public class encoderTestingFinal extends LinearOpMode {
         }
 
         // The code gets stuck in between the Run to Position and the speed.
+        motorFL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorBL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorFR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorBR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         //Encoders do not change speed automatically. Need to adjust speed ourselves
-        motorFL.setPower(speed);
+        /*motorFL.setPower(speed);
         motorBL.setPower(speed);
         motorFR.setPower(speed);
-        motorBR.setPower(speed);
+        motorBR.setPower(speed);*/
 
         //while loop to stall/delay the next command
         while(motorFL.isBusy() && motorBL.isBusy() && motorFR.isBusy() && motorBR.isBusy()) {
@@ -149,10 +153,10 @@ public class encoderTestingFinal extends LinearOpMode {
         }
 
         //Stop driving so that it can perform the next command.
-        motorFL.setPower(0);
+        /*motorFL.setPower(0);
         motorBL.setPower(0);
         motorFR.setPower(0);
-        motorBR.setPower(0);
+        motorBR.setPower(0);*/
 
     }
 

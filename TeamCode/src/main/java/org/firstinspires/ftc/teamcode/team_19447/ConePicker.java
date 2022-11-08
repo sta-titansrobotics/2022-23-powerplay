@@ -59,6 +59,7 @@ public class ConePicker extends LinearOpMode {
     double  power   = 0;
     boolean rampUp  = true;
 
+    public ConePicker (double power)
 
     @Override
     public void runOpMode() {

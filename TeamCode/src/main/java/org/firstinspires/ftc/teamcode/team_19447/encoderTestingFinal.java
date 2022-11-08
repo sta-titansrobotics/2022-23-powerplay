@@ -63,6 +63,11 @@ public class encoderTestingFinal extends LinearOpMode {
         //ex: this command will get the robot to strafe left for 9cm at a speed of 1
         drive(-9, 9, 9, -9, 1);
 
+        motorFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         while (opModeIsActive()) {
             telemetry.addData("motorFL Encoder Position: ",motorFL.getCurrentPosition());
             telemetry.addData("motorBL Encoder Position: ",motorBL.getCurrentPosition());
@@ -138,10 +143,10 @@ public class encoderTestingFinal extends LinearOpMode {
         motorBR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         //Encoders do not change speed automatically. Need to adjust speed ourselves
-        /*motorFL.setPower(speed);
+        motorFL.setPower(speed);
         motorBL.setPower(speed);
         motorFR.setPower(speed);
-        motorBR.setPower(speed);*/
+        motorBR.setPower(speed);
 
         //while loop to stall/delay the next command
         while(motorFL.isBusy() && motorBL.isBusy() && motorFR.isBusy() && motorBR.isBusy()) {
@@ -153,10 +158,14 @@ public class encoderTestingFinal extends LinearOpMode {
         }
 
         //Stop driving so that it can perform the next command.
-        /*motorFL.setPower(0);
+        motorFL.setPower(0);
         motorBL.setPower(0);
         motorFR.setPower(0);
-        motorBR.setPower(0);*/
+        motorBR.setPower(0);
+        motorFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 

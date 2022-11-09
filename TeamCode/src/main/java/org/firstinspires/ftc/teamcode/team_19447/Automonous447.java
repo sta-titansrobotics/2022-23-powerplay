@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class Automonous447 extends LinearOpMode {
+public class Automonous447{
 
     DcMotor leftF, leftR, rightR, rightF;
     public static double forwardTicks;
@@ -187,27 +187,6 @@ public class Automonous447 extends LinearOpMode {
         rightR.setMode(mode);
     }
     //This must be placed AFTER all of the creations of methods or else everything breaks
-    public void runOpMode(){
-        /*
-        * Example Autonomous
-        * Moves forward, goes left and right, goes back to original position
-        */
-        forward(50);
-        leftStrafe(50);
-        rightStrafe(100);
-        leftStrafe(50);
-        backward(50);
-
-        //Logs encoder positions to telemetry
-        while (opModeIsActive()) {
-
-            telemetry.addData("encoder-front-left: ", leftF.getCurrentPosition());
-            telemetry.addData("encoder-rear-left: ", leftR.getCurrentPosition());
-            telemetry.addData("encoder-front-right: ", rightF.getCurrentPosition());
-            telemetry.addData("encoder-rear-right: ", rightR.getCurrentPosition());
-            telemetry.update();
-        }
-    }
 
 }
 

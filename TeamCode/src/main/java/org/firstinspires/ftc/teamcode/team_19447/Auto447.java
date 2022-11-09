@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.team_19447;
 
+//**DO NOT UNCOMMENT THE CODE AT ALL**
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -12,9 +14,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Team 19947 Autonomous Code
  */
 
+//**DO NOT UNCOMMENT THE CODE AT ALL**
 
-
-@Autonomous(name="Auto447", group="Robot")
+/*@Autonomous(name="Auto447", group="Robot")
 //@Disabled
 public class Auto447 extends LinearOpMode {
 
@@ -29,6 +31,19 @@ public class Auto447 extends LinearOpMode {
     private int leftPos2;
     private int rightPos1;
     private int rightPos2;
+
+    DcMotor leftFront, leftRear, rightRear, rightFront;
+    public static double forwardTicks;
+    public static double strafeTicks;
+
+    public encoderAuto(double forward, double strafe, DcMotor LF, DcMotor LB, DcMotor RF, DcMotor RB) {
+        forwardTicks = forward;
+        strafeTicks = strafe;
+        leftPos1 = LF;
+        leftPos2 = LB;
+        rightPos1 = RF;
+        rightPos2 = RB;
+    }
 
     public void runOpMode() {
 
@@ -174,6 +189,167 @@ public class Auto447 extends LinearOpMode {
         motorBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+        public void forward (double distanceCM) {
+
+            // convert encoder ticks to centimetres
+            double tick = distanceCM * forwardTicks;
+            int ticks = (int) tick;
+
+            setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            leftPos1.setTargetPosition(ticks);
+            leftPos2.setTargetPosition(ticks);
+            rightPos2.setTargetPosition(ticks);
+            rightPos1.setTargetPosition(ticks);
+
+            setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            motorOn(1);
+
+            while(rightPos2.isBusy() && rightPos1.isBusy() && leftPos2.isBusy() && leftPos1.isBusy()) {
+            }
+
+            stopDriving();
+
+            setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        }
+
+        public void backward(double distanceCM) {
+
+            double tick = distanceCM * forwardTicks;
+            int ticks = (int) tick;
+
+            setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            leftPos1.setTargetPosition(-ticks);
+            leftPos2.setTargetPosition(-ticks);
+            rightPos2.setTargetPosition(-ticks);
+            rightPos1.setTargetPosition(-ticks);
+
+            setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            motorOn(1);
+
+            while(leftPos1.isBusy() && leftPos2.isBusy() && rightPos2.isBusy() && rightPos1.isBusy()) {
+
+            }
+
+            stopDriving();
+            setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+        public void leftStrafe (double distanceCM) {
+            double tick = distanceCM * strafeTicks;
+            int ticks = (int) tick;
+
+            setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            leftPos1.setTargetPosition(-ticks);
+            leftPos2.setTargetPosition(ticks);
+            rightPos2.setTargetPosition(-ticks);
+            rightPos1.setTargetPosition(ticks);
+
+            setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            motorOn(1);
+
+            while(leftPos1.isBusy() && leftPos2.isBusy() && rightPos2.isBusy() && rightPos1.isBusy()) {
+
+            }
+
+            stopDriving();
+            setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+        public void rightStrafe(double distanceCM) {
+            double tick = distanceCM * strafeTicks;
+            int ticks = (int) tick;
+
+            setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            leftPos1.setTargetPosition(ticks);
+            leftPos2.setTargetPosition(-ticks);
+            rightPos2.setTargetPosition(ticks);
+            rightPos1.setTargetPosition(-ticks);
+
+            setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            motorOn(1);
+
+            while(leftPos1.isBusy() && leftPos2.isBusy() && rightPos2.isBusy() && rightPos1.isBusy()) {
+            }
+
+            stopDriving();
+            setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+        public void turnLeft(double distanceCM) {
+            double tick = distanceCM * strafeTicks;
+            int ticks = (int) tick;
+
+            setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            leftPos1.setTargetPosition(-ticks);
+            leftPos2.setTargetPosition(-ticks);
+            rightPos2.setTargetPosition(ticks);
+            rightPos1.setTargetPosition(ticks);
+
+            setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            motorOn(1);
+
+            while(leftPos1.isBusy() && leftPos2.isBusy() && rightPos2.isBusy() && rightPos1.isBusy()) {
+            }
+
+            stopDriving();
+            setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+        public void turnRight(double distanceCM) {
+            double tick = distanceCM * strafeTicks;
+            int ticks = (int) tick;
+
+            setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            leftPos1.setTargetPosition(-ticks);
+            leftPos2.setTargetPosition(-ticks);
+            rightPos2.setTargetPosition(-ticks);
+            rightPos1.setTargetPosition(-ticks);
+
+            setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            motorOn(1);
+
+            while(leftPos1.isBusy() && leftPos2.isBusy() && rightPos2.isBusy() && rightPos1.isBusy()) {
+            }
+
+            stopDriving();
+            setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+        public void motorOn(double power) {
+            leftPos1.setPower(power);
+            leftPos2.setPower(power);
+            rightPos1.setPower(power);
+            rightPos2.setPower(power);
+        }
+
+        public void stopDriving() {
+            leftPos1.setPower(0);
+            leftPos2.setPower(0);
+            rightPos1.setPower(0);
+            rightPos2.setPower(0);
+        }
+
+        public void setMode(DcMotor.RunMode mode) {
+            leftPos1.setMode(mode);
+            leftPos2.setMode(mode);
+            rightPos1.setMode(mode);
+            rightPos1.setMode(mode);
+
 
     }
 }

@@ -197,6 +197,17 @@ public class Automonous447 extends LinearOpMode {
         rightStrafe(100);
         leftStrafe(50);
         backward(50);
+
+        //Logs encoder positions to telemetry
+        while (opModeIsActive()) {
+
+            telemetry.addData("encoder-front-left: ", leftF.getCurrentPosition());
+            telemetry.addData("encoder-rear-left: ", leftR.getCurrentPosition());
+            telemetry.addData("encoder-front-right: ", rightF.getCurrentPosition());
+            telemetry.addData("encoder-rear-right: ", rightR.getCurrentPosition());
+            telemetry.update();
+        }
     }
+
 }
 

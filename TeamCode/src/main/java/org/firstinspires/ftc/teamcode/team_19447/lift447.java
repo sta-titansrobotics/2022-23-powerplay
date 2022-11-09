@@ -16,6 +16,12 @@ public class lift447 extends LinearOpMode {
         DcMotor Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
         Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        public void (int liftPower1, int liftPower2) {
+            Lift1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            Lift2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            Lift1.setTargetPosition();
+        }
+
 
     }
 }

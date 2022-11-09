@@ -8,3 +8,6 @@ Program RedOneAuto
 2022-11-08
 - Added basic automonous code that should make the robot be able to use the encoders to move in all directions
 TODO: Continue the ConePicker file
+
+
+Servo is in #5

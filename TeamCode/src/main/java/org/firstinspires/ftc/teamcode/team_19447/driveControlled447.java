@@ -155,6 +155,7 @@ public class driveControlled447 extends LinearOpMode {
 
             //Roller Flipper
 
+
             flipperMotorPower = gamepad1.touchpad_finger_1_y;
             flipperMotorPower = Range.clip(flipperMotorPower, -1, 1);
             rollerFlipper.setPower(flipperMotorPower);
@@ -188,6 +189,12 @@ public class driveControlled447 extends LinearOpMode {
             capperPower = gamepad1.left_trigger;
             capperPower = Range.clip(capperPower, -1, 1);
             Capper.setPower(capperPower);
+
+
+            //scissor picker-upper (idk the name lmao its the thing that goes in the hole of the cone and picks it up)
+            Servo scissorPicker = hardwareMap.get(Servo.class, "Scissor Picker");
+            upperRack.setPosition(0);
+            double scissorPickerPower;
 
             }
 

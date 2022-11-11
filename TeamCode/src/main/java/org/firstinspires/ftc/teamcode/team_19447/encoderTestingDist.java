@@ -143,6 +143,5 @@ public class encoderTestingDist extends LinearOpMode {
         motorBR.setPower(0);
 
     }
-
 }
 

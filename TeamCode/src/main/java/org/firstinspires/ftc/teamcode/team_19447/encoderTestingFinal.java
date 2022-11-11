@@ -12,23 +12,23 @@ public class encoderTestingFinal extends LinearOpMode {
 
     //Set motor variables
     private DcMotor motorFL;
-    private DcMotor motorBL;
-    private DcMotor motorFR;
-    private DcMotor motorBR;
+        private DcMotor motorBL;
+        private DcMotor motorFR;
+        private DcMotor motorBR;
 
-    //Initializing encoder positions
-    private int leftPos1;
-    private int leftPos2;
-    private int rightPos1;
-    private int rightPos2;
+        //Initializing encoder positions
+        private int leftPos1;
+        private int leftPos2;
+        private int rightPos1;
+        private int rightPos2;
 
-    public void runOpMode() {
+        public void runOpMode() {
 
-        //Initialize motors
-        motorFL = hardwareMap.get(DcMotor.class, "motorFrontLeft");
-        motorBL = hardwareMap.get(DcMotor.class, "motorBackLeft");
-        motorFR = hardwareMap.get(DcMotor.class, "motorFrontRight");
-        motorBR = hardwareMap.get(DcMotor.class, "motorBackRight");
+            //Initialize motors
+            motorFL = hardwareMap.get(DcMotor.class, "motorFrontLeft");
+            motorBL = hardwareMap.get(DcMotor.class, "motorBackLeft");
+            motorFR = hardwareMap.get(DcMotor.class, "motorFrontRight");
+            motorBR = hardwareMap.get(DcMotor.class, "motorBackRight");
 
         //set mode to stop and reset encoders -- resets encoders to the 0 position
         motorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

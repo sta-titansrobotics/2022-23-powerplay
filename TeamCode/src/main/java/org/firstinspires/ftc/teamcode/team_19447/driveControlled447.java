@@ -195,7 +195,15 @@ public class driveControlled447 extends LinearOpMode {
             Servo scissorPicker = hardwareMap.get(Servo.class, "Scissor Picker");
             upperRack.setPosition(0);
             double scissorPickerPower;
-
+            int scissorCount = 0;
+            if (gamepad1.a && scissorCount % 2 == 0) {
+                scissorCount++;
+                scissorPicker.setPosition(0.8);
+            }
+            else if (gamepad1.a && scissorCount % 2 == 1){
+                scissorCount++;
+                scissorPicker.setPosition(0);
+            }
             }
 
             telemetry.addData("LF Power:", motorFL.getPower());

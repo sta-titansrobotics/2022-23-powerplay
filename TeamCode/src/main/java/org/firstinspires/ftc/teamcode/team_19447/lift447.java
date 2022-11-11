@@ -1,27 +1,28 @@
 package org.firstinspires.ftc.teamcode.team_19447;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous
-public class lift447 extends LinearOpMode {
-    DcMotor rollerFlipper = null;
+public class lift447 {
+    DcMotor Lift1;
+    DcMotor Lift2;
+    public static double forwardTicks = 52.3;
 
-    @Override
-    public void runOpMode() {
+    public lift447(double liftPower1, double liftPower2) {
         //Lift (Two lifts)
-        DcMotor Lift1 = hardwareMap.get(DcMotor.class, "Lift 1");
-        Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        DcMotor Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
-        Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        public void (int liftPower1, int liftPower2) {
+       /* public void (int liftPower1, int liftPower2) {
             Lift1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             Lift2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            Lift1.setTargetPosition();
+            Lift1.setTargetPosition(ticks);
+        } */
+
+        public void Lift1 ( double cm){
+            double tick = cm * forwardTicks;
+            int ticks = (int) tick;
+
         }
 
 
     }
 }
+

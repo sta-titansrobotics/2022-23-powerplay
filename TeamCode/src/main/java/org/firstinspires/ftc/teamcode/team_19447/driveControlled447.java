@@ -192,17 +192,17 @@ public class driveControlled447 extends LinearOpMode {
 
 
             //scissor picker-upper (idk the name lmao its the thing that goes in the hole of the cone and picks it up)
-            //changes on and off via clickign the same button. if the user clicks once, it will go up, if the user clicks twice, it will go down. etc.
+            //changes on and off via clicking the same button. if the user clicks once, it will go up, if the user clicks twice, it will go down. etc.
             Servo scissorPicker = hardwareMap.get(Servo.class, "Scissor Picker");
             upperRack.setPosition(0);
             double scissorPickerPower;
             int scissorCount = 0;
             if (gamepad1.a && scissorCount % 2 == 0) {
-                scissorCount++;
+                scissorCount += 1;
                 scissorPicker.setPosition(0.8);
             }
-            else if (gamepad1.a && scissorCount % 2 == 1){
-                scissorCount++;
+            else {
+                scissorCount += 1;
                 scissorPicker.setPosition(0);
             }
             }

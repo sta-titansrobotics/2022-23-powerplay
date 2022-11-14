@@ -197,12 +197,11 @@ public class driveControlled447 extends LinearOpMode {
             upperRack.setPosition(0);
             double scissorPickerPower;
             int scissorCount = 0;
-            if (gamepad1.a && scissorCount % 2 == 0) {
+            if (gamepad1.a) {
                 scissorCount += 1;
                 scissorPicker.setPosition(0.8);
             }
             else {
-                scissorCount += 1;
                 scissorPicker.setPosition(0);
             }
             }

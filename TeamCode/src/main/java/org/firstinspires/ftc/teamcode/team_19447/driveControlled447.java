@@ -35,17 +35,6 @@ public class driveControlled447 extends LinearOpMode {
         rollerFlipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         double flipperMotorPower;
 
-        Servo rollerFlipper2 = hardwareMap.get(Servo.class, "rollerFlipper 2");
-        rollerFlipper2.setPosition(0);
-        double rollerFlipper2Power;
-        int clickA = 0;
-
-        if (clickA %2 == 1){ //clickA has to count up tho?? need to add clickA++??
-            rollerFlipper2Power = -0.5; //servo 90 deg to the left
-        }
-        else{
-            rollerFlipper2Power = 0.5; //servo 90 deg to the right
-        }
 
         //Intake
         DcMotor Intake1 = hardwareMap.get(DcMotor.class, "Intake1");
@@ -155,25 +144,43 @@ public class driveControlled447 extends LinearOpMode {
             //a lot of other stuff will be added too unfortunately
 
             //Roller Flipper
-
-
             flipperMotorPower = gamepad1.touchpad_finger_1_y;
             flipperMotorPower = Range.clip(flipperMotorPower, -1, 1);
             rollerFlipper.setPower(flipperMotorPower);
 
             //don't need | rollerFlipper2Power = gamepad1.right_stick_y;
             //don't need | rollerFlipper2Power = Range.clip(rollerFlipper2Power, -1, 1)
-            if (gamepad1.a){
+            Servo rollerFlipper2 = hardwareMap.get(Servo.class, "rollerFlipper 2");
+            rollerFlipper2.setPosition(0);
+            double rollerFlipper2Power;
+            int clickA = 0;
+
+            if (clickA % 2 == 1) { //clickA has to count up tho?? need to add clickA++??
+                rollerFlipper2Power = -0.5; //servo 90 deg to the left
+            } else {
+                rollerFlipper2Power = 0.5; //servo 90 deg to the right
+            }
+            if (gamepad1.a) {
                 rollerFlipper2.setPosition(rollerFlipper2Power);
-                clickA +=1;
+                clickA += 1;
             }
 
-            //Intake
+            //alternatively do this?:
+            if (gamepad1.right_bumper) {
+                rollerFlipper2.setPosition(0.25);
+                rollerFlipper.setPower(1);
+            }
+            if (gamepad1.left_bumper) {
+                rollerFlipper2.setPosition(-0.25);
+                rollerFlipper.setPower(1);
+            }
+
+           /* //Intake
 
             intakeMotorPower = gamepad1.touchpad_finger_1_y;
             intakeMotorPower = Range.clip(intakeMotorPower, -1, 1);
             Intake1.setPower(intakeMotorPower);
-            Intake2.setPower(intakeMotorPower);
+            Intake2.setPower(intakeMotorPower);*/
 
             // Upper rack & pinion slide
             // This one uses servos if i remember
@@ -198,15 +205,14 @@ public class driveControlled447 extends LinearOpMode {
             upperRack.setPosition(0);
             double scissorPickerPower;
             int scissorCount = 0;
-            if (gamepad1.a && scissorCount %2 == 0) {
-                scissorCount ++;
+            if (gamepad1.a && scissorCount % 2 == 0) {
+                scissorCount++;
                 scissorPicker.setPosition(0.8);
-            }
-            else {
+            } else {
                 scissorCount++;
                 scissorPicker.setPosition(0);
             }
-            }
+        }
 
             telemetry.addData("LF Power:", motorFL.getPower());
             telemetry.addData("LB Power:", motorBL.getPower());
@@ -227,7 +233,7 @@ public class driveControlled447 extends LinearOpMode {
             telemetry.addData("Upper Rack Motor Encoder Position: ",upperRackMotor.getCurrentPosition());
             telemetry.addData("Capper Power:",Capper.getPower());
             telemetry.addData("Capper Encoder Position: ", Capper.getCurrentPosition());
-            telemetry.addData("Roller Flipper 2(Servo)", rollerFlipper2.getPosition());
+            //telemetry.addData("Roller Flipper 2(Servo)", rollerFlipper2.getPosition());
             telemetry.update();
 
 

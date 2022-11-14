@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.team_19447;
 //Used if our bot is on the top red side of the arena
 
+import static android.os.SystemClock.sleep;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
 
 @Autonomous
 public class RedOneAuto447 extends LinearOpMode {
@@ -14,6 +16,8 @@ public class RedOneAuto447 extends LinearOpMode {
     private DcMotor motorBL;
     private DcMotor motorFR;
     private DcMotor motorBR;
+    private DcMotor Lift1;
+    private DcMotor Lift2;
 
     //Initializing encoder positions
     private int leftPos1;
@@ -28,6 +32,8 @@ public class RedOneAuto447 extends LinearOpMode {
         motorBL = hardwareMap.get(DcMotor.class, "motorBackLeft");
         motorFR = hardwareMap.get(DcMotor.class, "motorFrontRight");
         motorBR = hardwareMap.get(DcMotor.class, "motorBackRight");
+        Lift1 = hardwareMap.get(DcMotor.class, "motorFrontRight");
+        Lift2 = hardwareMap.get(DcMotor.class, "motorBackRight");
 
         //set mode to stop and reset encoders -- resets encoders to the 0 position
         motorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -55,7 +61,6 @@ public class RedOneAuto447 extends LinearOpMode {
 
       //The ground junction:
         drive(-20, -20, 20, 20, 1); //turn left ~ 45 degrees
-        System.out.println(leftPos1);
         drive(40, 40, 40, 40, 1);
         drive(-20,-20,-20,-20,1);
 
@@ -63,6 +68,10 @@ public class RedOneAuto447 extends LinearOpMode {
         drive(10, 10, -10, -10, 1); //revert to a straight-forward position
         drive(40, 40, 40, 40, 1);
         //do something with the lift here
+        Lift1.setPower(1);
+        Lift2.setPower(1);
+        sleep(100); //raise the lift for a given number of milliseconds - this we can just trial and error
+
 
       //The third pole
 

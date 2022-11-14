@@ -30,10 +30,6 @@ public class driveControlled447 extends LinearOpMode {
         DcMotor Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
         Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        Servo TurretServo = hardwareMap.get(Servo.class, "Upper Rack");
-        TurretServo.setPosition(0);
-        double turretServoPower;
-
         //Roller Flipper
         DcMotor rollerFlipper = hardwareMap.get(DcMotor.class, "rollerFlipper");
         rollerFlipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -131,25 +127,30 @@ public class driveControlled447 extends LinearOpMode {
             //Change buttons later
 
             //Lift (apparently two lifts?)
-            double liftPower = gamepad1.right_stick_y;
+            double liftPower = gamepad2.right_stick_y;
             liftPower = Range.clip(liftPower, -1, 1);
             Lift1.setPower(liftPower);
             Lift2.setPower(liftPower);
             //testd saadsfsadaaaasd fdsa df sa  huh?
             //Turret
 
-                    //Motor for turret
-            DcMotor Lift = hardwareMap.get(DcMotor.class, "Turret");
-            Lift.setDirection(DcMotor.Direction.FORWARD);
-            Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            double turretPower;
+            //Turret
+            DcMotor turret = hardwareMap.get(DcMotor.class, "Turret");
+            turret.setDirection(DcMotor.Direction.FORWARD);
+            if (gamepad2.left_bumper) {
+                turret.setPower(-1);
+            }
+            if (gamepad2.right_bumper) {
+                turret.setPower(1);
+            } else {
+                turret.setPower(0);
+            }
 
-                    //Servo for turret
-            Servo leftClaw = hardwareMap.get(Servo.class, "leftClaw");
+            //Horizontal Rack
+            Servo HoriRack = hardwareMap.get(Servo.class, "Upper Rack");
+            HoriRack.setPosition(0);
+            double horiServoRotation;
 
-            turretPower = gamepad1.right_stick_x;
-            turretPower = Range.clip(turretPower, -1, 1);
-            TurretServo.setPosition(turretPower);
 
             //a lot of other stuff will be added too unfortunately
 

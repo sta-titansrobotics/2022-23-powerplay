@@ -135,7 +135,7 @@ public class driveControlled447 extends LinearOpMode {
             liftPower = Range.clip(liftPower, -1, 1);
             Lift1.setPower(liftPower);
             Lift2.setPower(liftPower);
-            //testd saadsfsadaaaasd fdsa df sa
+            //testd saadsfsadaaaasd fdsa df sa  huh?
             //Turret
 
                     //Motor for turret
@@ -197,11 +197,12 @@ public class driveControlled447 extends LinearOpMode {
             upperRack.setPosition(0);
             double scissorPickerPower;
             int scissorCount = 0;
-            if (gamepad1.a) {
-                scissorCount += 1;
+            if (gamepad1.a && scissorCount %2 == 0) {
+                scissorCount ++;
                 scissorPicker.setPosition(0.8);
             }
             else {
+                scissorCount++;
                 scissorPicker.setPosition(0);
             }
             }

@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 
 @Autonomous
@@ -25,6 +26,10 @@ public class RedOneAuto447 extends LinearOpMode {
     private int rightPos1;
     private int rightPos2;
 
+    //Touch Sensors?
+    DigitalChannel Touch1;
+    DigitalChannel Touch2;
+
     public void runOpMode() {
 
         //Initialize motors
@@ -32,9 +37,15 @@ public class RedOneAuto447 extends LinearOpMode {
         motorBL = hardwareMap.get(DcMotor.class, "motorBackLeft");
         motorFR = hardwareMap.get(DcMotor.class, "motorFrontRight");
         motorBR = hardwareMap.get(DcMotor.class, "motorBackRight");
-        Lift1 = hardwareMap.get(DcMotor.class, "motorFrontRight");
-        Lift2 = hardwareMap.get(DcMotor.class, "motorBackRight");
-
+        //Lift
+        Lift1 = hardwareMap.get(DcMotor.class, "Lift1");
+        Lift2 = hardwareMap.get(DcMotor.class, "Lift2");
+        //Touch Sensors?
+        Touch1 = hardwareMap.get(DigitalChannel.class, "Touch1");
+        Touch2 = hardwareMap.get(DigitalChannel.class, "Touch2");
+        // set the digital channel to input.
+        Touch1.setMode(DigitalChannel.Mode.INPUT);
+        Touch2.setMode(DigitalChannel.Mode.INPUT);
         //set mode to stop and reset encoders -- resets encoders to the 0 position
         motorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -68,14 +79,33 @@ public class RedOneAuto447 extends LinearOpMode {
         drive(10, 10, -10, -10, 1); //revert to a straight-forward position
         drive(40, 40, 40, 40, 1);
         //do something with the lift here
-        Lift1.setPower(1);
-        Lift2.setPower(1);
+        lift(1,1);
         sleep(100); //raise the lift for a given number of milliseconds - this we can just trial and error
 
-
+        while (opModeIsActive()) {
+            telemetry.addData("motorFL Encoder Position: ",motorFL.getCurrentPosition());
+            telemetry.addData("motorBL Encoder Position: ",motorBL.getCurrentPosition());
+            telemetry.addData("motorFR Encoder Position: ",motorFR.getCurrentPosition());
+            telemetry.addData("motorBR Encoder Position: ",motorBR.getCurrentPosition());
+            telemetry.update();
+        }
       //The third pole
 
     }
+
+    public void lift(double power, long seconds){
+        Lift1.setPower(power);
+        Lift2.setPower(power);
+        sleep(seconds*1000);
+        while ((Touch1.getState() == false) && (Touch2.getState() == false)) {
+            telemetry.addData("Digital Touch", "Is Pressed");
+            Lift1.setPower(0);
+            Lift2.setPower(0);
+            break;
+        }
+        telemetry.update();
+    }
+
     //will use a function that will take the distance and speed of the motors based on the rotation
     //void because no return value
     public void drive(int leftTarget1, int leftTarget2, int rightTarget1, int rightTarget2, double speed) {

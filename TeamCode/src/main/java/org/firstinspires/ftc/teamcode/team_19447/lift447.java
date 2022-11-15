@@ -1,28 +1,32 @@
 package org.firstinspires.ftc.teamcode.team_19447;
 
+import static android.os.SystemClock.sleep;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class lift447 {
     DcMotor Lift1;
     DcMotor Lift2;
-    public static double forwardTicks = 52.3;
+    public static double liftPower;
 
-    public lift447(double liftPower1, double liftPower2) {
+    public lift447(double liftPower1, double liftPower2, double timeSecs) {
         //Lift (Two lifts)
+        double liftpower1 = liftPower1;
+        double liftpower2 = liftPower2;
+        double seconds = timeSecs;
 
-       /* public void (int liftPower1, int liftPower2) {
-            Lift1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            Lift2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            Lift1.setTargetPosition(ticks);
-        } */
+      /*  public void raise(double seconds){
+            liftpower1 =
+        }
 
-        public void Lift1 ( double cm){
-            double tick = cm * forwardTicks;
-            int ticks = (int) tick;
+        public void lower(double seconds){
 
         }
 
+       */
+
 
     }
+
 }
 

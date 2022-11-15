@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.Servo;
 
 
 @Autonomous
@@ -20,6 +21,8 @@ public class RedOneAuto447 extends LinearOpMode {
     private DcMotor Lift1;
     private DcMotor Lift2;
     private DcMotor Turret;
+    private Servo Pinion;
+    private Servo verticalRack;
 
     //Initializing encoder positions
     private int leftPos1;
@@ -49,6 +52,10 @@ public class RedOneAuto447 extends LinearOpMode {
         Touch2.setMode(DigitalChannel.Mode.INPUT);
         //Turret
         Turret = hardwareMap.get(DcMotor.class, "Turret");
+        //pinion
+        Pinion = hardwareMap.get(Servo.class, "Pinion");
+        //rack
+        verticalRack = hardwareMap.get(Servo.class, "verticalRack");
 
         //set mode to stop and reset encoders -- resets encoders to the 0 position
         motorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -116,7 +123,21 @@ public class RedOneAuto447 extends LinearOpMode {
         telemetry.update();
     }
 
-    //will use a function that will take the distance and speed of the motors based on the rotation
+    public void pinion(double position, long seconds){
+        Pinion.setPosition(position);
+        sleep(seconds*1000);
+    }
+
+    public void verticalRack(double position, long seconds){
+        verticalRack.setPosition(position);
+        sleep(seconds*1000);
+    }
+
+
+
+
+    //will use a function that will take the distance and speed of the motors based on the
+
     //void because no return value
     public void drive(int leftTarget1, int leftTarget2, int rightTarget1, int rightTarget2, double speed) {
 

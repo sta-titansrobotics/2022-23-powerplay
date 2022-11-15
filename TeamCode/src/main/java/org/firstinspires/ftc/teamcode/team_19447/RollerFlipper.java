@@ -23,10 +23,11 @@ public class RollerFlipper extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()){
-
+        //flipper position is controlled using the right stick
             flipperMotorPower = gamepad1.touchpad_finger_1_y;
             flipperMotorPower = Range.clip(flipperMotorPower, -1, 1);
             rollerFlipper.setPower(flipperMotorPower);
+
 
         }
 

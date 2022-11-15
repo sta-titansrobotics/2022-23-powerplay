@@ -54,15 +54,24 @@ public class encoderTestingFinal extends LinearOpMode {
         //can also control the direction using the mecanum drivetrain directions here: https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
 
         //ex: this command will get the robot to travel forward (all target values are positive) for 10cm at a speed of 2
-        drive(10, 10, 10, 10, 2);
+        drive(10,
+                10,
+                10,
+                10,
+                2);
 
         //ex: this command will get the robot to strafe left for 9cm at a speed of 1
-        drive(-9, 9, 9, -9, 1);
+        drive(-9,
+                9,
+                9,
+                -9,
+                1);
 
     }
+
     //will use a function that will take the distance and speed of the motors based on the rotation
     //void because no return value
-    public void drive(int leftTarget1, int leftTarget2, int rightTarget1, int rightTarget2, double speed) {
+    public void drive(int leftTarget1, int leftTarget2, int rightTarget1, int rightTarget2, int speed447) {
 
         double forwardTicks = 52.3;
         double strafeTicks = 54.05;
@@ -96,7 +105,7 @@ public class encoderTestingFinal extends LinearOpMode {
             motorFR.setTargetPosition((rightPos1) * ticks2);
             motorBR.setTargetPosition((rightPos2) * ticks2);
 
-        } else if (((leftPos2 > 0) && (rightPos1 > 0)) || ((leftPos2 == 0) && (rightPos1 == 0))){
+        } else if (((leftPos2 > 0) && (rightPos1 > 0)) || ((leftPos2 == 0) && (rightPos1 == 0))) {
             //Strafing diagonally forward right or left, respectively.
             motorFL.setTargetPosition((leftPos1) * ticks2);
             motorBL.setTargetPosition((leftPos2) * ticks2);
@@ -125,23 +134,22 @@ public class encoderTestingFinal extends LinearOpMode {
         motorBR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         //Encoders do not change speed automatically. Need to adjust speed ourselves
-        motorFL.setPower(speed);
-        motorBL.setPower(speed);
-        motorFR.setPower(speed);
-        motorBR.setPower(speed);
+        motorFL.setPower(speed447);
+        motorBL.setPower(speed447);
+        motorFR.setPower(speed447);
+        motorBR.setPower(speed447);
 
         //while loop to stall/delay the next command
-        while(motorFL.isBusy() && motorBL.isBusy() && motorFR.isBusy() && motorBR.isBusy()) {
+        while (!motorFL.isBusy() || !motorBL.isBusy() || !motorFR.isBusy() || !motorBR.isBusy()) {
+
+
+            //Stop driving so that it can perform the next command.
+            motorFL.setPower(0);
+            motorBL.setPower(0);
+            motorFR.setPower(0);
+            motorBR.setPower(0);
 
         }
 
-        //Stop driving so that it can perform the next command.
-        motorFL.setPower(0);
-        motorBL.setPower(0);
-        motorFR.setPower(0);
-        motorBR.setPower(0);
-
     }
-
 }
-

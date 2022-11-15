@@ -19,6 +19,7 @@ public class RedOneAuto447 extends LinearOpMode {
     private DcMotor motorBR;
     private DcMotor Lift1;
     private DcMotor Lift2;
+    private DcMotor Turret;
 
     //Initializing encoder positions
     private int leftPos1;
@@ -46,6 +47,9 @@ public class RedOneAuto447 extends LinearOpMode {
         // set the digital channel to input.
         Touch1.setMode(DigitalChannel.Mode.INPUT);
         Touch2.setMode(DigitalChannel.Mode.INPUT);
+        //Turret
+        Turret = hardwareMap.get(DcMotor.class, "Turret");
+
         //set mode to stop and reset encoders -- resets encoders to the 0 position
         motorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -93,9 +97,14 @@ public class RedOneAuto447 extends LinearOpMode {
 
     }
 
-    public void lift(double power, long seconds){
-        Lift1.setPower(power);
-        Lift2.setPower(power);
+    public void turret(double turretPower, long seconds) {
+        Turret.setPower(turretPower);
+        sleep(seconds*1000);
+    }
+
+    public void lift(double liftPower, long seconds){
+        Lift1.setPower(liftPower);
+        Lift2.setPower(liftPower);
         sleep(seconds*1000);
         while ((Touch1.getState() == false) && (Touch2.getState() == false)) {
             telemetry.addData("Digital Touch", "Is Pressed");

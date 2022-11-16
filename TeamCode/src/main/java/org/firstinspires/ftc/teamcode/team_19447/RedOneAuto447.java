@@ -43,8 +43,8 @@ public class RedOneAuto447 extends LinearOpMode {
         motorFR = hardwareMap.get(DcMotor.class, "motorFrontRight");
         motorBR = hardwareMap.get(DcMotor.class, "motorBackRight");
         //Lift
-        Lift1 = hardwareMap.get(DcMotor.class, "Lift1");
-        Lift2 = hardwareMap.get(DcMotor.class, "Lift2");
+        Lift1 = hardwareMap.get(DcMotor.class, "Lift 1");
+        Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
         //Touch Sensors?
         Touch1 = hardwareMap.get(DigitalChannel.class, "Touch1");
         Touch2 = hardwareMap.get(DigitalChannel.class, "Touch2");
@@ -86,8 +86,9 @@ public class RedOneAuto447 extends LinearOpMode {
     //Building the circuit:
 
       //The ground junction:
-        drive(-20, -20, 20, 20, 1); //turn left ~ 45 degrees
-        drive(40, 40, 40, 40, 1);
+        drive(10,10,10,10,1);
+        drive(-20, -20, 20, 20, 1); //turn left ~ 45 degrees (prolly more now bc it has to compensate with the location change with the previous line)
+        drive(30, 30, 30, 30, 1);
         drive(-20,-20,-20,-20,1);
 
       //The second pole:
@@ -145,6 +146,7 @@ public class RedOneAuto447 extends LinearOpMode {
     public void dropCone() {
         cam.setPosition(-0.25); //revert and turn back the 45 deg to drop it.
     }
+
 
 
 
@@ -221,7 +223,6 @@ public class RedOneAuto447 extends LinearOpMode {
 
         //will stop automatically but need to prevent any other code from conflicting
         while(opModeIsActive() && motorFL.isBusy() && motorBL.isBusy() && motorFR.isBusy() && motorBR.isBusy()) {
-
         }
 
         //Stop driving so that it can perform the next command.

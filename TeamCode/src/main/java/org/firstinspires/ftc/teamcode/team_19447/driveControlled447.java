@@ -49,7 +49,7 @@ public class driveControlled447 extends LinearOpMode {
         double intakeMotorPower;
         */
         //Upper rack / pinion slide
-        Servo Pinion = hardwareMap.get(Servo.class, "Upper Rack");
+        Servo Pinion = hardwareMap.get(Servo.class, "Pinion");
         Pinion.setPosition(0);
         double PinionPower;
         DcMotor PinionMotor = hardwareMap.get(DcMotor.class, "Rack Rotation Motor");

@@ -113,11 +113,10 @@ public class RedOneAuto447 extends LinearOpMode {
         Lift1.setPower(liftPower);
         Lift2.setPower(liftPower);
         sleep(seconds*1000);
-        while ((Touch1.getState() == false) && (Touch2.getState() == false)) {
-            telemetry.addData("Digital Touch", "Is Pressed");
+        if ((Touch1.getState() == false) && (Touch2.getState() == false)) {
+            telemetry.addData("Touch Sensors", "Are Pressed");
             Lift1.setPower(0);
             Lift2.setPower(0);
-            break;
         }
         telemetry.update();
     }

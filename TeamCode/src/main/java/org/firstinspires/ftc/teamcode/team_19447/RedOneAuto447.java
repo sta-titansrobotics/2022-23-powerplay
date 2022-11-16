@@ -105,9 +105,8 @@ public class RedOneAuto447 extends LinearOpMode {
 
     public void turret(double turretPower, long seconds) {
         Turret.setPower(turretPower);
-        sleep(seconds*1000);
+        sleep(seconds * 1000);
     }
-    //no
 
     public void lift(double liftPower, long seconds){
         Lift1.setPower(liftPower);

@@ -133,9 +133,6 @@ public class RedOneAuto447 extends LinearOpMode {
         sleep(seconds*1000);
     }
 
-
-
-
     //will use a function that will take the distance and speed of the motors based on the
 
     //void because no return value

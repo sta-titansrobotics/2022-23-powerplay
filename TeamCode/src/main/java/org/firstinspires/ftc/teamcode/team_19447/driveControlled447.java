@@ -54,6 +54,7 @@ public class driveControlled447 extends LinearOpMode {
         double PinionPower;
 
         //Lift touch sensors
+        //"Unable to find a hardware device with name Touch1 and type DigitalChannel"//
         DigitalChannel Touch1;
         DigitalChannel Touch2;
         Touch1 = hardwareMap.get(DigitalChannel.class, "Touch1");

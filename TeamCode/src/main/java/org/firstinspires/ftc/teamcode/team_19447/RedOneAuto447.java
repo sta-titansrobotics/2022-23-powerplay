@@ -22,6 +22,7 @@ public class RedOneAuto447 extends LinearOpMode {
     private DcMotor Turret;
     private Servo Pinion;
     private Servo verticalRack;
+    private Servo cam;
 
     //Initializing encoder positions
     private int leftPos1;
@@ -32,6 +33,7 @@ public class RedOneAuto447 extends LinearOpMode {
     //Touch Sensors?
     DigitalChannel Touch1;
     DigitalChannel Touch2;
+    DigitalChannel Pickup;
 
     public void runOpMode() {
 
@@ -46,6 +48,7 @@ public class RedOneAuto447 extends LinearOpMode {
         //Touch Sensors?
         Touch1 = hardwareMap.get(DigitalChannel.class, "Touch1");
         Touch2 = hardwareMap.get(DigitalChannel.class, "Touch2");
+        Pickup = hardwareMap.get(DigitalChannel.class, "Pickup");
         // set the digital channel to input.
         Touch1.setMode(DigitalChannel.Mode.INPUT);
         Touch2.setMode(DigitalChannel.Mode.INPUT);
@@ -55,6 +58,8 @@ public class RedOneAuto447 extends LinearOpMode {
         Pinion = hardwareMap.get(Servo.class, "Pinion");
         //rack
         verticalRack = hardwareMap.get(Servo.class, "verticalRack");
+        //cam
+        cam = hardwareMap.get(Servo.class,"Cam");
 
         //set mode to stop and reset encoders -- resets encoders to the 0 position
         motorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -129,6 +134,19 @@ public class RedOneAuto447 extends LinearOpMode {
         verticalRack.setPosition(position);
         sleep(seconds*1000);
     }
+
+    public void pickupCone() {
+        if (Pickup.getState() == false) {
+            telemetry.addData("Pickup sensor", "is pressed");
+            cam.setPosition(0.25); //turn 45 deg to pick it up
+        }
+    }
+
+    public void dropCone() {
+        cam.setPosition(-0.25); //revert and turn back the 45 deg to drop it.
+    }
+
+
 
     //will use a function that will take the distance and speed of the motors based on the
 

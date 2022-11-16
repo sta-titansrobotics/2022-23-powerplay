@@ -52,9 +52,6 @@ public class driveControlled447 extends LinearOpMode {
         Servo Pinion = hardwareMap.get(Servo.class, "Pinion");
         Pinion.setPosition(0);
         double PinionPower;
-        DcMotor PinionMotor = hardwareMap.get(DcMotor.class, "Rack Rotation Motor");
-        PinionMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        double PinionMotorPower;
 
         //Lift touch sensors
         DigitalChannel Touch1;
@@ -215,10 +212,6 @@ public class driveControlled447 extends LinearOpMode {
             PinionPower = gamepad1.touchpad_finger_2_y;
             PinionPower = Range.clip(PinionPower, -1, 1);
             Pinion.setPosition(PinionPower);
-            //motor component
-            PinionMotorPower = gamepad1.touchpad_finger_2_x;
-            PinionMotorPower = Range.clip(PinionMotorPower, -1, 1);
-            PinionMotor.setPower(PinionMotorPower);
 
             // Capper
             capperPower = gamepad1.left_trigger;
@@ -254,13 +247,10 @@ public class driveControlled447 extends LinearOpMode {
             //telemetry.addData("Intake1 Encoder Position: ",Intake1.getCurrentPosition());
         //telemetry.addData("Intake2 Encoder Position: ", Intake2.getCurrentPosition());
             telemetry.addData("Upper Rack Power:",Pinion.getPosition());
-            telemetry.addData("Upper Rack Motor Power:",PinionMotor.getPower());
-            telemetry.addData("Upper Rack Motor Encoder Position: ",PinionMotor.getCurrentPosition());
             telemetry.addData("Capper Power:",Capper.getPower());
             telemetry.addData("Capper Encoder Position: ", Capper.getCurrentPosition());
             //telemetry.addData("Roller Flipper 2(Servo)", rollerFlipper2.getPosition());
             telemetry.update();
-
 
         }
     }

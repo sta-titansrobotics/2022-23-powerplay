@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -12,7 +13,6 @@ public class driveControlled447 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-
 
         //Moving
         DcMotor motorFL = hardwareMap.get(DcMotor.class, "motorFrontLeft");
@@ -50,6 +50,12 @@ public class driveControlled447 extends LinearOpMode {
         DcMotor upperRackMotor = hardwareMap.get(DcMotor.class, "Rack Rotation Motor");
         upperRackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         double upperRackMotorPower;
+
+        //Lift touch sensors
+        DigitalChannel Touch1;
+        DigitalChannel Touch2;
+        Touch1 = hardwareMap.get(DigitalChannel.class, "Touch1");
+        Touch2 = hardwareMap.get(DigitalChannel.class, "Touch2");
 
         // Capper
         DcMotor Capper = hardwareMap.get(DcMotor.class, "Capper");
@@ -115,12 +121,27 @@ public class driveControlled447 extends LinearOpMode {
 
             //Change buttons later
 
-            //Lift (apparently two lifts?)
+            //Manual Lift (apparently two lifts?)
             double liftPower = gamepad2.right_stick_y;
             liftPower = Range.clip(liftPower, -1, 1);
             Lift1.setPower(liftPower);
             Lift2.setPower(liftPower);
-            //testd saadsfsadaaaasd fdsa df sa  huh?
+
+            //Lift Presets
+            if (gamepad2.dpad_down) {
+                while ((Touch1.getState() == true) && (Touch2.getState() == true)) {
+                    telemetry.addData("Touch Sensors", "Are Not Pressed");
+                    Lift1.setPower(1);
+                    Lift2.setPower(1);
+                }
+                while ((Touch1.getState() == false) && (Touch2.getState() == false)) {
+                    telemetry.addData("Touch Sensors", "Are Now Pressed");
+                    Lift1.setPower(0);
+                    Lift2.setPower(0);
+                }
+            }
+
+
             //Turret
 
             //Turret

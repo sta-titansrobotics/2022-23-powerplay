@@ -31,9 +31,9 @@ public class RedOneAuto447 extends LinearOpMode {
     private int rightPos2;
 
     //Touch Sensors?
-    DigitalChannel Touch1;
-    DigitalChannel Touch2;
-    DigitalChannel Pickup;
+    private DigitalChannel Touch1;
+    private DigitalChannel Touch2;
+    private DigitalChannel Pickup;
 
     public void runOpMode() {
 

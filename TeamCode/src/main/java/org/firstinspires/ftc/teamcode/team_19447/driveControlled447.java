@@ -178,16 +178,17 @@ public class driveControlled447 extends LinearOpMode {
             Servo rollerFlipper2 = hardwareMap.get(Servo.class, "rollerFlipper 2");
             rollerFlipper2.setPosition(0);
             double rollerFlipper2Power;
+
             int clickA = 0;
 
-            if (clickA % 2 == 1) { //clickA has to count up tho?? need to add clickA++??
-                rollerFlipper2Power = -0.5; //servo 90 deg to the left
-            } else {
-                rollerFlipper2Power = 0.5; //servo 90 deg to the right
-            }
             if (gamepad1.a) {
-                rollerFlipper2.setPosition(rollerFlipper2Power);
                 clickA += 1;
+                if (clickA % 2 == 1) {
+                    rollerFlipper2Power = -0.5; //servo 90 deg to the left
+                } else {
+                    rollerFlipper2Power = 0.5; //servo 90 deg to the right
+                }
+                rollerFlipper2.setPosition(rollerFlipper2Power);
             }
 
             //alternatively do this?:

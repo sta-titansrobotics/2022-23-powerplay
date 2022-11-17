@@ -180,7 +180,7 @@ public class driveControlled447 extends LinearOpMode {
             double rollerFlipper2Power;
 
             int clickA = 0;
-            //Click b to do the roller flipper thing
+            //Click b to do the roller flipper thing.
             if (gamepad1.b) {
                 clickA += 1;
                 if (clickA % 2 == 1) {

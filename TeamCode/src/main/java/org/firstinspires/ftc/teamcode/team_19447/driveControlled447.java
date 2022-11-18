@@ -48,10 +48,6 @@ public class driveControlled447 extends LinearOpMode {
         Intake2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         double intakeMotorPower;
         */
-        //Upper rack / pinion slide
-        Servo Pinion = hardwareMap.get(Servo.class, "Pinion");
-        Pinion.setPosition(0);
-        double PinionPower;
 
         //Lift touch sensors
         //"Unable to find a hardware device with name Touch1 and type DigitalChannel"//
@@ -60,16 +56,13 @@ public class driveControlled447 extends LinearOpMode {
         Touch1 = hardwareMap.get(DigitalChannel.class, "Touch1");
         Touch2 = hardwareMap.get(DigitalChannel.class, "Touch2");
 
-        // Capper
+        /* // Capper
         DcMotor Capper = hardwareMap.get(DcMotor.class, "Capper");
         Capper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        double capperPower;
+        double capperPower; */
 
         //cam
         Servo cam = hardwareMap.get(Servo.class,"Cam");
-
-        //turret
-        DcMotor turret = hardwareMap.get(DcMotor.class, "Turret");
 
         waitForStart();
 
@@ -129,9 +122,9 @@ public class driveControlled447 extends LinearOpMode {
             }
 
             //Change buttons later
-
+            //y & x mean y-coordinates (up and down) and x-coordinates (left and right), respectively.
             //Manual Lift (apparently two lifts?)
-            double liftPower = gamepad2.right_stick_y;
+            double liftPower = gamepad2.left_stick_y;
             liftPower = Range.clip(liftPower, -1, 1);
             Lift1.setPower(liftPower);
             Lift2.setPower(liftPower);
@@ -142,6 +135,7 @@ public class driveControlled447 extends LinearOpMode {
                     telemetry.addData("Touch Sensors", "Are Not Pressed");
                     Lift1.setPower(1);
                     Lift2.setPower(1);
+
                 }
                 while ((Touch1.getState() == false) && (Touch2.getState() == false)) {
                     telemetry.addData("Touch Sensors", "Are Now Pressed");
@@ -149,22 +143,6 @@ public class driveControlled447 extends LinearOpMode {
                     Lift2.setPower(0);
                 }
             }
-
-
-            //Turret
-
-            //Turret`
-            turret.setDirection(DcMotor.Direction.FORWARD);
-            if (gamepad2.left_bumper) {
-                turret.setPower(-1);
-            }
-            if (gamepad2.right_bumper) {
-                turret.setPower(1);
-            } else {
-                turret.setPower(0);
-            }
-
-
 
             //a lot of other stuff will be added too unfortunately
 
@@ -207,22 +185,14 @@ public class driveControlled447 extends LinearOpMode {
             Intake1.setPower(intakeMotorPower);
             Intake2.setPower(intakeMotorPower);*/
 
-            // Upper rack & pinion slide
-            // This one uses servos if i remember
-
-            PinionPower = gamepad1.touchpad_finger_2_y;
-            PinionPower = Range.clip(PinionPower, -1, 1);
-            Pinion.setPosition(PinionPower);
-
-            // Capper
+            /*// Capper
             capperPower = gamepad1.left_trigger;
             capperPower = Range.clip(capperPower, -1, 1);
-            Capper.setPower(capperPower);
+            Capper.setPower(capperPower);*/
 
 
             //cam picker-upper (idk the name lmao its the thing that goes in the hole of the cone and picks it up)
-            //changes on and off via clicking the same button. if the user clicks once, it will go up, if the user clicks twice, it will go down. etc
-            Pinion.setPosition(0);
+            //changes on and off via clicking the same button. if the user clicks once, it will go up, if the user clicks twice, it will go down.
             int camCount = 0;
             if (gamepad1.a && camCount % 2 == 1) {
                 camCount++;
@@ -248,9 +218,8 @@ public class driveControlled447 extends LinearOpMode {
             //telemetry.addData("Intake2 Power:",Intake2.getPower());
             //telemetry.addData("Intake1 Encoder Position: ",Intake1.getCurrentPosition());
         //telemetry.addData("Intake2 Encoder Position: ", Intake2.getCurrentPosition());
-            telemetry.addData("Upper Rack Power:",Pinion.getPosition());
-            telemetry.addData("Capper Power:",Capper.getPower());
-            telemetry.addData("Capper Encoder Position: ", Capper.getCurrentPosition());
+           // telemetry.addData("Capper Power:",Capper.getPower());
+           // telemetry.addData("Capper Encoder Position: ", Capper.getCurrentPosition());
             //telemetry.addData("Roller Flipper 2(Servo)", rollerFlipper2.getPosition());
             telemetry.update();
 

@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 
 @Autonomous
 public class RedOneAuto447 extends LinearOpMode {
@@ -20,6 +21,7 @@ public class RedOneAuto447 extends LinearOpMode {
     private DcMotor Lift1;
     private DcMotor Lift2;
     private Servo cam;
+    private Servo verticalRack;
 
     //Initializing encoder positions
     private int leftPos1;
@@ -49,6 +51,8 @@ public class RedOneAuto447 extends LinearOpMode {
         // set the digital channel to input.
         Touch1.setMode(DigitalChannel.Mode.INPUT);
         Touch2.setMode(DigitalChannel.Mode.INPUT);
+        //verticalRack
+        verticalRack = hardwareMap.get(Servo.class, "verticalRack");
         //cam
         cam = hardwareMap.get(Servo.class,"Cam");
 
@@ -88,6 +92,7 @@ public class RedOneAuto447 extends LinearOpMode {
         //do something with the lift here
         lift(1,1);
         sleep(100); //raise the lift for a given number of milliseconds - this we can just trial and error
+        rack(0.5);
 
         while (opModeIsActive()) {
             telemetry.addData("motorFL Encoder Position: ",motorFL.getCurrentPosition());
@@ -121,6 +126,10 @@ public class RedOneAuto447 extends LinearOpMode {
 
     public void dropCone() {
         cam.setPosition(-0.25); //revert and turn back the 45 deg to drop it.
+    }
+
+    public void rack(double position) {
+        verticalRack.setPosition(position);
     }
 
 

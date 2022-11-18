@@ -77,6 +77,9 @@ public class driveControlled447 extends LinearOpMode {
         if (isStopRequested())
             return;
 
+        verticalRack.setPosition(0);
+        verticalRack.setPosition(0.5);
+        verticalRack.setPosition(1);
 
         while (opModeIsActive()) {
 

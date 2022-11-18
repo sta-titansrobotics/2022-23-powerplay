@@ -149,10 +149,10 @@ public class driveControlled447 extends LinearOpMode {
             //a lot of other stuff will be added too unfortunately
             //vertical rack
             verticalRack.setPosition(0);
-            if (gamepad1.dpad_up){
+            if (gamepad2.dpad_up){
                 verticalRack.setPosition(1);
             }
-            else if (gamepad1.dpad_down){
+            else if (gamepad2.dpad_down){
                 verticalRack.setPosition(0);
             }
 

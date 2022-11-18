@@ -44,7 +44,7 @@ public class RedOneAuto447 extends LinearOpMode {
         //Lift
         Lift1 = hardwareMap.get(DcMotor.class, "Lift 1");
         Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
-        //Touch Sensors?
+        //Touch Sensors? - Remember that digital channels use odd numbers for some reason.
         Touch1 = hardwareMap.get(DigitalChannel.class, "Touch1");
         Touch2 = hardwareMap.get(DigitalChannel.class, "Touch2");
         Pickup = hardwareMap.get(DigitalChannel.class, "Pickup");
@@ -81,7 +81,7 @@ public class RedOneAuto447 extends LinearOpMode {
     //Building the circuit:
 
       //The ground junction:
-        drive(60,60,60,60,1);
+        drive(60,60,60,60,1); //60 cm to the ground junction
         drive(-16, -16, 16, 16, 1); //turn left ~ 45 degrees (prolly more now bc it has to compensate with the location change with the previous line)
         drive(30, 30, 30, 30, 1);
         drive(-20,-20,-20,-20,1);

@@ -77,8 +77,8 @@ public class RedOneAuto447 extends LinearOpMode {
     //Building the circuit:
 
       //The ground junction:
-        drive(10,10,10,10,1);
-        drive(-20, -20, 20, 20, 1); //turn left ~ 45 degrees (prolly more now bc it has to compensate with the location change with the previous line)
+        drive(60,60,60,60,1);
+        drive(-16, -16, 16, 16, 1); //turn left ~ 45 degrees (prolly more now bc it has to compensate with the location change with the previous line)
         drive(30, 30, 30, 30, 1);
         drive(-20,-20,-20,-20,1);
 

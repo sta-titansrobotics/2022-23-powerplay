@@ -20,9 +20,9 @@ public class driveControlled447 extends LinearOpMode {
         DcMotor motorFR = hardwareMap.get(DcMotor.class, "motorFrontRight");
         DcMotor motorBR = hardwareMap.get(DcMotor.class, "motorBackRight");
 
-        //Reverse right side motors
-        motorFR.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorBR.setDirection(DcMotorSimple.Direction.REVERSE);
+        //Reverse right side motors, changed from R to L
+        motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //pickup
         //DigitalChannel Pickup;

@@ -44,8 +44,6 @@ public class driveControlled447 extends LinearOpMode {
         Servo verticalRack = hardwareMap.get(Servo.class, "verticalRack");
         double rackPosition = 0;
 
-
-
         //Intake
         /*
         DcMotor Intake1 = hardwareMap.get(DcMotor.class, "Intake1");
@@ -62,12 +60,6 @@ public class driveControlled447 extends LinearOpMode {
         Touch1 = hardwareMap.get(DigitalChannel.class, "Touch1");
         Touch2 = hardwareMap.get(DigitalChannel.class, "Touch2");
         */
-
-
-        /* // Capper
-        DcMotor Capper = hardwareMap.get(DcMotor.class, "Capper");
-        Capper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        double capperPower; */
 
         //cam
         Servo cam = hardwareMap.get(Servo.class,"Cam");
@@ -140,13 +132,8 @@ public class driveControlled447 extends LinearOpMode {
 
             //vertical rack
             rackPosition = verticalRack.getPosition();
-
             rackPosition += 0.1 * -gamepad2.right_stick_y;
-
             verticalRack.setPosition(rackPosition);
-
-
-
 
         /*    //Lift Presets
             if (gamepad2.dpad_down) {
@@ -163,11 +150,6 @@ public class driveControlled447 extends LinearOpMode {
                 }
             }
          */
-
-
-            //a lot of other stuff will be added too unfortunately
-            //vertical rack
-
 
             //Roller Flipper
          /*   flipperMotorPower = gamepad1.touchpad_finger_1_y;
@@ -211,16 +193,11 @@ public class driveControlled447 extends LinearOpMode {
             Intake1.setPower(intakeMotorPower);
             Intake2.setPower(intakeMotorPower);*/
 
-            /*// Capper
-            capperPower = gamepad1.left_trigger;
-            capperPower = Range.clip(capperPower, -1, 1);
-            Capper.setPower(capperPower);*/
-
 
             //cam picker-upper (idk the name lmao its the thing that goes in the hole of the cone and picks it up)
             //changes on and off via clicking the same button. if the user clicks once, it will go up, if the user clicks twice, it will go down.
             if (gamepad2.left_bumper){
-                cam.setPosition(-0.25);
+                cam.setPosition(-0.25); //set to 45 deg
             }
             if (gamepad2.right_bumper){
                 cam.setPosition(0.25);
@@ -242,8 +219,6 @@ public class driveControlled447 extends LinearOpMode {
             //telemetry.addData("Intake2 Power:",Intake2.getPower());
             //telemetry.addData("Intake1 Encoder Position: ",Intake1.getCurrentPosition());
             //telemetry.addData("Intake2 Encoder Position: ", Intake2.getCurrentPosition());
-            // telemetry.addData("Capper Power:",Capper.getPower());
-            // telemetry.addData("Capper Encoder Position: ", Capper.getCurrentPosition());
             //telemetry.addData("Roller Flipper 2(Servo)", rollerFlipper2.getPosition());
             telemetry.update();
         }

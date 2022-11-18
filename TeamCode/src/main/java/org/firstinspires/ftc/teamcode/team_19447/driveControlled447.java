@@ -148,13 +148,10 @@ public class driveControlled447 extends LinearOpMode {
 
             //a lot of other stuff will be added too unfortunately
             //vertical rack
-            verticalRack.setPosition(0);
-            if (gamepad2.dpad_up){
-                verticalRack.setPosition(1);
-            }
-            else if (gamepad2.dpad_down){
-                verticalRack.setPosition(0);
-            }
+            double verticalRackPower = gamepad2.left_stick_y;
+            verticalRackPower = Range.clip(liftPower, -1, 1);
+            verticalRack.setPosition(verticalRackPower);
+
 
             //Roller Flipper
             flipperMotorPower = gamepad1.touchpad_finger_1_y;
@@ -204,13 +201,11 @@ public class driveControlled447 extends LinearOpMode {
 
             //cam picker-upper (idk the name lmao its the thing that goes in the hole of the cone and picks it up)
             //changes on and off via clicking the same button. if the user clicks once, it will go up, if the user clicks twice, it will go down.
-            int camCount = 0;
-            if (gamepad1.a && camCount % 2 == 1) {
-                camCount++;
-                cam.setPosition(0.25);
-            } else {
-                camCount++;
+            if (gamepad2.left_bumper){
                 cam.setPosition(-0.25);
+            }
+            else if (gamepad2.right_bumper){
+                cam.setPosition(0.25);
             }
         }
 

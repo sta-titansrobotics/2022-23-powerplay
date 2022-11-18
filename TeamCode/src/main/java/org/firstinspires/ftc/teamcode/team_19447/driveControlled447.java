@@ -100,7 +100,7 @@ public class driveControlled447 extends LinearOpMode {
                 motorBL.setPower(1);
                 motorFR.setPower(1);
                 motorBR.setPower(1);
-            }c
+            }
 
             if (gamepad1.dpad_down) {
                 motorFL.setPower(-1);

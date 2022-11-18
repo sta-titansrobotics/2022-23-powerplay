@@ -221,8 +221,6 @@ public class driveControlled447 extends LinearOpMode {
             if (gamepad2.right_bumper){
                 cam.setPosition(0.25);
             }
-        }
-
             // Add sensors to telemetry???
             telemetry.addData("LF Power:", motorFL.getPower());
             telemetry.addData("LB Power:", motorBL.getPower());
@@ -232,20 +230,21 @@ public class driveControlled447 extends LinearOpMode {
             telemetry.addData("Lift Power:",Lift2.getPower());
             telemetry.addData("Lift Encoder Position: ", Lift1.getCurrentPosition());
             telemetry.addData("Lift Encoder Position: ", Lift2.getCurrentPosition());
-            telemetry.addData("Lift Encoder Position: ", Lift1.getCurrentPosition());
-            telemetry.addData("Lift Encoder Position: ", Lift2.getCurrentPosition());
             telemetry.addData("Vertical rack: ", verticalRack.getPosition());
             telemetry.addData("Cam", cam.getPosition());
-          //  telemetry.addData("Roller Flipper Power:",rollerFlipper.getPower());
-        //    telemetry.addData("Roller Flipper Encoder Position: ", rollerFlipper.getCurrentPosition());
+            //  telemetry.addData("Roller Flipper Power:",rollerFlipper.getPower());
+            //    telemetry.addData("Roller Flipper Encoder Position: ", rollerFlipper.getCurrentPosition());
             // telemetry.addData("Intake1 Power:",Intake1.getPower());
             //telemetry.addData("Intake2 Power:",Intake2.getPower());
             //telemetry.addData("Intake1 Encoder Position: ",Intake1.getCurrentPosition());
-        //telemetry.addData("Intake2 Encoder Position: ", Intake2.getCurrentPosition());
-           // telemetry.addData("Capper Power:",Capper.getPower());
-           // telemetry.addData("Capper Encoder Position: ", Capper.getCurrentPosition());
+            //telemetry.addData("Intake2 Encoder Position: ", Intake2.getCurrentPosition());
+            // telemetry.addData("Capper Power:",Capper.getPower());
+            // telemetry.addData("Capper Encoder Position: ", Capper.getCurrentPosition());
             //telemetry.addData("Roller Flipper 2(Servo)", rollerFlipper2.getPosition());
             telemetry.update();
+        }
+
+
 
         }
     }

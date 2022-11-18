@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.team_19447;
 //Used if our bot is on the top red side of the arena
 
+import static android.os.SystemClock.sleep;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous
 public class RedOneAuto447 extends LinearOpMode {
@@ -15,12 +17,23 @@ public class RedOneAuto447 extends LinearOpMode {
     private DcMotor motorBL;
     private DcMotor motorFR;
     private DcMotor motorBR;
+    private DcMotor Lift1;
+    private DcMotor Lift2;
+    private DcMotor Turret;
+    private Servo Pinion;
+    private Servo verticalRack;
+    private Servo cam;
 
     //Initializing encoder positions
     private int leftPos1;
     private int leftPos2;
     private int rightPos1;
     private int rightPos2;
+
+    //Touch Sensors?
+    private DigitalChannel Touch1;
+    private DigitalChannel Touch2;
+    private DigitalChannel Pickup;
 
     public void runOpMode() {
 
@@ -29,6 +42,24 @@ public class RedOneAuto447 extends LinearOpMode {
         motorBL = hardwareMap.get(DcMotor.class, "motorBackLeft");
         motorFR = hardwareMap.get(DcMotor.class, "motorFrontRight");
         motorBR = hardwareMap.get(DcMotor.class, "motorBackRight");
+        //Lift
+        Lift1 = hardwareMap.get(DcMotor.class, "Lift 1");
+        Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
+        //Touch Sensors?
+        Touch1 = hardwareMap.get(DigitalChannel.class, "Touch1");
+        Touch2 = hardwareMap.get(DigitalChannel.class, "Touch2");
+        Pickup = hardwareMap.get(DigitalChannel.class, "Pickup");
+        // set the digital channel to input.
+        Touch1.setMode(DigitalChannel.Mode.INPUT);
+        Touch2.setMode(DigitalChannel.Mode.INPUT);
+        //Turret
+        Turret = hardwareMap.get(DcMotor.class, "Turret");
+        //pinion
+        Pinion = hardwareMap.get(Servo.class, "Pinion");
+        //rack
+        verticalRack = hardwareMap.get(Servo.class, "verticalRack");
+        //cam
+        cam = hardwareMap.get(Servo.class,"Cam");
 
         //set mode to stop and reset encoders -- resets encoders to the 0 position
         motorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -55,7 +86,8 @@ public class RedOneAuto447 extends LinearOpMode {
     //Building the circuit:
 
       //The ground junction:
-        drive(-10, -10, 10, 10, 1); //turn left ~ 45 degrees
+        drive(10,10,10,10,1);
+        drive(-20, -20, 20, 20, 1); //turn left ~ 45 degrees (prolly more now bc it has to compensate with the location change with the previous line)
         drive(30, 30, 30, 30, 1);
         drive(-20,-20,-20,-20,1);
 
@@ -63,12 +95,63 @@ public class RedOneAuto447 extends LinearOpMode {
         drive(10, 10, -10, -10, 1); //revert to a straight-forward position
         drive(40, 40, 40, 40, 1);
         //do something with the lift here
+        lift(1,1);
+        sleep(100); //raise the lift for a given number of milliseconds - this we can just trial and error
 
+        while (opModeIsActive()) {
+            telemetry.addData("motorFL Encoder Position: ",motorFL.getCurrentPosition());
+            telemetry.addData("motorBL Encoder Position: ",motorBL.getCurrentPosition());
+            telemetry.addData("motorFR Encoder Position: ",motorFR.getCurrentPosition());
+            telemetry.addData("motorBR Encoder Position: ",motorBR.getCurrentPosition());
+            telemetry.update();
+        }
       //The third pole
 
     }
-    //will use a function that will take the distance and speed of the motors based on the rotation
-    //void because no return value
+
+    public void turret(double turretPower, long seconds) {
+        Turret.setPower(turretPower);
+        sleep(seconds * 1000);
+    }
+
+    public void lift(double liftPower, long seconds){
+        Lift1.setPower(liftPower);
+        Lift2.setPower(liftPower);
+        sleep(seconds*1000);
+        if ((Touch1.getState() == false) && (Touch2.getState() == false)) {
+            telemetry.addData("Touch Sensors", "Are Pressed");
+            Lift1.setPower(0);
+            Lift2.setPower(0);
+        }
+        telemetry.update();
+    }
+
+    public void pinion(double position, long seconds){
+        Pinion.setPosition(position);
+        sleep(seconds*1000);
+    }
+
+    public void verticalRack(double position, long seconds){
+        verticalRack.setPosition(position);
+        sleep(seconds*1000);
+    }
+
+    public void pickupCone() {
+        if (Pickup.getState() == false) {
+            telemetry.addData("Pickup sensor", "is pressed");
+            cam.setPosition(0.25); //turn 45 deg to pick it up
+        }
+    }
+
+    public void dropCone() {
+        cam.setPosition(-0.25); //revert and turn back the 45 deg to drop it.
+    }
+
+
+
+
+    //will use a function that will take the distance and speed of the motors based on the
+
     public void drive(int leftTarget1, int leftTarget2, int rightTarget1, int rightTarget2, double speed) {
 
         double forwardTicks = 52.3;
@@ -140,8 +223,6 @@ public class RedOneAuto447 extends LinearOpMode {
 
         //will stop automatically but need to prevent any other code from conflicting
         while(opModeIsActive() && motorFL.isBusy() && motorBL.isBusy() && motorFR.isBusy() && motorBR.isBusy()) {
-            idle();
-
         }
 
         //Stop driving so that it can perform the next command.

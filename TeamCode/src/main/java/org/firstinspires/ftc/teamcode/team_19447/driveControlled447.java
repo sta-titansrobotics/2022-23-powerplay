@@ -53,10 +53,12 @@ public class driveControlled447 extends LinearOpMode {
 
         //Lift touch sensors
         //"Unable to find a hardware device with name Touch1 and type DigitalChannel"//
-        DigitalChannel Touch1;
+       /* DigitalChannel Touch1;
         DigitalChannel Touch2;
         Touch1 = hardwareMap.get(DigitalChannel.class, "Touch1");
         Touch2 = hardwareMap.get(DigitalChannel.class, "Touch2");
+        */
+
 
         /* // Capper
         DcMotor Capper = hardwareMap.get(DcMotor.class, "Capper");
@@ -136,7 +138,7 @@ public class driveControlled447 extends LinearOpMode {
                 Lift2.setPower(liftPower);
             }
 
-            //Lift Presets
+        /*    //Lift Presets
             if (gamepad2.dpad_down) {
                 while ((Touch1.getState() == true) && (Touch2.getState() == true)) {
                     telemetry.addData("Touch Sensors", "Are Not Pressed");
@@ -150,6 +152,8 @@ public class driveControlled447 extends LinearOpMode {
                     Lift2.setPower(0);
                 }
             }
+         */
+
 
             //a lot of other stuff will be added too unfortunately
             //vertical rack

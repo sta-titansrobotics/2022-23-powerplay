@@ -127,9 +127,14 @@ public class driveControlled447 extends LinearOpMode {
             //y & x mean y-coordinates (up and down) and x-coordinates (left and right), respectively.
             //Manual Lift (apparently two lifts?)
             double liftPower = gamepad2.left_stick_y;
-            liftPower = Range.clip(liftPower, -1, 1);
-            Lift1.setPower(liftPower);
-            Lift2.setPower(liftPower);
+            if (gamepad2.left_stick_y > 0) {
+                Lift1.setPower(liftPower);
+                Lift2.setPower(liftPower);
+            }
+            if (gamepad2.left_stick_y < 0) {
+                Lift1.setPower(liftPower);
+                Lift2.setPower(liftPower);
+            }
 
             //Lift Presets
             if (gamepad2.dpad_down) {

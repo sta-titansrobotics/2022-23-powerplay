@@ -138,6 +138,17 @@ public class driveControlled447 extends LinearOpMode {
                 Lift2.setPower(liftPower);
             }
 
+            //vertical rack
+            double rackPosition = verticalRack.getPosition();
+            while (gamepad2.right_stick_y > 0) {
+                verticalRack.setPosition(rackPosition += 0.1);
+            }
+            while (gamepad2.right_stick_y < 0) {
+                verticalRack.setPosition(rackPosition -= 0.1);
+            }
+
+
+
         /*    //Lift Presets
             if (gamepad2.dpad_down) {
                 while ((Touch1.getState() == true) && (Touch2.getState() == true)) {
@@ -157,9 +168,7 @@ public class driveControlled447 extends LinearOpMode {
 
             //a lot of other stuff will be added too unfortunately
             //vertical rack
-            double verticalRackPower = gamepad2.left_stick_y;
-            verticalRackPower = Range.clip(liftPower, -1, 1);
-            verticalRack.setPosition(verticalRackPower);
+
 
             //Roller Flipper
          /*   flipperMotorPower = gamepad1.touchpad_finger_1_y;
@@ -214,7 +223,7 @@ public class driveControlled447 extends LinearOpMode {
             if (gamepad2.left_bumper){
                 cam.setPosition(-0.25);
             }
-            else if (gamepad2.right_bumper){
+            if (gamepad2.right_bumper){
                 cam.setPosition(0.25);
             }
         }
@@ -226,6 +235,8 @@ public class driveControlled447 extends LinearOpMode {
             telemetry.addData("RB Power:", motorBR.getPower());
             telemetry.addData("Lift Power:",Lift1.getPower());
             telemetry.addData("Lift Power:",Lift2.getPower());
+            telemetry.addData("Lift Encoder Position: ", Lift1.getCurrentPosition());
+            telemetry.addData("Lift Encoder Position: ", Lift2.getCurrentPosition());
             telemetry.addData("Lift Encoder Position: ", Lift1.getCurrentPosition());
             telemetry.addData("Lift Encoder Position: ", Lift2.getCurrentPosition());
           //  telemetry.addData("Roller Flipper Power:",rollerFlipper.getPower());

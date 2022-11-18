@@ -138,7 +138,7 @@ public class driveControlled447 extends LinearOpMode {
             //vertical rack
             rackPosition = verticalRack.getPosition();
 
-            rackPosition += 0.1 * -gamepad1.left_stick_y;
+            rackPosition += 0.1 * -gamepad2.left_stick_y;
 
             verticalRack.setPosition(rackPosition);
 

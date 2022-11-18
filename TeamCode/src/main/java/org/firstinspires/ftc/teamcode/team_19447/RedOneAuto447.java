@@ -41,10 +41,10 @@ public class RedOneAuto447 extends LinearOpMode {
         motorBL = hardwareMap.get(DcMotor.class, "motorBackLeft");
         motorFR = hardwareMap.get(DcMotor.class, "motorFrontRight");
         motorBR = hardwareMap.get(DcMotor.class, "motorBackRight");
-        //Lift
+        //Lifts
         Lift1 = hardwareMap.get(DcMotor.class, "Lift 1");
         Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
-        //Touch Sensors? - Remember that digital channels use odd numbers for some reason.
+        //Touch Sensors? - Remember that digital channels use odd numbers for some reason, not the even numbers.
         Touch1 = hardwareMap.get(DigitalChannel.class, "Touch1");
         Touch2 = hardwareMap.get(DigitalChannel.class, "Touch2");
         Pickup = hardwareMap.get(DigitalChannel.class, "Pickup");
@@ -65,6 +65,8 @@ public class RedOneAuto447 extends LinearOpMode {
         //Reverse left side motors
         motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
+        //Reverse one of the lift motors
+        Lift2.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //Initialize the positions to zero, since the motor has not moved yet
         leftPos1 = 0;
@@ -132,10 +134,7 @@ public class RedOneAuto447 extends LinearOpMode {
         verticalRack.setPosition(position);
     }
 
-
-
-
-    //will use a function that will take the distance and speed of the motors based on the
+    //will use a function that will take the distance and speed of the motors
 
     public void drive(int leftTarget1, int leftTarget2, int rightTarget1, int rightTarget2, double speed) {
 

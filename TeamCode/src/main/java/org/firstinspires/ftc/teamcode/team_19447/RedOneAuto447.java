@@ -19,9 +19,6 @@ public class RedOneAuto447 extends LinearOpMode {
     private DcMotor motorBR;
     private DcMotor Lift1;
     private DcMotor Lift2;
-    private DcMotor Turret;
-    private Servo Pinion;
-    private Servo verticalRack;
     private Servo cam;
 
     //Initializing encoder positions
@@ -52,12 +49,6 @@ public class RedOneAuto447 extends LinearOpMode {
         // set the digital channel to input.
         Touch1.setMode(DigitalChannel.Mode.INPUT);
         Touch2.setMode(DigitalChannel.Mode.INPUT);
-        //Turret
-        Turret = hardwareMap.get(DcMotor.class, "Turret");
-        //pinion
-        Pinion = hardwareMap.get(Servo.class, "Pinion");
-        //rack
-        verticalRack = hardwareMap.get(Servo.class, "verticalRack");
         //cam
         cam = hardwareMap.get(Servo.class,"Cam");
 
@@ -109,11 +100,6 @@ public class RedOneAuto447 extends LinearOpMode {
 
     }
 
-    public void turret(double turretPower, long seconds) {
-        Turret.setPower(turretPower);
-        sleep(seconds * 1000);
-    }
-
     public void lift(double liftPower, long seconds){
         Lift1.setPower(liftPower);
         Lift2.setPower(liftPower);
@@ -124,16 +110,6 @@ public class RedOneAuto447 extends LinearOpMode {
             Lift2.setPower(0);
         }
         telemetry.update();
-    }
-
-    public void pinion(double position, long seconds){
-        Pinion.setPosition(position);
-        sleep(seconds*1000);
-    }
-
-    public void verticalRack(double position, long seconds){
-        verticalRack.setPosition(position);
-        sleep(seconds*1000);
     }
 
     public void pickupCone() {

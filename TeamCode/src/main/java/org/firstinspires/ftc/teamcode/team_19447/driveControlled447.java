@@ -33,6 +33,8 @@ public class driveControlled447 extends LinearOpMode {
         Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         DcMotor Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
         Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Lift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //Roller Flipper
    //     DcMotor rollerFlipper = hardwareMap.get(DcMotor.class, "rollerFlipper");

@@ -40,6 +40,8 @@ public class driveControlled447 extends LinearOpMode {
         double flipperMotorPower;
 
         Servo verticalRack = hardwareMap.get(Servo.class, "verticalRack");
+        double rackPosition = 0;
+
 
 
         //Intake
@@ -128,22 +130,15 @@ public class driveControlled447 extends LinearOpMode {
             //Change buttons later
             //y & x mean y-coordinates (up and down) and x-coordinates (left and right), respectively.
             //Manual Lift (apparently two lifts?)
-            double liftPower = gamepad2.left_stick_y;
-            if (gamepad2.left_stick_y > 0) {
-                Lift1.setPower(liftPower);
-                Lift2.setPower(liftPower);
-            }
-            if (gamepad2.left_stick_y < 0) {
-                Lift1.setPower(liftPower);
-                Lift2.setPower(liftPower);
-            }
+            Lift1.setPower(gamepad2.left_stick_y);
+            Lift2.setPower(gamepad2.left_stick_y);
 
             //vertical rack
-            double rackPosition = verticalRack.getPosition();
-            while (gamepad2.right_stick_y > 0) {
+            rackPosition = verticalRack.getPosition();
+            if (gamepad2.right_stick_y > 0) {
                 verticalRack.setPosition(rackPosition += 0.1);
             }
-            while (gamepad2.right_stick_y < 0) {
+            if (gamepad2.right_stick_y < 0) {
                 verticalRack.setPosition(rackPosition -= 0.1);
             }
 

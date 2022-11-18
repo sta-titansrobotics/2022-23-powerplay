@@ -39,6 +39,8 @@ public class driveControlled447 extends LinearOpMode {
         rollerFlipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         double flipperMotorPower;
 
+        Servo verticalRack = hardwareMap.get(Servo.class, "verticalRack");
+
 
         //Intake
         /*
@@ -145,6 +147,14 @@ public class driveControlled447 extends LinearOpMode {
             }
 
             //a lot of other stuff will be added too unfortunately
+            //vertical rack
+            verticalRack.setPosition(0);
+            if (gamepad1.dpad_up){
+                verticalRack.setPosition(1);
+            }
+            else if (gamepad1.dpad_down){
+                verticalRack.setPosition(0);
+            }
 
             //Roller Flipper
             flipperMotorPower = gamepad1.touchpad_finger_1_y;
@@ -157,11 +167,11 @@ public class driveControlled447 extends LinearOpMode {
             rollerFlipper2.setPosition(0);
             double rollerFlipper2Power;
 
-            int clickA = 0;
+            int clickB = 0;
             //Click b to do the roller flipper thing.
             if (gamepad1.b) {
-                clickA += 1;
-                if (clickA % 2 == 1) {
+                clickB += 1;
+                if (clickB % 2 == 1) {
                     rollerFlipper2Power = -0.5; //servo 90 deg to the left
                 } else {
                     rollerFlipper2Power = 0.5; //servo 90 deg to the right

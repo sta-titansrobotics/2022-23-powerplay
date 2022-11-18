@@ -100,7 +100,7 @@ public class driveControlled447 extends LinearOpMode {
                 motorBL.setPower(1);
                 motorFR.setPower(1);
                 motorBR.setPower(1);
-            }
+            }c
 
             if (gamepad1.dpad_down) {
                 motorFL.setPower(-1);
@@ -201,13 +201,11 @@ public class driveControlled447 extends LinearOpMode {
 
             //cam picker-upper (idk the name lmao its the thing that goes in the hole of the cone and picks it up)
             //changes on and off via clicking the same button. if the user clicks once, it will go up, if the user clicks twice, it will go down.
-            int camCount = 0;
-            if (gamepad1.a && camCount % 2 == 1) {
-                camCount++;
-                cam.setPosition(0.25);
-            } else {
-                camCount++;
+            if (gamepad2.left_bumper){
                 cam.setPosition(-0.25);
+            }
+            else if (gamepad2.right_bumper){
+                cam.setPosition(0.25);
             }
         }
 

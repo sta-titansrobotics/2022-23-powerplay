@@ -133,7 +133,7 @@ public class driveControlled447 extends LinearOpMode {
             //y & x mean y-coordinates (up and down) and x-coordinates (left and right), respectively.
             //Manual Lift (apparently two lifts?)
             Lift1.setPower(gamepad2.left_stick_y);
-            Lift2.setPower(gamepad2.left_stick_y);
+            Lift2.setPower(-gamepad2.left_stick_y);
 
             //vertical rack
             rackPosition = verticalRack.getPosition();

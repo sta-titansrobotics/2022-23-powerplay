@@ -35,8 +35,8 @@ public class driveControlled447 extends LinearOpMode {
         Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //Roller Flipper
-        DcMotor rollerFlipper = hardwareMap.get(DcMotor.class, "rollerFlipper");
-        rollerFlipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+   //     DcMotor rollerFlipper = hardwareMap.get(DcMotor.class, "rollerFlipper");
+     //   rollerFlipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         double flipperMotorPower;
 
         Servo verticalRack = hardwareMap.get(Servo.class, "verticalRack");
@@ -152,39 +152,40 @@ public class driveControlled447 extends LinearOpMode {
             verticalRackPower = Range.clip(liftPower, -1, 1);
             verticalRack.setPosition(verticalRackPower);
 
-
             //Roller Flipper
-            flipperMotorPower = gamepad1.touchpad_finger_1_y;
+         /*   flipperMotorPower = gamepad1.touchpad_finger_1_y;
             flipperMotorPower = Range.clip(flipperMotorPower, -1, 1);
             rollerFlipper.setPower(flipperMotorPower);
-
+*/
             //don't need | rollerFlipper2Power = gamepad1.right_stick_y;
             //don't need | rollerFlipper2Power = Range.clip(rollerFlipper2Power, -1, 1)
-            Servo rollerFlipper2 = hardwareMap.get(Servo.class, "rollerFlipper 2");
+/*            Servo rollerFlipper2 = hardwareMap.get(Servo.class, "rollerFlipper 2");
             rollerFlipper2.setPosition(0);
             double rollerFlipper2Power;
-
-            int clickB = 0;
+*/
+ //           int clickB = 0;
             //Click b to do the roller flipper thing.
-            if (gamepad1.b) {
-                clickB += 1;
+ //           if (gamepad1.b) {
+            /*clickB += 1;
                 if (clickB % 2 == 1) {
-                    rollerFlipper2Power = -0.5; //servo 90 deg to the left
+                   rollerFlipper2Power = -0.5; //servo 90 deg to the left
                 } else {
                     rollerFlipper2Power = 0.5; //servo 90 deg to the right
                 }
                 rollerFlipper2.setPosition(rollerFlipper2Power);
             }
-
+*/
             //alternatively do this?:
-            if (gamepad1.right_bumper) {
+   /*         if (gamepad1.right_bumper) {
                 rollerFlipper2.setPosition(0.25);
                 rollerFlipper.setPower(1);
             }
-            if (gamepad1.left_bumper) {
-                rollerFlipper2.setPosition(-0.25);
-                rollerFlipper.setPower(1);
-            }
+
+    */
+  //        if (gamepad1.left_bumper) {
+    //            rollerFlipper2.setPosition(-0.25);
+      //          rollerFlipper.setPower(1);
+        //    }
 
            /* //Intake
 
@@ -218,8 +219,8 @@ public class driveControlled447 extends LinearOpMode {
             telemetry.addData("Lift Power:",Lift2.getPower());
             telemetry.addData("Lift Encoder Position: ", Lift1.getCurrentPosition());
             telemetry.addData("Lift Encoder Position: ", Lift2.getCurrentPosition());
-            telemetry.addData("Roller Flipper Power:",rollerFlipper.getPower());
-            telemetry.addData("Roller Flipper Encoder Position: ", rollerFlipper.getCurrentPosition());
+          //  telemetry.addData("Roller Flipper Power:",rollerFlipper.getPower());
+        //    telemetry.addData("Roller Flipper Encoder Position: ", rollerFlipper.getCurrentPosition());
             // telemetry.addData("Intake1 Power:",Intake1.getPower());
             //telemetry.addData("Intake2 Power:",Intake2.getPower());
             //telemetry.addData("Intake1 Encoder Position: ",Intake1.getCurrentPosition());

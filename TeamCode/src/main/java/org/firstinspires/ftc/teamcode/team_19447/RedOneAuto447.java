@@ -93,8 +93,11 @@ public class RedOneAuto447 extends LinearOpMode {
         drive(40, 40, 40, 40, 1);
         //do something with the lift here
         lift(1,1);
-        sleep(100); //raise the lift for a given number of milliseconds - this we can just trial and error
-        rack(0.5);
+        rack(0);
+        pickupCone();
+        rack(1);
+        drive(30, 30, 30, 30, 1);
+        dropCone();
 
         while (opModeIsActive()) {
             telemetry.addData("motorFL Encoder Position: ",motorFL.getCurrentPosition());
@@ -120,7 +123,7 @@ public class RedOneAuto447 extends LinearOpMode {
     }
 
     public void pickupCone() {
-        if (Pickup.getState() == false) {
+        if (Pickup.getState() == false) { //this is honestly not needed.
             telemetry.addData("Pickup sensor", "is pressed");
             cam.setPosition(0.25); //turn 45 deg to pick it up
         }

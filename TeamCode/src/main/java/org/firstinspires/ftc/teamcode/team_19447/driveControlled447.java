@@ -80,10 +80,10 @@ public class driveControlled447 extends LinearOpMode {
             double y = -gamepad1.left_stick_y; // Remember, this is reversed!
 
             //STRAFING VARIABLE
-            double x = gamepad1.right_stick_x * 1.1; // Counteract imperfect strafing
+            double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
 
             //THIS IS THE TURNING VARIABLE
-            double rx = gamepad1.left_stick_x;
+            double rx = gamepad1.right_stick_x;
 
             double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
             double frontLeftPower = (y + x + rx) / denominator;

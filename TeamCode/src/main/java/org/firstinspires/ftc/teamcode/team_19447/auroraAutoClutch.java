@@ -7,9 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class auroraAutoClutch {
     @Autonomous
-    public class RedOneAuto447 extends LinearOpMode {
+    public class auroraAutoClutch extends LinearOpMode {
 
         //Set motor variables
         private DcMotor motorFL;
@@ -53,4 +52,4 @@ public class auroraAutoClutch {
 
         }
     }
-}
+

@@ -124,6 +124,11 @@ public class autoTest447 {
 
         while (FrontLeft.isBusy() && FrontRight.isBusy() && RearLeft.isBusy() && RearRight.isBusy() && NextSequence) {
         }
+
+        FrontLeft.setPower(0);
+        FrontRight.setPower(0);
+        RearLeft.setPower(0);
+        RearRight.setPower(0);
     }
 
     public void Backward(int distanceCM, boolean NextSequence) {

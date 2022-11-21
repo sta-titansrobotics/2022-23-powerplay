@@ -42,7 +42,8 @@ public class autoImportTest extends LinearOpMode {
         if (isStopRequested()) return;
 
         //movement - remember capitalization
-        pickupCone();
+        robot.Forward(20, true);
+        /*pickupCone();
         robot.Forward(20, true);
         robot.TurnLeft(40, 1, 1, true);
         dropCone();
@@ -51,7 +52,7 @@ public class autoImportTest extends LinearOpMode {
         robot.Forward(60, true);
         liftPosition(30, 1, 1, true);
         robot.Forward(3, true);
-        dropCone();
+        dropCone();*/
 
         while (opModeIsActive()) {
 

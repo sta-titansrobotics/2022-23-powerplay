@@ -225,6 +225,14 @@ public class autoTest447 {
     }
 
     //is it possible to translate cm distance into the lift??
+
+    public void setMode(DcMotor.RunMode mode) {
+        FrontLeft.setMode(mode);
+        RearLeft.setMode(mode);
+        FrontRight.setMode(mode);
+        RearRight.setMode(mode);
+    }
+
 }
 
 

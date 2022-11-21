@@ -36,7 +36,8 @@ public class autoImportTest extends LinearOpMode {
         RearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         autoTest447 robot = new autoTest447(forwardTicks, strafeTicks, FrontLeft, RearLeft, FrontRight, RearRight);
-
+        robot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         waitForStart();
 
@@ -54,6 +55,8 @@ public class autoImportTest extends LinearOpMode {
         liftPosition(30, 1, 1, true);
         robot.Forward(3, true);
         dropCone();*/
+
+        robot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         while (opModeIsActive()) {
 

@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.team_19447;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.Range;
@@ -123,12 +125,20 @@ public class autoTest447 {
         RearRight.setPower(Range.clip(errorRight * p, -0.4, 0.4));
 
         while (FrontLeft.isBusy() && FrontRight.isBusy() && RearLeft.isBusy() && RearRight.isBusy() && NextSequence) {
+            telemetry.addData("FORWARD encoder-front-left: ", FrontLeft.getCurrentPosition());
+            telemetry.addData("FORWARD encoder-rear-left: ", RearLeft.getCurrentPosition());
+            telemetry.addData("FORWARD encoder-front-right: ", FrontRight.getCurrentPosition());
+            telemetry.addData("FORWARD encoder-rear-right: ", RearRight.getCurrentPosition());
+            telemetry.update();
         }
 
+/*
         FrontLeft.setPower(0);
         FrontRight.setPower(0);
         RearLeft.setPower(0);
         RearRight.setPower(0);
+
+ */
     }
 
     public void Backward(int distanceCM, boolean NextSequence) {

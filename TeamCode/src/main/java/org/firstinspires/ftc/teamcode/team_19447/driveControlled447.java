@@ -204,19 +204,30 @@ public class driveControlled447 extends LinearOpMode {
                 cam.setPosition(0.25);
             }
 
-            //
+            //PRESETS:
             //1cm = 52.4 ticks
+
+            //Ground junction preset position.
             if (gamepad2.dpad_down){
                 moveLift(1,500);
+                verticalRack.setPosition(1);
             }
+
+            //Low junction preset position
             if (gamepad2.dpad_left){
                 moveLift(1,1782);
                 verticalRack.setPosition(1);
-
             }
-            //if (gamepad2.dpad_right){
-             //   moveLift(1,)
-            //}
+            //Medium junction preset position
+            if (gamepad2.dpad_right){ //59 cm
+                moveLift(1,3198);
+                verticalRack.setPosition(1);
+            }
+            //High junction preset position
+            if (gamepad2.dpad_up) { //84 cm
+                moveLift(1,4553);
+                verticalRack.setPosition(1);
+            }
 
             //lift presents (low, med, high) have to put actual button
 

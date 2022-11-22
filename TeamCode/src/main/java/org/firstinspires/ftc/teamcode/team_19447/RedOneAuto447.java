@@ -137,6 +137,7 @@ public class RedOneAuto447 extends LinearOpMode {
         verticalRack.setPosition(position);
     }
 
+
     //will use a function that will take the distance and speed of the motors
 
     public void drive(int leftTarget1, int leftTarget2, int rightTarget1, int rightTarget2, double speed) {

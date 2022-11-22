@@ -13,6 +13,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp
 public class driveControlled447 extends LinearOpMode {
 
+    private DcMotor Lift1;
+    private DcMotor Lift2;
+
     @Override
     public void runOpMode() {
 
@@ -31,7 +34,7 @@ public class driveControlled447 extends LinearOpMode {
         //Pickup = hardwareMap.get(DigitalChannel.class, "Pickup");
 
         //Lift (Two lifts)
-        DcMotor Lift1 = hardwareMap.get(DcMotor.class, "Lift 1");
+        Lift1 = hardwareMap.get(DcMotor.class, "Lift 1");
         Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         DcMotor Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
         Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -200,6 +203,24 @@ public class driveControlled447 extends LinearOpMode {
             if (gamepad2.right_bumper){
                 cam.setPosition(0.25);
             }
+
+            //
+            //1cm = 52.4 ticks
+            if (gamepad2.dpad_down){
+                moveLift(1,500);
+            }
+            if (gamepad2.dpad_left){
+                moveLift(1,1782);
+                verticalRack.setPosition(1);
+
+            }
+            //if (gamepad2.dpad_right){
+             //   moveLift(1,)
+            //}
+
+            //lift presents (low, med, high) have to put actual button
+
+
             // Add sensors to telemetry???
             telemetry.addData("LF Power:", motorFL.getPower());
             telemetry.addData("LB Power:", motorBL.getPower());
@@ -228,4 +249,31 @@ public class driveControlled447 extends LinearOpMode {
 
 
         }
+
+        //
+        public void motorPower(double power) {
+            Lift1.setPower(power);
+            Lift2.setPower(power);
+        }
+
+        public void setLiftMode(DcMotor.RunMode mode){
+           Lift1.setMode(mode);
+           Lift2.setMode(mode);
     }
+
+        public void moveLift(double power, int ticks){
+            Lift1.setTargetPosition(ticks);
+            Lift2.setTargetPosition(ticks);
+            setLiftMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            motorPower(power);
+
+            while (Lift1.isBusy() && Lift2.isBusy()) {
+
+                telemetry.addData("encoder-left-lift", Lift1.getCurrentPosition() + " busy= " + Lift1.isBusy());
+                telemetry.addData("encoder-right-lift", Lift2.getCurrentPosition() + " busy= " + Lift2.isBusy());
+                telemetry.update();
+                }
+            }
+
+}

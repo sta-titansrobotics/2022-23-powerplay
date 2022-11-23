@@ -44,7 +44,7 @@ public class driveControlled447 extends LinearOpMode {
         //Roller Flipper
    //     DcMotor rollerFlipper = hardwareMap.get(DcMotor.class, "rollerFlipper");
      //   rollerFlipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        double flipperMotorPower;
+        //double flipperMotorPower;
 
         Servo verticalRack = hardwareMap.get(Servo.class, "verticalRack");
         double rackPosition = 0;
@@ -213,19 +213,19 @@ public class driveControlled447 extends LinearOpMode {
                 verticalRack.setPosition(1);
             }
 
-            //Low junction preset position
+            //Low junction preset position  original 1782 ticks
             if (gamepad2.dpad_left){  //34cm
-                moveLift(1,1782);
+                moveLift(1,1400);
                 verticalRack.setPosition(1);
             }
             //Medium junction preset position
             if (gamepad2.dpad_right){ //59 cm
-                moveLift(1,3198);
+                moveLift(1,2500);
                 verticalRack.setPosition(1);
             }
             //High junction preset position
             if (gamepad2.dpad_up) { //84 cm
-                moveLift(1,4553);
+                moveLift(1,3500);
                 verticalRack.setPosition(1);
             }
 
@@ -247,6 +247,7 @@ public class driveControlled447 extends LinearOpMode {
             telemetry.addData("Lift Encoder Position: ", Lift2.getCurrentPosition());
             telemetry.addData("Vertical rack: ", verticalRack.getPosition());
             telemetry.addData("Cam", cam.getPosition());
+
             //  telemetry.addData("Roller Flipper Power:",rollerFlipper.getPower());
             //    telemetry.addData("Roller Flipper Encoder Position: ", rollerFlipper.getCurrentPosition());
             // telemetry.addData("Intake1 Power:",Intake1.getPower());

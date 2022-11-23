@@ -34,9 +34,9 @@ public class driveControlled447 extends LinearOpMode {
         //Pickup = hardwareMap.get(DigitalChannel.class, "Pickup");
 
         //Lift (Two lifts)
-        Lift1 = hardwareMap.get(DcMotor.class, "Lift 1");
+        DcMotor Lift1 = hardwareMap.get(DcMotor.class, "Lift 1");
         Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
+        DcMotor Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
         Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Lift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

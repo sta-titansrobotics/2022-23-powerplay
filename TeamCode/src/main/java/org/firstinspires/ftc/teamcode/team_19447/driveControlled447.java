@@ -36,7 +36,7 @@ public class driveControlled447 extends LinearOpMode {
         //Lift (Two lifts)
         Lift1 = hardwareMap.get(DcMotor.class, "Lift 1");
         Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        DcMotor Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
+        Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
         Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Lift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -214,7 +214,7 @@ public class driveControlled447 extends LinearOpMode {
             }
 
             //Low junction preset position
-            if (gamepad2.dpad_left){
+            if (gamepad2.dpad_left){  //34cm
                 moveLift(1,1782);
                 verticalRack.setPosition(1);
             }

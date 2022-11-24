@@ -208,8 +208,8 @@ public class driveControlled447 extends LinearOpMode {
             //1cm = 52.4 ticks
 
             //Ground junction preset position.
-            if (gamepad2.dpad_down){
-                moveLift(1,500);
+            if (gamepad2.dpad_down){ //i don't think we need to use lift for ground junction, just use vertical rack
+                //moveLift(1,500);
                 verticalRack.setPosition(1);
             }
 

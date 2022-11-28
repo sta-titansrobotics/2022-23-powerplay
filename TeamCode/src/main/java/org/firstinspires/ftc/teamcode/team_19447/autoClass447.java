@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.Range;
 
-public class autoTest447 {
+public class autoClass447 {
 
     DcMotor FrontLeft;
     DcMotor RearLeft;
@@ -13,7 +13,7 @@ public class autoTest447 {
     public static double forwardTicks;
     public static double strafeTicks;
 
-    public autoTest447(double forward, double strafe, DcMotor FL, DcMotor BL, DcMotor FR, DcMotor BR) {
+    public autoClass447(double forward, double strafe, DcMotor FL, DcMotor BL, DcMotor FR, DcMotor BR) {
         forwardTicks = forward;
         strafeTicks = strafe;
         FrontLeft = FL;

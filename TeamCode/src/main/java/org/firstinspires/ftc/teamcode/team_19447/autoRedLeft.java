@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous
-public class autoImportTest extends LinearOpMode {
+public class autoRedLeft extends LinearOpMode {
 
     public static double forwardTicks = 52.3;
     public static double strafeTicks = 54.05;
@@ -35,7 +35,7 @@ public class autoImportTest extends LinearOpMode {
         FrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         RearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        autoTest447 robot = new autoTest447(forwardTicks, strafeTicks, FrontLeft, RearLeft, FrontRight, RearRight);
+        autoClass447 robot = new autoClass447(forwardTicks, strafeTicks, FrontLeft, RearLeft, FrontRight, RearRight);
         robot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 

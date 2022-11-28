@@ -44,7 +44,8 @@ public class autoRedLeft extends LinearOpMode {
         if (isStopRequested()) return;
 
         //movement - remember capitalization
-        robot.Forward(20, true);
+        robot.Forward(100, true);
+        liftPosition(3000, 1, 1, true);
         /*pickupCone();
         robot.Forward(20, true);
         robot.TurnLeft(40, 1, 1, true);

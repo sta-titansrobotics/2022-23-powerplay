@@ -217,13 +217,128 @@ public class autoClass447 {
         }
     }
 
+    public void forwardDiagonalLeft(int distanceCM, double Speed, int Tolerance, boolean NextSequence) {
+        // convert encoder ticks to centimetres
+        double tick = distanceCM * forwardTicks;
+        int ticks = (int) tick;
+
+        ((DcMotorEx) FrontLeft).setTargetPositionTolerance(Tolerance);
+        ((DcMotorEx) FrontRight).setTargetPositionTolerance(Tolerance);
+        ((DcMotorEx) RearLeft).setTargetPositionTolerance(Tolerance);
+        ((DcMotorEx) RearRight).setTargetPositionTolerance(Tolerance);
+
+        FrontLeft.setTargetPosition(0);
+        FrontRight.setTargetPosition(ticks);
+        RearLeft.setTargetPosition(ticks);
+        RearRight.setTargetPosition(0);
+
+        FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RearRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        FrontLeft.setPower(Speed);
+        FrontRight.setPower(Speed);
+        RearLeft.setPower(Speed);
+        RearRight.setPower(Speed);
+
+        while (FrontLeft.isBusy() && FrontRight.isBusy() && RearLeft.isBusy() && RearRight.isBusy() && NextSequence) {
+        }
+    }
+
+    public void forwardDiagonalRight(int distanceCM, double Speed, int Tolerance, boolean NextSequence) {
+        // convert encoder ticks to centimetres
+        double tick = distanceCM * forwardTicks;
+        int ticks = (int) tick;
+
+        ((DcMotorEx) FrontLeft).setTargetPositionTolerance(Tolerance);
+        ((DcMotorEx) FrontRight).setTargetPositionTolerance(Tolerance);
+        ((DcMotorEx) RearLeft).setTargetPositionTolerance(Tolerance);
+        ((DcMotorEx) RearRight).setTargetPositionTolerance(Tolerance);
+
+        FrontLeft.setTargetPosition(ticks);
+        FrontRight.setTargetPosition(0);
+        RearLeft.setTargetPosition(0);
+        RearRight.setTargetPosition(ticks);
+
+        FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RearRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        FrontLeft.setPower(Speed);
+        FrontRight.setPower(Speed);
+        RearLeft.setPower(Speed);
+        RearRight.setPower(Speed);
+
+        while (FrontLeft.isBusy() && FrontRight.isBusy() && RearLeft.isBusy() && RearRight.isBusy() && NextSequence) {
+        }
+    }
+
+    public void backwardDiagonalLeft(int distanceCM, double Speed, int Tolerance, boolean NextSequence) {
+        // convert encoder ticks to centimetres
+        double tick = distanceCM * forwardTicks;
+        int ticks = (int) tick;
+
+        ((DcMotorEx) FrontLeft).setTargetPositionTolerance(Tolerance);
+        ((DcMotorEx) FrontRight).setTargetPositionTolerance(Tolerance);
+        ((DcMotorEx) RearLeft).setTargetPositionTolerance(Tolerance);
+        ((DcMotorEx) RearRight).setTargetPositionTolerance(Tolerance);
+
+        FrontLeft.setTargetPosition(-ticks);
+        FrontRight.setTargetPosition(0);
+        RearLeft.setTargetPosition(0);
+        RearRight.setTargetPosition(-ticks);
+
+        FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RearRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        FrontLeft.setPower(Speed);
+        FrontRight.setPower(Speed);
+        RearLeft.setPower(Speed);
+        RearRight.setPower(Speed);
+
+        while (FrontLeft.isBusy() && FrontRight.isBusy() && RearLeft.isBusy() && RearRight.isBusy() && NextSequence) {
+        }
+    }
+
+    public void backwardDiagonalRight(int distanceCM, double Speed, int Tolerance, boolean NextSequence) {
+        // convert encoder ticks to centimetres
+        double tick = distanceCM * forwardTicks;
+        int ticks = (int) tick;
+
+        ((DcMotorEx) FrontLeft).setTargetPositionTolerance(Tolerance);
+        ((DcMotorEx) FrontRight).setTargetPositionTolerance(Tolerance);
+        ((DcMotorEx) RearLeft).setTargetPositionTolerance(Tolerance);
+        ((DcMotorEx) RearRight).setTargetPositionTolerance(Tolerance);
+
+        FrontLeft.setTargetPosition(0);
+        FrontRight.setTargetPosition(-ticks);
+        RearLeft.setTargetPosition(-ticks);
+        RearRight.setTargetPosition(0);
+
+        FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RearRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        FrontLeft.setPower(Speed);
+        FrontRight.setPower(Speed);
+        RearLeft.setPower(Speed);
+        RearRight.setPower(Speed);
+
+        while (FrontLeft.isBusy() && FrontRight.isBusy() && RearLeft.isBusy() && RearRight.isBusy() && NextSequence) {
+        }
+    }
+
     public void ChassisReset() {
         FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RearLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RearRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
-
     //is it possible to translate cm distance into the lift??
 
     public void setMode(DcMotor.RunMode mode) {

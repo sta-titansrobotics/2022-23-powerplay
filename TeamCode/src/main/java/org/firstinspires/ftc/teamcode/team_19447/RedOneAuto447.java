@@ -19,8 +19,8 @@ public class RedOneAuto447 extends LinearOpMode {
     private DcMotor motorBL;
     private DcMotor motorFR;
     private DcMotor motorBR;
-    private DcMotor Lift1;
-    private DcMotor Lift2;
+    private DcMotor LiftLeft;
+    private DcMotor LiftRight;
     private Servo cam;
     private Servo verticalRack;
 
@@ -30,11 +30,6 @@ public class RedOneAuto447 extends LinearOpMode {
     private int rightPos1;
     private int rightPos2;
 
-    //Touch Sensors?
-    private DigitalChannel Touch1;
-    private DigitalChannel Touch2;
-    private DigitalChannel Pickup;
-
     public void runOpMode() {
 
         //Initialize motors
@@ -43,15 +38,9 @@ public class RedOneAuto447 extends LinearOpMode {
         motorFR = hardwareMap.get(DcMotor.class, "motorFrontRight");
         motorBR = hardwareMap.get(DcMotor.class, "motorBackRight");
         //Lifts
-        Lift1 = hardwareMap.get(DcMotor.class, "Lift 1");
-        Lift2 = hardwareMap.get(DcMotor.class, "Lift 2");
+        LiftLeft = hardwareMap.get(DcMotor.class, "Lift 1");
+        LiftRight = hardwareMap.get(DcMotor.class, "Lift 2");
         //Touch Sensors? - Remember that digital channels use odd numbers for some reason, not the even numbers.
-        Touch1 = hardwareMap.get(DigitalChannel.class, "Touch1");
-        Touch2 = hardwareMap.get(DigitalChannel.class, "Touch2");
-        Pickup = hardwareMap.get(DigitalChannel.class, "Pickup");
-        // set the digital channel to input.
-        Touch1.setMode(DigitalChannel.Mode.INPUT);
-        Touch2.setMode(DigitalChannel.Mode.INPUT);
         //verticalRack
         verticalRack = hardwareMap.get(Servo.class, "verticalRack");
         //cam
@@ -67,7 +56,7 @@ public class RedOneAuto447 extends LinearOpMode {
         motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
         //Reverse one of the lift motors
-        Lift2.setDirection(DcMotorSimple.Direction.REVERSE);
+        LiftLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //Initialize the positions to zero, since the motor has not moved yet
         leftPos1 = 0;
@@ -84,9 +73,10 @@ public class RedOneAuto447 extends LinearOpMode {
         //Building the circuit:
 
         //The ground junction:
+        raiseRack();
         drive(110, 110, 110, 110, 1); //60 cm to the ground junction
-
-
+        drive(-27,-27, 27,27, 1);
+        dropCone();
 
         /*drive(-16, -16, 16, 16, 1); //turn left ~ 45 degrees (prolly more now bc it has to compensate with the location change with the previous line)
         drive(30, 30, 30, 30, 1);
@@ -114,22 +104,31 @@ public class RedOneAuto447 extends LinearOpMode {
 
     }
 
-    private void liftPosition(int ticks, double Speed, int Tolerance, boolean NextSequence){
+    private void liftPosition(int ticks, double Speed, int Tolerance, boolean NextSequence) {
 
-        Lift1.setTargetPosition(ticks);
-        Lift2.setTargetPosition(ticks);
-        Lift1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Lift2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Lift1.setPower(Speed); //prob best to leave the speed as 1.
-        Lift2.setPower(Speed);
-        ((DcMotorEx) Lift1).setTargetPositionTolerance(Tolerance);
-        ((DcMotorEx) Lift2).setTargetPositionTolerance(Tolerance);
-        while (Lift1.isBusy() && Lift2.isBusy() && NextSequence) {
+        LiftLeft.setTargetPosition(ticks);
+        LiftRight.setTargetPosition(ticks);
+        LiftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LiftRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LiftLeft.setPower(Speed); //prob best to leave the speed as 1.
+        LiftRight.setPower(Speed);
+        ((DcMotorEx) LiftLeft).setTargetPositionTolerance(Tolerance);
+        ((DcMotorEx) LiftRight).setTargetPositionTolerance(Tolerance);
+        while (LiftLeft.isBusy() && LiftRight.isBusy() && NextSequence) {
         }
     }
 
+    public void raiseRack() {
+        verticalRack.setPosition(0);
+    }
+
     public void pickupCone() {
+        verticalRack.setPosition(1);
+        sleep(2000);
         cam.setPosition(0.25); //turn 45 deg to pick it up
+        sleep(1000);
+        verticalRack.setPosition(0);
+        sleep(1000);
     }
 
     public void dropCone() {

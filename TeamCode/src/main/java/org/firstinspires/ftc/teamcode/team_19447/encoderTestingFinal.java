@@ -158,10 +158,6 @@ public class encoderTestingFinal extends LinearOpMode {
         motorBL.setPower(0);
         motorFR.setPower(0);
         motorBR.setPower(0);
-        /*motorFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);*/
 
     }
    }

@@ -49,9 +49,10 @@ public class autoRedLeft extends LinearOpMode {
         //movement - remember capitalization
 
         raiseRack();
-        robot.Forward(110,true);
-       // pickupCone();
-        robot.TurnLeft(27, 1, true);
+        robot.Forward(110, true);
+        // pickupCone();
+        robot.drive(-27, -27, 27, 27, 1);
+        //robot.TurnLeft(27, 1, true);
         dropCone();
 
        /*
@@ -102,18 +103,10 @@ public class autoRedLeft extends LinearOpMode {
         }
     }
 
-   /* public void SlidesPosition(int Value, double Speed, int Tolerance, boolean NextSequence) {
-        LinearSlides.setTargetPosition(Value);
-        LinearSlides.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        LinearSlides.setPower(Speed);
-        ((DcMotorEx) LinearSlides).setTargetPositionTolerance(Tolerance);
-        while (LinearSlides.isBusy() && NextSequence) {
-        }
-    }*/
-
     public void raiseRack() {
         verticalRack.setPosition(0);
     }
+
     public void pickupCone() {
         verticalRack.setPosition(1);
         sleep(2000);
@@ -130,6 +123,8 @@ public class autoRedLeft extends LinearOpMode {
     public void rack(double position) {
         verticalRack.setPosition(position);
     }
+
+
 }
 
 

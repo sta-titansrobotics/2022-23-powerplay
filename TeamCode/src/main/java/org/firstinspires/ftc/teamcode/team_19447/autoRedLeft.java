@@ -110,7 +110,7 @@ public class autoRedLeft extends LinearOpMode {
 
     public void pickupCone() {
         verticalRack.setPosition(1);
-        sleep(1000);
+        sleep(3000);
         Cam.setPosition(0.25); //turn 45 deg to pick it up
         sleep(1000);
         verticalRack.setPosition(0);

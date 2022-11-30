@@ -112,7 +112,7 @@ public class autoRedLeft extends LinearOpMode {
         verticalRack.setPosition(0);
         sleep(1100);
         Cam.setPosition(0.25); //turn 45 deg to pick it up
-        sleep(400);
+        sleep(1000);
         verticalRack.setPosition(1);
     }
 

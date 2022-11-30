@@ -48,8 +48,11 @@ public class autoRedLeft extends LinearOpMode {
 
         //movement - remember capitalization
 
-        pickupCone();
-        //dropCone();
+        raiseRack();
+        robot.Forward(110,true);
+       // pickupCone();
+        robot.TurnLeft(27, 1, true);
+        dropCone();
 
        /*
         robot.Forward(110, true);
@@ -108,9 +111,12 @@ public class autoRedLeft extends LinearOpMode {
         }
     }*/
 
+    public void raiseRack() {
+        verticalRack.setPosition(0);
+    }
     public void pickupCone() {
         verticalRack.setPosition(1);
-        sleep(3000);
+        sleep(2000);
         Cam.setPosition(0.25); //turn 45 deg to pick it up
         sleep(1000);
         verticalRack.setPosition(0);

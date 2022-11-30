@@ -159,15 +159,10 @@ public class autoClass447 {
         }
     }
 
-    public void TurnLeft(int distanceCM, double Speed, int Tolerance, boolean NextSequence) {
+    public void TurnLeft(int distanceCM, double Speed, boolean NextSequence) {
         // convert encoder ticks to centimetres
         double tick = distanceCM * forwardTicks;
         int ticks = (int) tick;
-
-        ((DcMotorEx) FrontLeft).setTargetPositionTolerance(Tolerance);
-        ((DcMotorEx) FrontRight).setTargetPositionTolerance(Tolerance);
-        ((DcMotorEx) RearLeft).setTargetPositionTolerance(Tolerance);
-        ((DcMotorEx) RearRight).setTargetPositionTolerance(Tolerance);
 
         FrontLeft.setTargetPosition(-ticks);
         FrontRight.setTargetPosition(ticks);

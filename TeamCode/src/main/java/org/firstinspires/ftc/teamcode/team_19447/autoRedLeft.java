@@ -48,15 +48,11 @@ public class autoRedLeft extends LinearOpMode {
 
         //movement - remember capitalization
 
+        pickupCone();
 
-        sleep(800);
-        Cam.setPosition(0.25); //activate camshaft
-
-        verticalRack.setPosition(1);
+       /*
         robot.Forward(110, true);
-        liftPosition(20, 1, 1, true);
-        dropCone();
-       /* robot.TurnLeft(30, 1, 1, true);
+        robot.TurnLeft(30, 1, 1, true);
         liftPosition(38, 1, 1, true); //2000 ticks
         robot.Forward(15, true);
         dropCone();
@@ -85,23 +81,22 @@ public class autoRedLeft extends LinearOpMode {
         }
     }
 
-       private void liftPosition(int distanceCM, double Speed, int Tolerance, boolean NextSequence){
-            // convert encoder ticks to centimetres
-            double tick = distanceCM * forwardTicks;
-            int ticks = (int) tick;
+    private void liftPosition(int distanceCM, double Speed, int Tolerance, boolean NextSequence) {
+        // convert encoder ticks to centimetres
+        double tick = distanceCM * forwardTicks;
+        int ticks = (int) tick;
 
-            LiftLeft.setTargetPosition(ticks);
-            LiftRight.setTargetPosition(ticks);
-            LiftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LiftRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LiftLeft.setPower(Speed); //prob best to leave the speed as 1.
-            LiftRight.setPower(Speed);
-            ((DcMotorEx) LiftLeft).setTargetPositionTolerance(Tolerance);
-            ((DcMotorEx) LiftRight).setTargetPositionTolerance(Tolerance);
-            while (LiftLeft.isBusy() && LiftRight.isBusy() && NextSequence) {
-            }
+        LiftLeft.setTargetPosition(ticks);
+        LiftRight.setTargetPosition(ticks);
+        LiftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LiftRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LiftLeft.setPower(Speed); //prob best to leave the speed as 1.
+        LiftRight.setPower(Speed);
+        ((DcMotorEx) LiftLeft).setTargetPositionTolerance(Tolerance);
+        ((DcMotorEx) LiftRight).setTargetPositionTolerance(Tolerance);
+        while (LiftLeft.isBusy() && LiftRight.isBusy() && NextSequence) {
         }
-
+    }
 
    /* public void SlidesPosition(int Value, double Speed, int Tolerance, boolean NextSequence) {
         LinearSlides.setTargetPosition(Value);
@@ -112,37 +107,20 @@ public class autoRedLeft extends LinearOpMode {
         }
     }*/
 
-    static double position = 0;
-
-       private void lowerCam() {
-           while (position < 1) {
-               position += 0.1;
-               verticalRack.setPosition(position);
-           }
-
-           /*double position = 0;
-           while(position < 1) {
-               position += 0.1;
-               verticalRack.setPosition(position);
-           }*/
-
-       }
-       private void activateCam() {
-           while (position == 1) {
-               position -= 0.1;
-           }
-
-       }
-
-       private void pickupCone() {
-            //raise back up after picking up the cone
-       }
-
-       private void dropCone() {
-            verticalRack.setPosition(0); //lower position down
-            Cam.setPosition(-0.25); //release camshaft
-       }
+    public void pickupCone() {
+        verticalRack.setPosition(1);
+        Cam.setPosition(0.25); //turn 45 deg to pick it up
+        verticalRack.setPosition(0);
     }
+
+    public void dropCone() {
+        Cam.setPosition(-0.25); //revert and turn back the 45 deg to drop it.
+    }
+
+    public void rack(double position) {
+        verticalRack.setPosition(position);
+    }
+}
 
 
 

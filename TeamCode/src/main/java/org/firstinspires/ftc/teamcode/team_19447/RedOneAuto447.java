@@ -5,6 +5,7 @@ import static android.os.SystemClock.sleep;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -83,7 +84,9 @@ public class RedOneAuto447 extends LinearOpMode {
         //Building the circuit:
 
         //The ground junction:
-        drive(60, 60, 60, 60, 1); //60 cm to the ground junction
+        drive(110, 110, 110, 110, 1); //60 cm to the ground junction
+
+
 
         /*drive(-16, -16, 16, 16, 1); //turn left ~ 45 degrees (prolly more now bc it has to compensate with the location change with the previous line)
         drive(30, 30, 30, 30, 1);
@@ -111,23 +114,22 @@ public class RedOneAuto447 extends LinearOpMode {
 
     }
 
-    public void lift(double liftPower, long seconds) {
-        Lift1.setPower(liftPower);
-        Lift2.setPower(liftPower);
-        sleep(seconds * 1000);
-        if ((Touch1.getState() == false) && (Touch2.getState() == false)) {
-            telemetry.addData("Touch Sensors", "Are Pressed");
-            Lift1.setPower(0);
-            Lift2.setPower(0);
+    private void liftPosition(int ticks, double Speed, int Tolerance, boolean NextSequence){
+
+        Lift1.setTargetPosition(ticks);
+        Lift2.setTargetPosition(ticks);
+        Lift1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Lift2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Lift1.setPower(Speed); //prob best to leave the speed as 1.
+        Lift2.setPower(Speed);
+        ((DcMotorEx) Lift1).setTargetPositionTolerance(Tolerance);
+        ((DcMotorEx) Lift2).setTargetPositionTolerance(Tolerance);
+        while (Lift1.isBusy() && Lift2.isBusy() && NextSequence) {
         }
-        telemetry.update();
     }
 
     public void pickupCone() {
-        if (Pickup.getState() == false) { //this is honestly not needed.
-            telemetry.addData("Pickup sensor", "is pressed");
-            cam.setPosition(0.25); //turn 45 deg to pick it up
-        }
+        cam.setPosition(0.25); //turn 45 deg to pick it up
     }
 
     public void dropCone() {

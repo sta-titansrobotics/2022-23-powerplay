@@ -114,7 +114,7 @@ public class autoRedLeft extends LinearOpMode {
 
        }
        private void activateCam() {
-           sleep(500);
+           sleep(800);
            Cam.setPosition(0.25); //activate camshaft
        }
 

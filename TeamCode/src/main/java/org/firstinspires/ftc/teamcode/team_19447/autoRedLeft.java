@@ -110,7 +110,11 @@ public class autoRedLeft extends LinearOpMode {
     }*/
 
        private void lowerCam() {
-           verticalRack.setPosition(-0.25); //lower position down to pick up the cone
+           double position = 0;
+           while(position < 1) {
+               position += 0.1;
+               verticalRack.setPosition(position);
+           }
 
        }
        private void activateCam() {

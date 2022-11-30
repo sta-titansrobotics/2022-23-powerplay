@@ -17,7 +17,7 @@ public class encoderAuto {
         rightRear = RB;
     }
 
-    /**
+     /**
      * Moves robot forward
      * @param distanceCM desired distance travelled
      */

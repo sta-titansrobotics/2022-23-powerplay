@@ -48,7 +48,6 @@ public class autoRedLeft extends LinearOpMode {
 
         //movement - remember capitalization
         lowerCam();
-        sleep(1000);
         activateCam();
         pickupCone();
         robot.Forward(110, true);
@@ -112,8 +111,10 @@ public class autoRedLeft extends LinearOpMode {
 
        private void lowerCam() {
            verticalRack.setPosition(-0.25); //lower position down to pick up the cone
+
        }
        private void activateCam() {
+           sleep(500);
            Cam.setPosition(0.25); //activate camshaft
        }
 

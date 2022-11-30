@@ -35,6 +35,9 @@ public class autoRedLeft extends LinearOpMode {
         FrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         RearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        //Reverse one of the lifts
+        LiftLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+
         autoClass447 robot = new autoClass447(forwardTicks, strafeTicks, FrontLeft, RearLeft, FrontRight, RearRight);
         robot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -45,9 +48,9 @@ public class autoRedLeft extends LinearOpMode {
 
         //movement - remember capitalization
         pickupCone();
-        robot.Forward(110, true);
+        robot.Forward(115, true);
         robot.TurnLeft(30, 1, 1, true);
-        liftPosition(3000, 1, 1, true);
+        liftPosition(38, 1, 1, true); //2000 ticks
         robot.Forward(15, true);
         dropCone();
         robot.Backward(15, true);

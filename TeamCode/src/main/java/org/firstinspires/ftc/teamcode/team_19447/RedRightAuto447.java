@@ -1,18 +1,15 @@
 package org.firstinspires.ftc.teamcode.team_19447;
-//Used if our bot is on the top red side of the arena
+//Used if our bot is on the right red side of the arena
 
-import static android.os.SystemClock.sleep;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.Range;
 
 @Autonomous
-public class RedOneAuto447 extends LinearOpMode {
+public class RedRightAuto447 extends LinearOpMode {
 
     //Set motor variables
     private DcMotor motorFL;
@@ -70,15 +67,13 @@ public class RedOneAuto447 extends LinearOpMode {
         //can now set drive distance because of the function below; now we just need to input the distance
         //can also control the direction using the mecanum drivetrain directions here: https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
 
-        //Building the circuit:
-
         //The ground junction:
         raiseRack();
         drive(110, 110, 110, 110, 1); //60 cm to the ground junction
         drive(-20,-20, 20,20, 1);
         dropCone();
 
-        /*drive(-16, -16, 16, 16, 1); //turn left ~ 45 degrees (prolly more now bc it has to compensate with the location change with the previous line)
+        /*drive(-16, -16, 16, 16, 1); //turn left ~ 45 degrees (prob more now bc it has to compensate with the location change with the previous line)
         drive(30, 30, 30, 30, 1);
         drive(-20, -20, -20, -20, 1);
 
@@ -100,8 +95,6 @@ public class RedOneAuto447 extends LinearOpMode {
             telemetry.addData("motorBR Encoder Position: ", motorBR.getCurrentPosition());
             telemetry.update();
         }
-        //The third pole
-
     }
 
     private void liftPosition(int ticks, double Speed, int Tolerance, boolean NextSequence) {
@@ -139,7 +132,6 @@ public class RedOneAuto447 extends LinearOpMode {
         verticalRack.setPosition(position);
     }
 
-
     //will use a function that will take the distance and speed of the motors
 
     public void drive(int leftTarget1, int leftTarget2, int rightTarget1, int rightTarget2, double speed) {
@@ -151,13 +143,13 @@ public class RedOneAuto447 extends LinearOpMode {
         int ticks2 = (int) strafeTicks;
 
 
-        leftPos1 += leftTarget1; //By adding the "+=", it makes it equivalent to leftPos1 = leftPos1 + leftTarget1, therefore it will allow adding values to the position based on what the target is.
-        leftPos2 += leftTarget2; //This will therefore change where the motor needs to be by the specific inputted amount
+        leftPos1 += leftTarget1;
+        leftPos2 += leftTarget2; //This will change where the motor needs to be by the specific inputted amount
         rightPos1 += rightTarget1;
         rightPos2 += rightTarget2;
 
         // Using setTargetPosition and RUN_TO_POSITION, it forces motors to continue running until the encoders reach the specified target position
-        // We are multiplying by forward/strafe ticks in relation to forward/strafe based on what the robot is doing.
+        // Multiplying by forward/strafe ticks in relation to forward/strafe based on what the robot is doing.
         if ((leftPos1 >= 0) && (leftPos2 >= 0) && (rightPos1 >= 0) && (rightPos2 >= 0)) { //Forward
             motorFL.setTargetPosition((leftPos1) * ticks1);
             motorBL.setTargetPosition((leftPos2) * ticks1);

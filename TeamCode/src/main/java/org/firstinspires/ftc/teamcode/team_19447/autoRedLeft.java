@@ -47,11 +47,7 @@ public class autoRedLeft extends LinearOpMode {
         if (isStopRequested()) return;
 
         //movement - remember capitalization
-        double position = 0;
-        while(position < 1) {
-            position += 0.1;
-            verticalRack.setPosition(position);
-        }
+
 
         sleep(800);
         Cam.setPosition(0.25); //activate camshaft
@@ -116,11 +112,25 @@ public class autoRedLeft extends LinearOpMode {
         }
     }*/
 
-       private void lowerCam() {
+    static double position = 0;
 
+       private void lowerCam() {
+           while (position < 1) {
+               position += 0.1;
+               verticalRack.setPosition(position);
+           }
+
+           /*double position = 0;
+           while(position < 1) {
+               position += 0.1;
+               verticalRack.setPosition(position);
+           }*/
 
        }
        private void activateCam() {
+           while (position == 1) {
+               position -= 0.1;
+           }
 
        }
 

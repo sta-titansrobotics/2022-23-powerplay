@@ -54,7 +54,7 @@ public class RedOneAuto447 extends LinearOpMode {
         //verticalRack
         verticalRack = hardwareMap.get(Servo.class, "verticalRack");
         //cam
-        cam = hardwareMap.get(Servo.class,"Cam");
+        cam = hardwareMap.get(Servo.class, "Cam");
 
         //set mode to stop and reset encoders -- resets encoders to the 0 position
         motorFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -80,40 +80,41 @@ public class RedOneAuto447 extends LinearOpMode {
         //can now set drive distance because of the function below; now we just need to input the distance
         //can also control the direction using the mecanum drivetrain directions here: https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
 
-    //Building the circuit:
+        //Building the circuit:
 
-      //The ground junction:
-        drive(60,60,60,60,1); //60 cm to the ground junction
-        drive(-16, -16, 16, 16, 1); //turn left ~ 45 degrees (prolly more now bc it has to compensate with the location change with the previous line)
+        //The ground junction:
+        drive(60, 60, 60, 60, 1); //60 cm to the ground junction
+
+        /*drive(-16, -16, 16, 16, 1); //turn left ~ 45 degrees (prolly more now bc it has to compensate with the location change with the previous line)
         drive(30, 30, 30, 30, 1);
-        drive(-20,-20,-20,-20,1);
+        drive(-20, -20, -20, -20, 1);
 
-      //The second pole:
+        //The second pole:
         drive(10, 10, -10, -10, 1); //revert to a straight-forward position
         drive(40, 40, 40, 40, 1);
         //do something with the lift here
-        lift(1,1);
+        lift(1, 1);
         rack(0);
         pickupCone();
         rack(1);
         drive(30, 30, 30, 30, 1);
-        dropCone();
+        dropCone();*/
 
         while (opModeIsActive()) {
-            telemetry.addData("motorFL Encoder Position: ",motorFL.getCurrentPosition());
-            telemetry.addData("motorBL Encoder Position: ",motorBL.getCurrentPosition());
-            telemetry.addData("motorFR Encoder Position: ",motorFR.getCurrentPosition());
-            telemetry.addData("motorBR Encoder Position: ",motorBR.getCurrentPosition());
+            telemetry.addData("motorFL Encoder Position: ", motorFL.getCurrentPosition());
+            telemetry.addData("motorBL Encoder Position: ", motorBL.getCurrentPosition());
+            telemetry.addData("motorFR Encoder Position: ", motorFR.getCurrentPosition());
+            telemetry.addData("motorBR Encoder Position: ", motorBR.getCurrentPosition());
             telemetry.update();
         }
-      //The third pole
+        //The third pole
 
     }
 
-    public void lift(double liftPower, long seconds){
+    public void lift(double liftPower, long seconds) {
         Lift1.setPower(liftPower);
         Lift2.setPower(liftPower);
-        sleep(seconds*1000);
+        sleep(seconds * 1000);
         if ((Touch1.getState() == false) && (Touch2.getState() == false)) {
             telemetry.addData("Touch Sensors", "Are Pressed");
             Lift1.setPower(0);
@@ -175,7 +176,7 @@ public class RedOneAuto447 extends LinearOpMode {
             motorFR.setTargetPosition((rightPos1) * ticks2);
             motorBR.setTargetPosition((rightPos2) * ticks2);
 
-        } else if (((leftPos2 > 0) && (rightPos1 > 0)) || ((leftPos2 == 0) && (rightPos1 == 0))){
+        } else if (((leftPos2 > 0) && (rightPos1 > 0)) || ((leftPos2 == 0) && (rightPos1 == 0))) {
             //Strafing diagonally forward right or left, respectively.
             motorFL.setTargetPosition((leftPos1) * ticks2);
             motorBL.setTargetPosition((leftPos2) * ticks2);
@@ -210,7 +211,7 @@ public class RedOneAuto447 extends LinearOpMode {
         motorBR.setPower(speed);
 
         //will stop automatically but need to prevent any other code from conflicting
-        while(opModeIsActive() && motorFL.isBusy() && motorBL.isBusy() && motorFR.isBusy() && motorBR.isBusy()) {
+        while (opModeIsActive() && motorFL.isBusy() && motorBL.isBusy() && motorFR.isBusy() && motorBR.isBusy()) {
         }
 
         //Stop driving so that it can perform the next command.
@@ -222,4 +223,3 @@ public class RedOneAuto447 extends LinearOpMode {
     }
 
 }
-

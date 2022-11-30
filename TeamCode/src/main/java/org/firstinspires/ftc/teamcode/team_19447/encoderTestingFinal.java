@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class encoderTestingFinal extends LinearOpMode {
 
     //Set motor variables
-    private DcMotor motorFL;
+        private DcMotor motorFL;
         private DcMotor motorBL;
         private DcMotor motorFR;
         private DcMotor motorBR;
@@ -164,6 +164,6 @@ public class encoderTestingFinal extends LinearOpMode {
         motorBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);*/
 
     }
+   }
 
-}
 

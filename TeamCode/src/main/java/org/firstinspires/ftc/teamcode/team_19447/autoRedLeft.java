@@ -107,6 +107,7 @@ public class autoRedLeft extends LinearOpMode {
 
        private void pickupCone() {
             verticalRack.setPosition(-0.25); //lower position down to pick up the cone
+            sleep(100);
             Cam.setPosition(0.25); //activate camshaft
             verticalRack.setPosition(1); //raise back up after picking up the cone
         }

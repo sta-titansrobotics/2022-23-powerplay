@@ -75,7 +75,7 @@ public class RedOneAuto447 extends LinearOpMode {
         //The ground junction:
         raiseRack();
         drive(110, 110, 110, 110, 1); //60 cm to the ground junction
-        drive(-27,-27, 27,27, 1);
+        drive(-20,-20, 20,20, 1);
         dropCone();
 
         /*drive(-16, -16, 16, 16, 1); //turn left ~ 45 degrees (prolly more now bc it has to compensate with the location change with the previous line)

@@ -48,6 +48,7 @@ public class autoRedLeft extends LinearOpMode {
 
         //movement - remember capitalization
         lowerCam();
+        sleep(1000);
         activateCam();
         pickupCone();
         robot.Forward(110, true);

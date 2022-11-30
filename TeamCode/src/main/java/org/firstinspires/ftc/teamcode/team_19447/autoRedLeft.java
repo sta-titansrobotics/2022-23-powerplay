@@ -47,9 +47,16 @@ public class autoRedLeft extends LinearOpMode {
         if (isStopRequested()) return;
 
         //movement - remember capitalization
-        lowerCam();
-        activateCam();
-        pickupCone();
+        double position = 0;
+        while(position < 1) {
+            position += 0.1;
+            verticalRack.setPosition(position);
+        }
+
+        sleep(800);
+        Cam.setPosition(0.25); //activate camshaft
+
+        verticalRack.setPosition(1);
         robot.Forward(110, true);
         liftPosition(20, 1, 1, true);
         dropCone();
@@ -110,20 +117,15 @@ public class autoRedLeft extends LinearOpMode {
     }*/
 
        private void lowerCam() {
-           double position = 0;
-           while(position < 1) {
-               position += 0.1;
-               verticalRack.setPosition(position);
-           }
+
 
        }
        private void activateCam() {
-           sleep(800);
-           Cam.setPosition(0.25); //activate camshaft
+
        }
 
        private void pickupCone() {
-           verticalRack.setPosition(1); //raise back up after picking up the cone
+            //raise back up after picking up the cone
        }
 
        private void dropCone() {

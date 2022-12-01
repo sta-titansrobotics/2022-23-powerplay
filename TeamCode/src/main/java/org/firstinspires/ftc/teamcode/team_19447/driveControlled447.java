@@ -208,29 +208,29 @@ public class driveControlled447 extends LinearOpMode {
             //1cm = 52.4 ticks
 
             //Ground junction preset position.
-      /*      if (gamepad2.dpad_down){ //i don't think we need to use lift for ground junction, just use vertical rack
-                //moveLift(1,500);
-                verticalRack.setPosition(1);
+            if (gamepad2.a){
+                moveLift(1,500);
+                verticalRack.setPosition(-1);
             }
 
             //Low junction preset position  original 1782 ticks
-            if (gamepad2.dpad_left){  //34cm
+            if (gamepad2.x){  //34cm
                 moveLift(1,1400);
                 verticalRack.setPosition(1);
             }
             //Medium junction preset position
-            if (gamepad2.dpad_right){ //59 cm
+            if (gamepad2.b){ //59 cm
                 moveLift(1,2500);
                 verticalRack.setPosition(1);
             }
             //High junction preset position
-            if (gamepad2.dpad_up) { //84 cm
+            if (gamepad2.y) { //84 cm
                 moveLift(1,3500);
                 verticalRack.setPosition(1);
             }
 
             //lift presents (low, med, high) have to put actual button
-*/
+
 
             // Add sensors to telemetry???
             telemetry.addData("LF Power:", motorFL.getPower());

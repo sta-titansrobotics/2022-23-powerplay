@@ -97,18 +97,24 @@ public class RedRightAuto447 extends LinearOpMode {
         }
     }
 
-    private void liftPosition(int ticks, double Speed, int Tolerance, boolean NextSequence) {
+    private void liftPosition(int ticks, double Speed, boolean NextSequence) {
 
         LiftLeft.setTargetPosition(ticks);
         LiftRight.setTargetPosition(ticks);
+
         LiftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         LiftRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
         LiftLeft.setPower(Speed); //prob best to leave the speed as 1.
         LiftRight.setPower(Speed);
-        ((DcMotorEx) LiftLeft).setTargetPositionTolerance(Tolerance);
-        ((DcMotorEx) LiftRight).setTargetPositionTolerance(Tolerance);
-        while (LiftLeft.isBusy() && LiftRight.isBusy() && NextSequence) {
-        }
+
+        while (LiftLeft.isBusy() && LiftRight.isBusy() && NextSequence) {}
+
+        LiftLeft.setPower(0);
+        LiftRight.setPower(0);
+
+        LiftLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        LiftRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void raiseRack() {

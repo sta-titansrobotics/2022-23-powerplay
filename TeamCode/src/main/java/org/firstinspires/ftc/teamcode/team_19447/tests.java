@@ -1,9 +1,29 @@
+/*
+ * Copyright (c) 2021 OpenFTC Team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package org.firstinspires.ftc.teamcode.team_19447;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -17,10 +37,10 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import java.util.ArrayList;
 
-@Autonomous
-public class cameraAutoTest extends LinearOpMode {
-
-    //Introduce variables
+@Autonomous(group = "Red")
+public class tests extends LinearOpMode
+{
+    //INTRODUCE VARIABLES HERE
     //Set motor variables
     DcMotor motorFL;
     DcMotor motorBL;
@@ -36,7 +56,6 @@ public class cameraAutoTest extends LinearOpMode {
     int leftPos2;
     int rightPos1;
     int rightPos2;
-
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
@@ -54,12 +73,12 @@ public class cameraAutoTest extends LinearOpMode {
     // UNITS ARE METERS
     double tagsize = 0.166;
 
-    // Tag IDs 1,2,3 from the 36h11 family
+    // Tag ID 1,2,3 from the 36h11 family
+    /*EDIT IF NEEDED!!!*/
+
     int LEFT = 1;
     int MIDDLE = 2;
     int RIGHT = 3;
-
-    int Zone = 0;
 
     AprilTagDetection tagOfInterest = null;
 
@@ -76,7 +95,7 @@ public class cameraAutoTest extends LinearOpMode {
             @Override
             public void onOpened()
             {
-                camera.startStreaming(800,448, OpenCvCameraRotation.UPSIDE_DOWN);
+                camera.startStreaming(800,448, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
@@ -88,6 +107,9 @@ public class cameraAutoTest extends LinearOpMode {
 
         telemetry.setMsTransmissionInterval(50);
 
+
+        //HARDWARE MAPPING HERE etc.
+        // Other
         //Initialize motors
         motorFL = hardwareMap.get(DcMotor.class, "motorFrontLeft");
         motorBL = hardwareMap.get(DcMotor.class, "motorBackLeft");
@@ -124,104 +146,104 @@ public class cameraAutoTest extends LinearOpMode {
          * The INIT-loop:
          * This REPLACES waitForStart!
          */
-        while (!isStarted() && !isStopRequested()) {
+        while (!isStarted() && !isStopRequested())
+        {
             ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
 
-            if(currentDetections.size() != 0) {
+            if(currentDetections.size() != 0)
+            {
                 boolean tagFound = false;
 
-                for(AprilTagDetection tag : currentDetections) {
-                    if(tag.id == LEFT || tag.id == MIDDLE || tag.id == RIGHT) {
+                for(AprilTagDetection tag : currentDetections)
+                {
+                    if(tag.id == LEFT || tag.id == MIDDLE || tag.id == RIGHT)
+                    {
                         tagOfInterest = tag;
                         tagFound = true;
                         break;
                     }
                 }
 
-                if(tagFound) {
+                if(tagFound)
+                {
                     telemetry.addLine("Tag of interest is in sight!\n\nLocation data:");
                     tagToTelemetry(tagOfInterest);
                 }
-                else {
+                else
+                {
                     telemetry.addLine("Don't see tag of interest :(");
 
-                    if(tagOfInterest == null) {
+                    if(tagOfInterest == null)
+                    {
                         telemetry.addLine("(The tag has never been seen)");
                     }
-                    else {
+                    else
+                    {
                         telemetry.addLine("\nBut we HAVE seen the tag before; last seen at:");
                         tagToTelemetry(tagOfInterest);
                     }
                 }
-            } else {
+
+            }
+            else
+            {
                 telemetry.addLine("Don't see tag of interest :(");
 
-                if(tagOfInterest == null) {
+                if(tagOfInterest == null)
+                {
                     telemetry.addLine("(The tag has never been seen)");
                 }
-                else {
+                else
+                {
                     telemetry.addLine("\nBut we HAVE seen the tag before; last seen at:");
                     tagToTelemetry(tagOfInterest);
                 }
+
             }
 
             telemetry.update();
             sleep(20);
         }
 
-        /*
-         * The START command just came in: now work off the latest snapshot acquired
-         * during the init loop.
-         */
 
-        /* Update the telemetry */
-        if(tagOfInterest != null) {
+
+
+
+        if(tagOfInterest != null)
+        {
             telemetry.addLine("Tag snapshot:\n");
             tagToTelemetry(tagOfInterest);
             telemetry.update();
         }
-
-        else {
+        else
+        {
             telemetry.addLine("No tag snapshot available, it was never sighted during the init loop :(");
             telemetry.update();
         }
 
-        // Actually do something useful
-        if (tagOfInterest == null || tagOfInterest.id == LEFT){
-            //SIGNAL ZONE 1 -- this is when the signal is on the left, Zone 1
-            Zone = 1;
-
+        // autonomous code here
+        if (tagOfInterest == null || tagOfInterest.id == LEFT) {
+            // left trajectory
             raiseRack();
             drive(110, 110, 110, 110, 1); //110 cm to the ground junction
             drive(-20,-20, 20,20, 1);
             dropCone();
             drive(-20, 20, 20,-20,1);
 
-        }
-        else if (tagOfInterest.id == MIDDLE){
-            //SIGNAL ZONE 2 -- this is when the signal is on the middle, Zone 2
-            Zone = 2;
-
+        } else if (tagOfInterest.id == MIDDLE) {
+            // middle trajectory
             raiseRack();
             drive(110, 110, 110, 110, 1); //110 cm to the ground junction
             drive(-20,-20, 20,20, 1);
             dropCone();
 
-        }
-        else {
-            //SIGNAL ZONE 3 -- this is when the signal is on the right, Zone 3
-            Zone = 3;
-
+        } else {
+            // right trajectory:
             raiseRack();
             drive(110, 110, 110, 110, 1); //110 cm to the ground junction
-            drive(-20,-20, 20,20, 1);
+            drive(-20, -20, 20, 20, 1);
             dropCone();
 
-        }
-
-        /* You wouldn't have this in your autonomous, this is just to prevent the sample from ending */
-        while (opModeIsActive()) {
-            sleep(20);
         }
     }
 
@@ -369,7 +391,15 @@ public class cameraAutoTest extends LinearOpMode {
 
     }
 
-    void tagToTelemetry(AprilTagDetection detection) {
+
+    void tagToTelemetry(AprilTagDetection detection)
+    {
         telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
+        telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));
+        telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
+        telemetry.addLine(String.format("Translation Z: %.2f feet", detection.pose.z*FEET_PER_METER));
+        telemetry.addLine(String.format("Rotation Yaw: %.2f degrees", Math.toDegrees(detection.pose.yaw)));
+        telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", Math.toDegrees(detection.pose.pitch)));
+        telemetry.addLine(String.format("Rotation Roll: %.2f degrees", Math.toDegrees(detection.pose.roll)));
     }
 }

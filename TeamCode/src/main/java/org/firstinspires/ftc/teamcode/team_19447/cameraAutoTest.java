@@ -1,5 +1,6 @@
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode.team_19447;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -16,9 +17,8 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import java.util.ArrayList;
 
-@TeleOp
-
-public class AprilTagAutonomousInitDetectionExample extends LinearOpMode {
+@Autonomous
+public class cameraAutoTest extends LinearOpMode {
 
     //Introduce variables
     //Set motor variables

@@ -182,11 +182,11 @@ public class driveControlled447 extends LinearOpMode {
             }
 
     */
-  //        if (gamepad1.left_bumper) {
-    //            rollerFlipper2.setPosition(-0.25);
-      //          rollerFlipper.setPower(1);
-        //    }
-
+  /*      if (gamepad1.left_bumper) {
+               rollerFlipper2.setPosition(-0.25);
+                rollerFlipper.setPower(1);
+           }
+*/
            /* //Intake
 
             intakeMotorPower = gamepad1.touchpad_finger_1_y;

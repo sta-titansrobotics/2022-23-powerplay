@@ -205,10 +205,6 @@ public class tests extends LinearOpMode
             sleep(20);
         }
 
-
-
-
-
         if(tagOfInterest != null)
         {
             telemetry.addLine("Tag snapshot:\n");
@@ -317,7 +313,6 @@ public class tests extends LinearOpMode
 
         int ticks1 = (int) forwardTicks;
         int ticks2 = (int) strafeTicks;
-
 
         leftPos1 += leftTarget1;
         leftPos2 += leftTarget2; //This will change where the motor needs to be by the specific inputted amount

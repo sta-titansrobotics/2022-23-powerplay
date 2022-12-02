@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
 @TeleOp
@@ -280,7 +281,6 @@ public class driveControlled447 extends LinearOpMode {
             setLiftMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             motorPower(power);
-
             while (Lift1.isBusy() && Lift2.isBusy()) {
 
                 telemetry.addData("encoder-left-lift", Lift1.getCurrentPosition() + " busy= " + Lift1.isBusy());
@@ -288,5 +288,4 @@ public class driveControlled447 extends LinearOpMode {
                 telemetry.update();
                 }
             }
-
 }

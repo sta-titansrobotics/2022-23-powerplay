@@ -280,11 +280,11 @@ public class driveControlled447 extends LinearOpMode {
             setLiftMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             motorPower(power);
-            while (Lift1.isBusy() && Lift2.isBusy()) {
+     /*       while (Lift1.isBusy() && Lift2.isBusy()) {
 
                 telemetry.addData("encoder-left-lift", Lift1.getCurrentPosition() + " busy= " + Lift1.isBusy());
                 telemetry.addData("encoder-right-lift", Lift2.getCurrentPosition() + " busy= " + Lift2.isBusy());
                 telemetry.update();
-                }
+                }*/
             }
 }

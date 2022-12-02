@@ -220,25 +220,33 @@ public class tests extends LinearOpMode
         // autonomous code here
         if (tagOfInterest == null || tagOfInterest.id == LEFT) {
             // left trajectory
-            raiseRack();
+            drive(55, 55, 55, 55, 1); //emergency parking code
+            drive(165, 165, 165, 165, 1);
+
+            /*raiseRack();
             drive(110, 110, 110, 110, 1); //110 cm to the ground junction
             drive(-20,-20, 20,20, 1);
             dropCone();
-            drive(-20, 20, 20,-20,1);
+            drive(-20, 20, 20,-20,1);*/
 
         } else if (tagOfInterest.id == MIDDLE) {
             // middle trajectory
-            raiseRack();
+            drive(55, 55, 55, 55, 1); //emergency parking code
+            drive(110, 110, 110, 110, 1);
+
+           /* raiseRack();
             drive(110, 110, 110, 110, 1); //110 cm to the ground junction
             drive(-20,-20, 20,20, 1);
-            dropCone();
+            dropCone();*/
 
         } else {
             // right trajectory:
-            raiseRack();
+            drive(55, 55, 55, 55, 1);
+
+            /*raiseRack();
             drive(110, 110, 110, 110, 1); //110 cm to the ground junction
             drive(-20, -20, 20, 20, 1);
-            dropCone();
+            dropCone();*/
 
         }
     }

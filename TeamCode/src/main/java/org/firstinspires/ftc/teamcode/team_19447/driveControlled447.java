@@ -11,11 +11,12 @@ import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+
 @TeleOp
 public class driveControlled447 extends LinearOpMode {
 
-    private DcMotor Lift1;
-    private DcMotor Lift2;
+    public DcMotor Lift1;
+    public DcMotor Lift2;
 
     @Override
     public void runOpMode() {

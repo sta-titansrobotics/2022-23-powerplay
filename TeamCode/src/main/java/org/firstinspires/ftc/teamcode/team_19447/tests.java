@@ -219,9 +219,10 @@ public class tests extends LinearOpMode
 
         // autonomous code here
         if (tagOfInterest == null || tagOfInterest.id == LEFT) {
+            //zone 1
             // left trajectory
             drive(55, 55, 55, 55, 1); //emergency parking code
-            drive(165, 165, 165, 165, 1);
+            drive(-55, 55, 55, -55, 1); //strafe left
 
             /*raiseRack();
             drive(110, 110, 110, 110, 1); //110 cm to the ground junction
@@ -230,18 +231,34 @@ public class tests extends LinearOpMode
             drive(-20, 20, 20,-20,1);*/
 
         } else if (tagOfInterest.id == MIDDLE) {
+            //zone 2
             // middle trajectory
-            drive(55, 55, 55, 55, 1); //emergency parking code
-            drive(110, 110, 110, 110, 1);
+            //drive(55, 55, 55, 55, 1); //emergency parking code
 
-           /* raiseRack();
-            drive(110, 110, 110, 110, 1); //110 cm to the ground junction
+            raiseRack();
+            drive(20, -20, -20, 20, 1);
+            drive(25,25,25,25,1);
+            sleep(1000);
+            dropCone();
+            sleep(1000);
+            drive(-25,-25,-25,-25, 1);
+            drive(-20,20,20,-20,1);
+            drive(55,55,55,55,1);
+
+            /*drive(110, 110, 110, 110, 1); //110 cm to the ground junction
             drive(-20,-20, 20,20, 1);
-            dropCone();*/
+            moveLift(0.8, 0.1, 3300);
+            drive(15, 15, 15, 15, 1);
+            dropCone();
+            drive(-15, -15, -15, -15, 1);
+            drive(20, 20, -20, -20, 1);
+            drive(-55, -55, -55, -55, 1);*/
 
         } else {
+            //zone 3
             // right trajectory:
             drive(55, 55, 55, 55, 1);
+            drive(55, -55, -55, 55, 1); //strafe left
 
             /*raiseRack();
             drive(110, 110, 110, 110, 1); //110 cm to the ground junction
@@ -253,8 +270,8 @@ public class tests extends LinearOpMode
 
     //FUNCTIONS:
     public void moveLift(double power, double endPower, int ticks) {
-        LiftLeft.setTargetPosition(ticks);
         LiftRight.setTargetPosition(ticks);
+        LiftLeft.setTargetPosition(ticks);
 
         LiftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         LiftRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -290,7 +307,6 @@ public class tests extends LinearOpMode
         LiftLeft.setMode(mode);
         LiftRight.setMode(mode);
     }
-
     public void raiseRack() {
         verticalRack.setPosition(0);
     }

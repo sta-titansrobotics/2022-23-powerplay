@@ -206,6 +206,7 @@ public class driveControlled447 extends LinearOpMode {
                 cam.setPosition(0.25);
             }
 
+            /*
             //PRESETS:
             //1cm = 52.4 ticks
 
@@ -230,6 +231,7 @@ public class driveControlled447 extends LinearOpMode {
                 moveLift(1,3500);
                 verticalRack.setPosition(1);
             }
+            */
 
             //lift presents (low, med, high) have to put actual button
 

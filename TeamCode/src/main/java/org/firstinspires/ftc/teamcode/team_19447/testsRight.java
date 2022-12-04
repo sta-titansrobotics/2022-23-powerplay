@@ -269,8 +269,8 @@ public class testsRight extends LinearOpMode
             //drive(55, -55, -55, 55, 1); //strafe right
 
             raiseRack();
-            drive(22, -22, -22, 22, 1);
-            drive(21,21,21,21,1);
+            drive(22, -22, -22, 22, 1); //20
+            drive(21,21,21,21,1); //25
             sleep(1000);
             dropCone();
             sleep(1000);

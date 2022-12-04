@@ -201,8 +201,8 @@ public class testsLeft extends LinearOpMode
             // drive(55, 55, 55, 55, 1); //emergency parking code
             //drive(-55, 55, 55, -55, 1); //strafe left
             raiseRack();
-            drive(-20, 20, 20, -20, 1);
-            drive(25,25,25,25,1);
+            drive(-22, 22, 22, -22, 1); //strafe left
+            drive(21,21,21,21,1);
             sleep(1000);
             dropCone();
             sleep(1000);
@@ -223,8 +223,8 @@ public class testsLeft extends LinearOpMode
             //drive(55, 55, 55, 55, 1); //emergency parking code
 
             raiseRack();
-            drive(-20, 20, 20, -20, 1);
-            drive(25,25,25,25,1);
+            drive(-22, 22, 22, -22, 1); //strafe left
+            drive(21,21,21,21,1);
             sleep(1000);
             dropCone();
             sleep(1000);
@@ -248,8 +248,8 @@ public class testsLeft extends LinearOpMode
             //drive(55, -55, -55, 55, 1); //strafe right
 
             raiseRack();
-            drive(-20, 20, 20, -20, 1);
-            drive(25,25,25,25,1);
+            drive(-22, 22, 22, -22, 1); //strafe left
+            drive(21,21,21,21,1);
             sleep(1000);
             dropCone();
             sleep(1000);

@@ -221,7 +221,17 @@ public class tests extends LinearOpMode
         if (tagOfInterest == null || tagOfInterest.id == LEFT) {
             //zone 1
             // left trajectory
-            drive(55, 55, 55, 55, 1); //emergency parking code
+           // drive(55, 55, 55, 55, 1); //emergency parking code
+            //drive(-55, 55, 55, -55, 1); //strafe left
+            raiseRack();
+            drive(20, -20, -20, 20, 1);
+            drive(25,25,25,25,1);
+            sleep(1000);
+            dropCone();
+            sleep(1000);
+            drive(-25,-25,-25,-25, 1);
+            drive(-20,20,20,-20,1);
+            drive(55,55,55,55,1);
             drive(-55, 55, 55, -55, 1); //strafe left
 
             /*raiseRack();
@@ -257,8 +267,19 @@ public class tests extends LinearOpMode
         } else {
             //zone 3
             // right trajectory:
-            drive(55, 55, 55, 55, 1);
-            drive(55, -55, -55, 55, 1); //strafe left
+            //drive(55, 55, 55, 55, 1);
+            //drive(55, -55, -55, 55, 1); //strafe right
+
+            raiseRack();
+            drive(20, -20, -20, 20, 1);
+            drive(25,25,25,25,1);
+            sleep(1000);
+            dropCone();
+            sleep(1000);
+            drive(-25,-25,-25,-25, 1);
+            drive(-20,20,20,-20,1);
+            drive(55,55,55,55,1);
+            drive(55, -55, -55, 55, 1); //strafe right
 
             /*raiseRack();
             drive(110, 110, 110, 110, 1); //110 cm to the ground junction

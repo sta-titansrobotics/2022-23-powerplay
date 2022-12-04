@@ -202,12 +202,12 @@ public class testsLeft extends LinearOpMode
             //drive(-55, 55, 55, -55, 1); //strafe left
             raiseRack();
             drive(-22, 22, 22, -22, 1); //strafe left
-            drive(21,21,21,21,1);
+            drive(19,19,19,19,1);
             sleep(1000);
             dropCone();
             sleep(1000);
             drive(-25,-25,-25,-25, 1);
-            drive(20,-20,-20,20,1);
+            drive(23,-23,-23,23,1); // right
             drive(55,55,55,55,1);
             drive(-55, 55, 55, -55, 1); //strafe left
 
@@ -224,12 +224,12 @@ public class testsLeft extends LinearOpMode
 
             raiseRack();
             drive(-22, 22, 22, -22, 1); //strafe left, 20
-            drive(21,21,21,21,1); //25
+            drive(19,19,19,19,1);
             sleep(1000);
             dropCone();
             sleep(1000);
             drive(-25,-25,-25,-25, 1);
-            drive(20,-20,-20,20,1);
+            drive(23,-23,-23,23,1);
             drive(55,55,55,55,1);
 
             /*drive(110, 110, 110, 110, 1); //110 cm to the ground junction
@@ -249,12 +249,12 @@ public class testsLeft extends LinearOpMode
 
             raiseRack();
             drive(-22, 22, 22, -22, 1); //strafe left
-            drive(21,21,21,21,1);
+            drive(19,19,19,19,1);
             sleep(1000);
             dropCone();
             sleep(1000);
             drive(-25,-25,-25,-25, 1);
-            drive(20,-20,-20,20,1);
+            drive(23,-23,-23,23,1);
             drive(55,55,55,55,1);
             drive(55, -55, -55, 55, 1); //strafe right
 

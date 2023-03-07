@@ -42,12 +42,12 @@ public class driveControlled447 extends LinearOpMode {
         Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Lift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        //Roller Flipper
-   //     DcMotor rollerFlipper = hardwareMap.get(DcMotor.class, "rollerFlipper");
-     //   rollerFlipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //double flipperMotorPower;
-
+/*
+        Roller Flipper
+        DcMotor rollerFlipper = hardwareMap.get(DcMotor.class, "rollerFlipper");
+        rollerFlipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        double flipperMotorPower;
+*/
         Servo verticalRack = hardwareMap.get(Servo.class, "verticalRack");
         double rackPosition = 0;
 
@@ -100,7 +100,7 @@ public class driveControlled447 extends LinearOpMode {
             motorBR.setPower(backRightPower);
 
             if (gamepad1.dpad_up) {
-                motorFL.setPower(1); //change this to infinity
+                motorFL.setPower(1);
                 motorBL.setPower(1);
                 motorFR.setPower(1);
                 motorBR.setPower(1);
@@ -164,7 +164,7 @@ public class driveControlled447 extends LinearOpMode {
 /*            Servo rollerFlipper2 = hardwareMap.get(Servo.class, "rollerFlipper 2");
             rollerFlipper2.setPosition(0);
             double rollerFlipper2Power;
-*/
+
  //           int clickB = 0;
             //Click b to do the roller flipper thing.
  //           if (gamepad1.b) {
@@ -183,18 +183,19 @@ public class driveControlled447 extends LinearOpMode {
                 rollerFlipper.setPower(1);
             }
 
-    */
-  /*      if (gamepad1.left_bumper) {
+
+       if (gamepad1.left_bumper) {
                rollerFlipper2.setPosition(-0.25);
                 rollerFlipper.setPower(1);
            }
 */
-           /* //Intake
-
+            //Intake
+            /*
             intakeMotorPower = gamepad1.touchpad_finger_1_y;
             intakeMotorPower = Range.clip(intakeMotorPower, -1, 1);
             Intake1.setPower(intakeMotorPower);
-            Intake2.setPower(intakeMotorPower);*/
+            Intake2.setPower(intakeMotorPower);
+            */
 
 
             //cam picker-upper (idk the name lmao its the thing that goes in the hole of the cone and picks it up)
@@ -251,14 +252,16 @@ public class driveControlled447 extends LinearOpMode {
             telemetry.addData("Lift Encoder Position: ", Lift2.getCurrentPosition());
             telemetry.addData("Vertical rack: ", verticalRack.getPosition());
             telemetry.addData("Cam: ", cam.getPosition());
+/*
+             telemetry.addData("Roller Flipper Power:",rollerFlipper.getPower());
+             telemetry.addData("Roller Flipper Encoder Position: ", rollerFlipper.getCurrentPosition());
+             telemetry.addData("Intake1 Power:",Intake1.getPower());
+             telemetry.addData("Intake2 Power:",Intake2.getPower());
+             telemetry.addData("Intake1 Encoder Position: ",Intake1.getCurrentPosition());
+             telemetry.addData("Intake2 Encoder Position: ", Intake2.getCurrentPosition());
+             telemetry.addData("Roller Flipper 2(Servo)", rollerFlipper2.getPosition());
 
-            //  telemetry.addData("Roller Flipper Power:",rollerFlipper.getPower());
-            //    telemetry.addData("Roller Flipper Encoder Position: ", rollerFlipper.getCurrentPosition());
-            // telemetry.addData("Intake1 Power:",Intake1.getPower());
-            //telemetry.addData("Intake2 Power:",Intake2.getPower());
-            //telemetry.addData("Intake1 Encoder Position: ",Intake1.getCurrentPosition());
-            //telemetry.addData("Intake2 Encoder Position: ", Intake2.getCurrentPosition());
-            //telemetry.addData("Roller Flipper 2(Servo)", rollerFlipper2.getPosition());
+ */
             telemetry.update();
         }
 
@@ -266,7 +269,6 @@ public class driveControlled447 extends LinearOpMode {
 
         }
 
-        //
         public void motorPower(double power) {
             Lift1.setPower(power);
             Lift2.setPower(power);
@@ -288,6 +290,7 @@ public class driveControlled447 extends LinearOpMode {
                 telemetry.addData("encoder-left-lift", Lift1.getCurrentPosition() + " busy= " + Lift1.isBusy());
                 telemetry.addData("encoder-right-lift", Lift2.getCurrentPosition() + " busy= " + Lift2.isBusy());
                 telemetry.update();
-                }*/
+                }
+                */
             }
 }

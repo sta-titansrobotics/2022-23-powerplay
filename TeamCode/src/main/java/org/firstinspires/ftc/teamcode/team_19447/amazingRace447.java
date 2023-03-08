@@ -16,6 +16,7 @@ public class amazingRace447 extends LinearOpMode {
 
     ElapsedTime timer = new ElapsedTime();
     //Just in case, might need to add preemptive values to power1 and power2 -- sometimes the elapsed timer might be off.
+    //If needed, preemptive values will be power1 = 0.5, power2 = 1
     double power1;
     double power2;
 
@@ -126,11 +127,8 @@ public class amazingRace447 extends LinearOpMode {
             telemetry.addData("LB Power:", motorBL.getPower());
             telemetry.addData("RF Power:", motorFR.getPower());
             telemetry.addData("RB Power:", motorBR.getPower());
-            telemetry.addData("LF Position:", motorFL.getCurrentPosition());
-            telemetry.addData("LB Position:", motorBL.getCurrentPosition());
-            telemetry.addData("RF Position:", motorFR.getCurrentPosition());
-            telemetry.addData("RB Position:", motorBR.getCurrentPosition());
             telemetry.addData("Current Timer: ", timer.seconds());
+            telemetry.addData("Current Timer (Integer Seconds): ", elapsedSeconds);
             telemetry.update();
         }
     }

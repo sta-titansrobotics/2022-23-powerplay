@@ -8,11 +8,16 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import java.util.concurrent.TimeUnit;
+
 
 @TeleOp
 public class amazingRace447 extends LinearOpMode {
 
     ElapsedTime timer = new ElapsedTime();
+    //Just in case, might need to add preemptive values to power1 and power2 -- sometimes the elapsed timer might be off.
+    double power1;
+    double power2;
 
     @Override
     public void runOpMode() {
@@ -27,9 +32,6 @@ public class amazingRace447 extends LinearOpMode {
         motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBL.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        double power1 = 0;
-        double power2 = 0;
-
         waitForStart();
 
         if (isStopRequested())
@@ -39,7 +41,7 @@ public class amazingRace447 extends LinearOpMode {
 
             //Driving
 
-            double y = -gamepad1.left_stick_y; // Remember, this is reversed!
+         /*   double y = -gamepad1.left_stick_y; // Remember, this is reversed!
 
             //STRAFING VARIABLE
             double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
@@ -53,19 +55,29 @@ public class amazingRace447 extends LinearOpMode {
             double frontRightPower = (y - x - rx) / denominator;
             double backRightPower = (y + x - rx) / denominator;
 
-            motorFL.setPower(frontLeftPower);
-            motorBL.setPower(backLeftPower);
+            motorFL.setPower(frontLeftPower*0.5);
+            motorBL.setPower(backLeftPower*0.5);
             motorFR.setPower(frontRightPower);
-            motorBR.setPower(backRightPower);
+            motorBR.setPower(backRightPower);*/
 
-            if (timer.seconds() % 60 == 0) {
-                power1 = Math.random();
-                power2 = Math.random();
+            //convert to seconds so that we can take the modulo
+            long elapsedSeconds = (int) timer.time(TimeUnit.SECONDS);
+
+            //Every 15 seconds, randomize the power for each of the motors
+            //Can adjust speed range to make this even harder if we want
+            if ((elapsedSeconds) % 15 == 0) {
+                double min = 0.1;
+                double max = 1.0;
+                power1 = Math.random() * (max - min) + min;
+                power2 = Math.random() * (max - min) + min;
             }
 
             if (gamepad1.dpad_up) {
                 motorFL.setPower(power1); //change this to infinity
                 motorBL.setPower(power1);
+            }
+            
+            if (gamepad2.dpad_up) {
                 motorFR.setPower(power2);
                 motorBR.setPower(power2);
             }
@@ -73,26 +85,36 @@ public class amazingRace447 extends LinearOpMode {
             if (gamepad1.dpad_down) {
                 motorFL.setPower(-power1);
                 motorBL.setPower(-power1);
+            }
+            if (gamepad2.dpad_down) {
                 motorFR.setPower(-power2);
                 motorBR.setPower(-power2);
             }
 
-            if (gamepad1.dpad_left) {
-                motorFL.setPower(-power1);
-                motorBL.setPower(power1);
-                motorFR.setPower(power2);
-                motorBR.setPower(-power2);
+            if (gamepad1.dpad_left || gamepad1.dpad_right) {
+                motorFL.setPower(0);
+                motorBL.setPower(0);
+            }
+            if (gamepad2.dpad_left || gamepad2.dpad_left) {
+                motorBR.setPower(0);
+                motorFR.setPower(0);
+            }
+
+           /* if (gamepad1.dpad_left) {
+                motorFL.setPower(-0.5);
+                motorBL.setPower(0.5);
+                motorFR.setPower(1);
+                motorBR.setPower(-1);
             }
 
             if (gamepad1.dpad_right) {
-                motorFL.setPower(power1);
-                motorBL.setPower(-power1);
-                motorFR.setPower(-power2);
-                motorBR.setPower(power2);
-            }
+                motorFL.setPower(0.5);
+                motorBL.setPower(-0.5);
+                motorFR.setPower(-1);
+                motorBR.setPower(1);
+            }*/
 
             while (timer.seconds() >= 300) {
-                timer.reset();
                 motorFL.setPower(0);
                 motorBL.setPower(0);
                 motorFR.setPower(0);

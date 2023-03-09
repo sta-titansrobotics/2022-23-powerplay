@@ -1,4 +1,4 @@
-//Amazing race code v2
+//original code from tuesday
 
 package org.firstinspires.ftc.teamcode.team_19447;
 
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 
 @TeleOp
-public class amazingRace447 extends LinearOpMode {
+public class amazingRacev1 extends LinearOpMode {
 
     ElapsedTime timer = new ElapsedTime();
     //Just in case, might need to add preemptive values to power1 and power2 -- sometimes the elapsed timer might be off.
@@ -20,20 +20,14 @@ public class amazingRace447 extends LinearOpMode {
     double power1;
     double power2;
 
-    //Initialize motors
-    DcMotor motorFL;
-    DcMotor motorBL;
-    DcMotor motorFR;
-    DcMotor motorBR;
-
     @Override
     public void runOpMode() {
 
-        //HARDWARE MAPPING FOR MOTORS
-        motorFL = hardwareMap.get(DcMotor.class, "motorFrontLeft");
-        motorBL = hardwareMap.get(DcMotor.class, "motorBackLeft");
-        motorFR = hardwareMap.get(DcMotor.class, "motorFrontRight");
-        motorBR = hardwareMap.get(DcMotor.class, "motorBackRight");
+        //Moving
+        DcMotor motorFL = hardwareMap.get(DcMotor.class, "motorFrontLeft");
+        DcMotor motorBL = hardwareMap.get(DcMotor.class, "motorBackLeft");
+        DcMotor motorFR = hardwareMap.get(DcMotor.class, "motorFrontRight");
+        DcMotor motorBR = hardwareMap.get(DcMotor.class, "motorBackRight");
 
         //Reverse left side motors
         motorFL.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -46,25 +40,23 @@ public class amazingRace447 extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            //convert to integer seconds so that we can take the modulo
+            //convert to seconds so that we can take the modulo
             long elapsedSeconds = (int) timer.time(TimeUnit.SECONDS);
 
             //Every 15 seconds, randomize the power for each of the motors
             //Can adjust speed range to make this even harder if we want
             if ((elapsedSeconds) % 15 == 0) {
-                setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 double min = 0.1;
                 double max = 1.0;
                 power1 = Math.random() * (max - min) + min;
                 power2 = Math.random() * (max - min) + min;
             }
 
-            //scuffed ass controls heheheha
             if (gamepad1.dpad_up) {
-                motorFL.setPower(power1);
+                motorFL.setPower(power1); //change this to infinity
                 motorBL.setPower(power1);
             }
-            
+
             if (gamepad2.dpad_up) {
                 motorFR.setPower(power2);
                 motorBR.setPower(power2);
@@ -83,12 +75,11 @@ public class amazingRace447 extends LinearOpMode {
                 motorFL.setPower(0);
                 motorBL.setPower(0);
             }
-            if (gamepad2.dpad_left || gamepad2.dpad_right) {
+            if (gamepad2.dpad_left || gamepad2.dpad_left) {
                 motorBR.setPower(0);
                 motorFR.setPower(0);
             }
 
-            //HARD STOP MOTORS AT FIVE MINUTES AND ABOVE
             while (timer.seconds() >= 300) {
                 motorFL.setPower(0);
                 motorBL.setPower(0);
@@ -97,8 +88,6 @@ public class amazingRace447 extends LinearOpMode {
             }
 
             //Telemetry
-            String message = "Good Luck! You're gonna fail :)";
-            telemetry.addData("", message);
             telemetry.addData("LF Power:", motorFL.getPower());
             telemetry.addData("LB Power:", motorBL.getPower());
             telemetry.addData("RF Power:", motorFR.getPower());
@@ -107,12 +96,5 @@ public class amazingRace447 extends LinearOpMode {
             telemetry.addData("Current Timer (Integer Seconds): ", elapsedSeconds);
             telemetry.update();
         }
-    }
-
-    public void setMode(DcMotor.RunMode mode) {
-        motorFL.setMode(mode);
-        motorBL.setMode(mode);
-        motorFR.setMode(mode);
-        motorBR.setMode(mode);
     }
 }

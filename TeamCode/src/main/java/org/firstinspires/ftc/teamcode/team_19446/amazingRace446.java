@@ -1,6 +1,6 @@
 // FINALIZED DRIVE CONTROLLED, DO NOT TOUCH ANYTHING HERE //
 
-package org.firstinspires.ftc.teamcode.team_19447;
+package org.firstinspires.ftc.teamcode.team_19446;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 
 @TeleOp
-public class amazingRace447 extends LinearOpMode {
+public class amazingRace446 extends LinearOpMode {
 
     ElapsedTime timer = new ElapsedTime();
     //Just in case, might need to add preemptive values to power1 and power2 -- sometimes the elapsed timer might be off.
